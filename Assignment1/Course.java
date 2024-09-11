@@ -4,7 +4,10 @@ import java.util.*;;
 
 public class Course {
     public Scanner sc = new Scanner(System.in);
+    // Thought that this might come handy while working with the course.
+    private Integer corresponding_semester;
 
+    // Attributes
     private Professor professor;
     private String code;
     private String title;
@@ -14,9 +17,11 @@ public class Course {
     private Integer enrollment_limit;
     private Integer enrollment_count = 0;
 
+    // Storing and Shared Datas
     private ArrayList<Student> enrolled_students;
     private ArrayList<Course> prerequisites;
 
+    // Required Functionalities
     void set_professor(Professor professor){
         this.professor = professor;
     }
@@ -27,7 +32,6 @@ public class Course {
         Course course= new Course();
         course.Set_Course(prof);
         return course;
-
     }
     void Set_Course(Professor prof){
         // set the course details

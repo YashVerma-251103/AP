@@ -10,7 +10,41 @@ public class Administrator extends User {
      * assign professors to courses
      * handle complaints
      */
+    
+    // Personal Information
 
+
+    // Attributes
+    private Integer admin_id;
+    // private String name; // may need to add it later
+
+    // Storing and Shared Datas -- may need to change it to protected
+    private static HashMap<Integer, Administrator> Administrators = new HashMap<Integer, Administrator>();
+
+
+    // Functionalities that i may require to implement everything easily
+    @Override
+    void set_email(String email) {
+        super.set_email(email);
+    }
+    void set_password(String password) {
+        super.set_password(password);
+    }
+
+    void set_admin_id(Integer admin_id) {
+        this.admin_id = admin_id;
+    }
+    Integer get_admin_id() {
+        return admin_id;
+    }
+    
+    
+
+    // Functionalities i need to ensure the smooth running of the system
+    
+
+
+    // Required Functionalities
     void manage_course_catalog() {
         // view, add, and delete courses
     }
