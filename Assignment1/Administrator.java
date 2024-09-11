@@ -1,6 +1,6 @@
 package Assignment1;
 
-public class Administrator extends user {
+public class Administrator extends User {
     /* Required Functionalities
      * manage course catalog
      * manage student records

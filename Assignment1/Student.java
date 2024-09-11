@@ -1,6 +1,6 @@
 package Assignment1;
 
-public class Student extends user {
+public class Student extends User {
     /*
      * Required Functionalites
      * view available courses
