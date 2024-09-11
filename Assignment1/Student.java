@@ -1,4 +1,5 @@
 package Assignment1;
+import java.util.*;
 
 public class Student extends User {
     /*
@@ -12,6 +13,9 @@ public class Student extends User {
      */
     private Integer current_semester;
     private Course[] courses;
+
+    private HashMap<Integer, Student> Students = new HashMap<Integer, Student>();
+    // create a fucniton to check whether the student is already registered or not
 
     void view_available_courses() {
         // Things need to do -- get all the avialable courses in the current semester
@@ -30,7 +34,10 @@ public class Student extends User {
     }
 
     void view_schedule() {
-
+        // able to view weekly course schedule
+            // class timings
+            // location
+            // professor name
     }
 
     void track_academic_progress() {

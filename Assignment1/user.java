@@ -7,9 +7,9 @@ public abstract class User {
     String get_email(){
         return this.email;
     }
-    // String get_password(){
-    //     return this.password;
-    // }
+    String get_password(){
+        return this.password;
+    }
     void set_email(String email) {
         this.email = email;
     }

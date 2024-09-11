@@ -5,31 +5,29 @@ import java.util.*;;
 public class Course {
     public Scanner sc = new Scanner(System.in);
 
+    private Professor professor;
     private String code;
     private String title;
-    private Professor professor;
-    private Integer credit;
-    private ArrayList<Course> prerequisites;
     private String timings;
+    private String syllabus;
+    private Integer credit;
+    private Integer enrollment_limit;
+    private Integer enrollment_count = 0;
+
+    private ArrayList<Student> enrolled_students;
+    private ArrayList<Course> prerequisites;
+
     void set_professor(Professor professor){
         this.professor = professor;
     }
-    
-
-
-    // got from professor
-    private String syllabus;
-    private Integer enrollment_limit;
-    private ArrayList<Student> enrolled_students;
     void set_enrollment_limit(Integer limit){
         enrollment_limit = limit;
     }
-    
-    
-    // thought that this would be useful
-    private Integer enrollment_count = 0;
-    Course create_course(){
-        return new Course();
+    Course create_course(Professor prof){
+        Course course= new Course();
+        course.Set_Course(prof);
+        return course;
+
     }
     void Set_Course(Professor prof){
         // set the course details
@@ -66,4 +64,5 @@ public class Course {
         this.syllabus=sc.nextLine();
         System.out.println("Syllabus updated");
     }
+
 }
