@@ -28,6 +28,9 @@ public class Course {
     
     // thought that this would be useful
     private Integer enrollment_count = 0;
+    Course create_course(){
+        return new Course();
+    }
     void Set_Course(Professor prof){
         // set the course details
         this.professor=prof;
@@ -46,5 +49,21 @@ public class Course {
     void add_prerequisite(Course course){
         prerequisites.add(course);
         System.out.println("Prerequisite added");
+    }
+    void remove_prerequisite(Course course){
+        prerequisites.remove(course);
+        System.out.println("Prerequisite removed");
+    }
+    void view_prerequisites(){
+        System.out.println("Prerequisites for "+this.code+" : "+this.title+"\n");
+        for (Course course : prerequisites) {
+            System.out.println(course.code+" : "+course.title);
+        }
+        System.out.println();
+    }
+    void update_syllabus(){
+        System.out.print("Enter the new syllabus: ");
+        this.syllabus=sc.nextLine();
+        System.out.println("Syllabus updated");
     }
 }
