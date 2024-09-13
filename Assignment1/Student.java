@@ -34,6 +34,7 @@ public class Student extends User {
         // Things need to do -- get all the avialable courses in the current semester
         // with all the details.
     }
+    
     void register_courses() {
         /*
          * registeration only for the available courses -- current the semester
