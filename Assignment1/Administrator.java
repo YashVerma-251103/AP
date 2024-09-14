@@ -61,5 +61,9 @@ public class Administrator extends User {
             // Resolved
         // Add filter to view the complaints based on the status or date
         // provide resolution for the complaints
+
+
+        // when assign grades move the course from current_courses to completed_courses
+        // when making a new course and student keep in mind the null condition.
     }
 }

@@ -28,12 +28,29 @@ public class Course {
     String get_code() {
         return this.code;
     }
-
+    Integer get_enrollment_count() {
+        return this.enrollment_count;
+    }
+    Integer get_enrollment_limit() {
+        return this.enrollment_limit;
+    }
+    void increment_enrollment_count() {
+        this.enrollment_count++;
+    }
+    
     // Static Functions -- will not be used for specific course.
     static Course create_course(Professor prof) {
         Course course = new Course();
-        course.Set_Course(prof);
-        sem_course_bank.get(course.corresponding_semester).add(course); //check this line.
+        course.set_course(prof);
+        if(sem_course_bank.containsKey(course.corresponding_semester)){
+            if(sem_course_bank.get(course.corresponding_semester).contains(course)){
+                System.out.println("Course already exists");
+                return null;
+            }
+            else{
+                sem_course_bank.get(course.corresponding_semester).add(course);
+            }
+        }
         return course;
     }
     static void show_course_list(Integer semester, Student student) { // made - test left
@@ -71,7 +88,7 @@ public class Course {
 
 
     // Non-Static Functions -- will be used for specific course.
-    void Set_Course(Professor prof) { // something left need to check the if block -- also add the checks before creation
+    void set_course(Professor prof) { // something left need to check the if block -- also add the checks before creation
         // set the course details
         this.professor = prof;
         System.out.print("Enter the course code: ");
