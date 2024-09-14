@@ -20,7 +20,7 @@ public class Course {
     // Storing and Shared Datas
     private ArrayList<Student> enrolled_students;
     private ArrayList<Course> prerequisites;
-    private static HashMap<Integer, ArrayList<Course>> Courses = new HashMap<Integer, ArrayList<Course>>();
+    protected static HashMap<Integer, ArrayList<Course>> Courses = new HashMap<Integer, ArrayList<Course>>();
 
     // Required Functionalities
     void set_professor(Professor professor) {
@@ -65,7 +65,7 @@ public class Course {
         return newcourse;
     }
 
-    void show_course_list(Integer semester) {
+    static void show_course_list(Integer semester) {
         // may need to add a check for student prerequisits
         System.out.println("Courses offered in Semester " + semester);
         for (Course course : Courses.get(semester)) {
@@ -74,18 +74,18 @@ public class Course {
         System.out.println();
     }
 
-    void view_course() { // made - test left
-        System.out.println("Course Code: " + this.code);
-        System.out.println("Course Title: " + this.title);
-        System.out.println("Course Credit: " + this.credit);
-        System.out.println("Course offered in Semester: " + this.corresponding_semester);
-        System.out.println("Course Enrollment Limit: " + this.enrollment_limit);
-        System.out.println("Course Timings: " + this.timings);
-        System.out.println("Course Syllabus: " + this.syllabus);
-        System.out.println("Course Professor: " + this.professor.get_name());
-        System.out.println("Course Enrollment Count: " + this.enrollment_count);
+    static void view_course(Course course_to_show) { // made - test left
+        System.out.println("Course Code: " + course_to_show.code);
+        System.out.println("Course Title: " + course_to_show.title);
+        System.out.println("Course Credit: " + course_to_show.credit);
+        System.out.println("Course offered in Semester: " + course_to_show.corresponding_semester);
+        System.out.println("Course Enrollment Limit: " + course_to_show.enrollment_limit);
+        System.out.println("Course Timings: " + course_to_show.timings);
+        System.out.println("Course Syllabus: " + course_to_show.syllabus);
+        System.out.println("Course Professor: " + course_to_show.professor.get_name());
+        System.out.println("Course Enrollment Count: " + course_to_show.enrollment_count);
         System.out.println("Course Prerequisites: ");
-        for (Course course : prerequisites) {
+        for (Course course : course_to_show.prerequisites) {
             System.out.println(course.code + " : " + course.title);
         }
         System.out.println();
