@@ -28,18 +28,31 @@ public class Student extends User {
 
     // functionalites that i may require to implement everything easily
     // create a fucniton to check whether the student is already registered or not
+    Boolean check_prerequisites(Course course_to_be_checked) { // need to check if this is working properly
+        for (Course course : course_to_be_checked.prerequisites) {
+            if (!this.courses.containsKey(course.get_code())) {
+                return false;
+            }
+        }
+        return true;
+    }
 
     // Required Functionalities
     void view_available_courses() {
         // Things need to do -- get all the avialable courses in the current semester
         // with all the details.
 
+        // just showing the course code and title
         Integer semester = this.current_semester;
         for (int i = 1; i <= semester; i += 2) {
+            System.out.println();
             if (Course.Courses.containsKey(i)) {
                 Course.show_course_list(i);
             }
         }
+        System.out.println();
+
+        // make a menu for choosing a course to show all the details.
     }
 
     void register_courses() {
