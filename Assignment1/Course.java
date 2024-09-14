@@ -22,49 +22,15 @@ public class Course {
     private ArrayList<Course> prerequisites;
     protected static HashMap<Integer, ArrayList<Course>> Courses = new HashMap<Integer, ArrayList<Course>>();
 
-    // Required Functionalities
-    void set_professor(Professor professor) {
-        this.professor = professor;
-    }
-
-    void set_enrollment_limit(Integer limit) {
-        enrollment_limit = limit;
-    }
-
-    Course create_course(Professor prof) {
+    
+    // Functionalities that i may require to implement everything easily
+    // Static Functions -- will not be used for specific course.
+    static Course create_course(Professor prof) {
         Course course = new Course();
         course.Set_Course(prof);
+        Courses.get(course.corresponding_semester).add(course); //check this line.
         return course;
     }
-
-    Course Set_Course(Professor prof) { // something left need to check the if block -- also add the checks before creation
-        Course newcourse = create_course(prof);
-        // set the course details
-        this.professor = prof;
-        System.out.print("Enter the course code: ");
-        this.code = sc.nextLine();
-        System.out.print("Enter the course title: ");
-        this.title = sc.nextLine();
-        System.out.print("Enter the course credit: ");
-        this.credit = sc.nextInt();
-        System.out.print("Enter the course offered in Semester(1-8): ");
-        this.corresponding_semester = sc.nextInt();
-        System.out.print("Enter the course enrollment limit: ");
-        this.enrollment_limit = sc.nextInt();
-        this.prerequisites = new ArrayList<Course>();
-
-        System.out.println("Do you want to create prerequisite list now? (Y/N)");
-        String choice = sc.next();
-        if (choice.equals("Y") || choice.equals("y")) {
-            // need to add a way to add prerequisites to form the prerequisites list
-            this.add_prerequisites(prerequisites, false);
-        }
-        this.enrolled_students = new ArrayList<Student>();
-        // set timings, syllabus, enrollment_limit
-        Courses.get(corresponding_semester).add(newcourse); //check this line.
-        return newcourse;
-    }
-
     static void show_course_list(Integer semester) {
         // may need to add a check for student prerequisits
         System.out.println("Courses offered in Semester " + semester);
@@ -73,7 +39,6 @@ public class Course {
         }
         System.out.println();
     }
-
     static void view_course(Course course_to_show) { // made - test left
         System.out.println("Course Code: " + course_to_show.code);
         System.out.println("Course Title: " + course_to_show.title);
@@ -91,6 +56,31 @@ public class Course {
         System.out.println();
     }
 
+
+    // Non-Static Functions -- will be used for specific course.
+    void Set_Course(Professor prof) { // something left need to check the if block -- also add the checks before creation
+        // set the course details
+        this.professor = prof;
+        System.out.print("Enter the course code: ");
+        this.code = sc.nextLine();
+        System.out.print("Enter the course title: ");
+        this.title = sc.nextLine();
+        System.out.print("Enter the course credit: ");
+        this.credit = sc.nextInt();
+        System.out.print("Enter the course offered in Semester(1-8): ");
+        this.corresponding_semester = sc.nextInt();
+        System.out.print("Enter the course enrollment limit: ");
+        this.enrollment_limit = sc.nextInt();
+        this.prerequisites = new ArrayList<Course>();
+        System.out.println("Do you want to create prerequisite list now? (Y/N)");
+        String choice = sc.next();
+        if (choice.equals("Y") || choice.equals("y")) {
+            // need to add a way to add prerequisites to form the prerequisites list
+            this.add_prerequisites(prerequisites, false);
+        }
+        this.enrolled_students = new ArrayList<Student>();
+        // set timings, syllabus, enrollment_limit
+    }
     void add_single_prerequisite(Course course) { // made - test left
         this.prerequisites.add(course);
         System.out.println("Prerequisites added");
@@ -116,6 +106,30 @@ public class Course {
         System.out.print("Enter the new syllabus: ");
         this.syllabus = sc.nextLine();
         System.out.println("Syllabus updated");
+    }
+    void set_professor(Professor professor) {
+        this.professor = professor;
+    }
+    void set_enrollment_limit(Integer limit) {
+        enrollment_limit = limit;
+    }
+    void set_credits(Integer credit) {
+        this.credit = credit;
+    }
+    // void set_timings(String timings) {
+    //     this.timings = timings;
+    // }
+    void set_syllabus(String syllabus) {
+        this.syllabus = syllabus;
+    }
+    void set_enrollment_count(Integer count) {
+        enrollment_count = count;
+    }
+    void set_prerequisites(ArrayList<Course> prerequisites) {
+        this.prerequisites = prerequisites;
+    }
+    void enrolled_student(Student student) {
+        enrolled_students.add(student);
     }
 
 }
