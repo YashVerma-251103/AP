@@ -95,19 +95,16 @@ public class Course {
         this.prerequisites.add(course);
         System.out.println("Prerequisites added");
     }
-
     void add_prerequisites(ArrayList<Course> course, Boolean print) { // made - test left
         this.prerequisites.addAll(course);
         if (print) {
             System.out.println("Prerequisites added");
         }
     }
-
     void remove_prerequisite(Course course) { // made - test left
         prerequisites.remove(course);
         System.out.println("Prerequisite removed");
     }
-
     void view_prerequisites() { // made - test left
         System.out.println("Prerequisites for " + this.code + " : " + this.title + "\n");
         for (Course course : prerequisites) {
@@ -115,7 +112,6 @@ public class Course {
         }
         System.out.println();
     }
-
     void update_syllabus() { // made - test left
         System.out.print("Enter the new syllabus: ");
         this.syllabus = sc.nextLine();
