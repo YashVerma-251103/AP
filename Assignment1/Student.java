@@ -13,6 +13,7 @@ public class Student extends User {
      * submit complaints
      */
     private Scanner sc = new Scanner(System.in);
+    
     // Personal Information
     private String name;
     private Integer roll_number;
@@ -23,10 +24,9 @@ public class Student extends User {
     private Integer credits_registered;
     private Integer credit_limit = 20;
 
-    // Storing and Shared Datas -- may need to change it to protected
+    // Storage and Shared Datas
     protected static HashMap<Integer, Student> Students = new HashMap<Integer, Student>();
     protected static HashMap<Integer, HashMap<Boolean, String>> Complaints = new HashMap<Integer, HashMap<Boolean, String>>();
-    // private ArrayList<Course> courses;
     private HashMap<String, Course> current_courses = new HashMap<String, Course>();
     private HashMap<String, Course> completed_courses = new HashMap<String, Course>();
     private HashMap<String, Course> dropped_courses = new HashMap<String, Course>();
@@ -41,6 +41,29 @@ public class Student extends User {
         }
         return true;
     }
+    static void course_cleanup(String code) {
+        for (Student student : Students.values()) {
+            if(student.current_courses.containsKey(code)){
+                student.current_courses.remove(code);
+            }
+            if(student.completed_courses.containsKey(code)){
+                student.completed_courses.remove(code);
+            }
+            if(student.dropped_courses.containsKey(code)){
+                student.dropped_courses.remove(code);
+            }
+            for (int i = 0; i < student.current_semester-1; i++) { // removing vague values from the SGPAs
+                student.calculate_sgpa(i);
+            }
+            student.calculate_cgpa();
+        }
+    }
+    static void show_all_students(){
+        for (Student student : Students.values()) {
+            System.out.println("Name: "+student.name+" | Roll Number: "+student.roll_number);
+        }
+    }
+    
     
     // Getters
     Float get_sgpa(int sem) {
@@ -49,6 +72,13 @@ public class Student extends User {
     Float get_cgpa() {
         return CGPA;
     }
+    String get_name() {
+        return name;
+    }
+    Integer get_roll_number() {
+        return roll_number;
+    }
+    
     // Setters
     void set_sgpa(int sem, Float sgpa) {
         SGPAs[sem - 1] = sgpa;
@@ -124,7 +154,7 @@ public class Student extends User {
         while (true) {
             System.out.println(
                     "Enter (-1) to return to previous Menu!\nEnter the course code to view the details of the course: ");
-            code_of_course_to_show = sc.nextLine();
+            code_of_course_to_show = sc.next();
             if (code_of_course_to_show.equals("-1")) {
                 return;
             } else if (Course.course_bank.containsKey(code_of_course_to_show)) {
@@ -151,7 +181,7 @@ public class Student extends User {
         while (true) {
             System.out
                     .println("Enter (-1) to return to previous Menu!\nEnter the course code to register the course: ");
-            code_of_course_to_register = sc.nextLine();
+            code_of_course_to_register = sc.next();
             if (code_of_course_to_register.equals("-1")) {
                 return;
             } else if (this.credits_registered >= this.credit_limit) {
@@ -214,7 +244,7 @@ public class Student extends User {
         String code_of_course_to_drop;
         while (true) {
             System.out.println("Enter (-1) to return to previous Menu!\nEnter the course code to drop the course: ");
-            code_of_course_to_drop = sc.nextLine();
+            code_of_course_to_drop = sc.next();
             if (code_of_course_to_drop.equals("-1")) {
                 return;
             } else if (this.current_courses.containsKey(code_of_course_to_drop)) {
@@ -230,6 +260,7 @@ public class Student extends User {
         }
     }
 
+    // Left
     void submit_complaint() { // will do it later
         // submit a complaint
         // view the status of the complaint
@@ -238,7 +269,6 @@ public class Student extends User {
         // provide resolution for the complaints
 
     }
-
     void view_schedule() { // will make later.
         // able to view weekly course schedule
         // class timings
