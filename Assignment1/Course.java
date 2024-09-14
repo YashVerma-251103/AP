@@ -9,6 +9,7 @@ public class Course {
 
     // Attributes
     private Professor professor;
+    private Character grade;
     private String code;
     private String title;
     private String timings;
@@ -45,7 +46,10 @@ public class Course {
     void set_prerequisites(ArrayList<Course> prerequisites) {
         this.prerequisites = prerequisites;
     }
-
+    void set_grade(Character grade) {
+        this.grade = grade;
+    }
+    
     // Getters
     String get_code() {
         return this.code;
@@ -59,7 +63,16 @@ public class Course {
     Integer get_enrollment_limit() {
         return this.enrollment_limit;
     }
-    
+    Character get_grade() {
+        return this.grade;
+    }
+    Integer get_credits() {
+        return this.credit;
+    }
+    Integer get_semester() {
+        return this.corresponding_semester;
+    }
+
     // Functionalities that i may require to implement everything easily
     void increment_enrollment_count() {
         this.enrollment_count++;
