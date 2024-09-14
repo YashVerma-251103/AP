@@ -30,7 +30,6 @@ public class Student extends User {
     private HashMap<String, Course> current_courses = new HashMap<String, Course>();
     private HashMap<String, Course> completed_courses = new HashMap<String, Course>();
     private HashMap<String, Course> dropped_courses = new HashMap<String, Course>();
-    private Float SGPAs[] = new Float[8];
 
     // functionalites that i may require to implement everything easily
     // create a fucniton to check whether the student is already registered or not
@@ -41,55 +40,6 @@ public class Student extends User {
             }
         }
         return true;
-    }
-
-    Float get_sgpa(int sem) {
-        return SGPAs[sem - 1];
-    }
-
-    Float get_cgpa() {
-        return CGPA;
-    }
-
-    void set_sgpa(int sem, Float sgpa) {
-        SGPAs[sem - 1] = sgpa;
-    }
-
-    void set_cgpa(Float cgpa) {
-        CGPA = cgpa;
-    }
-
-    void calculate_sgpa(int sem) {
-        if (this.current_semester > 1) {
-            Float sgpa = 0.0f;
-            Integer courses = 0;
-            for (String code : this.completed_courses.keySet()) {
-                if (this.completed_courses.get(code).get_semester() == sem) {
-                    sgpa += this.completed_courses.get(code).get_grade();
-                    courses++;
-                }
-            }
-            sgpa = (Float) (sgpa / courses);
-            this.set_sgpa(sem, sgpa);
-        } else {
-            this.set_sgpa(sem, 0.0f);
-        }
-    }
-
-    void calculate_cgpa() {
-        if (this.current_semester > 1) {
-            Float cgpa = 0.0f;
-            Integer sems = 0;
-            for (int i = 0; i < (this.current_semester) - 1; i++) {
-                if (this.SGPAs[i] != null) {
-                    cgpa += this.SGPAs[i];
-                    sems++;
-                }
-            }
-            this.set_cgpa((Float) (cgpa / sems));
-        } else {
-            this.set_cgpa(0.0f);
-        }
     }
 
     static Student create_course() {
@@ -152,11 +102,6 @@ public class Student extends User {
             code_of_course_to_register = sc.nextLine();
             if (code_of_course_to_register.equals("-1")) {
                 return;
-            } else if (this.credits_registered >= this.credit_limit) {
-                System.out.println(
-                        "You have reached the credit limit! You can't register for more courses. If you still want to register please drop some courses.");
-            } else if (this.current_courses.containsKey(code_of_course_to_register)) {
-                System.out.println("You are already registered in this course!");
             } else if (Course.course_bank.containsKey(code_of_course_to_register)) {
                 if (this.check_prerequisites(Course.course_bank.get(code_of_course_to_register))) {
                     if ((Course.course_bank.get(code_of_course_to_register)
@@ -193,20 +138,9 @@ public class Student extends User {
         // view the grades of the completed courses
         // SGPA adn CGPA -- GPA only computed for the completed courses.
 
-        System.out.println("Your Completed Courses are: ");
-        for (String code : this.completed_courses.keySet()) {
-            System.out.println(code + " : " + this.completed_courses.get(code).get_title() + " : "
-                    + this.completed_courses.get(code).get_grade());
-        }
-        System.out.println("Current CGPA: " + this.CGPA);
-        for (int i = 0; i < 8; i++) {
-            System.out.println("SGPA in Semester " + (i + 1) + ": " + this.SGPAs[i]);
-        }
-        System.out.println();
-
     }
 
-    void drop_course() { // made - test left
+    void drop_course() { 
         // drop the course from the current courses
         // add the course to the dropped courses
         // decrement the enrollment count of the course
