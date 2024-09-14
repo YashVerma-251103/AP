@@ -23,10 +23,35 @@ public class Course {
     protected static HashMap<String, Course> course_bank = new HashMap<String, Course>();
     protected static HashMap<Integer, ArrayList<Course>> sem_course_bank = new HashMap<Integer, ArrayList<Course>>();
 
+    // Setters
+    void set_professor(Professor professor) {
+        this.professor = professor;
+    }
+    void set_enrollment_limit(Integer limit) {
+        enrollment_limit = limit;
+    }
+    void set_credits(Integer credit) {
+        this.credit = credit;
+    }
+    // void set_timings(String timings) {
+    //     this.timings = timings;
+    // }
+    void set_syllabus(String syllabus) {
+        this.syllabus = syllabus;
+    }
+    void set_enrollment_count(Integer count) {
+        enrollment_count = count;
+    }
+    void set_prerequisites(ArrayList<Course> prerequisites) {
+        this.prerequisites = prerequisites;
+    }
 
-    // Functionalities that i may require to implement everything easily
+    // Getters
     String get_code() {
         return this.code;
+    }
+    String get_title() {
+        return this.title;
     }
     Integer get_enrollment_count() {
         return this.enrollment_count;
@@ -34,10 +59,23 @@ public class Course {
     Integer get_enrollment_limit() {
         return this.enrollment_limit;
     }
+    
+    // Functionalities that i may require to implement everything easily
     void increment_enrollment_count() {
         this.enrollment_count++;
     }
-    
+    void decrement_enrollment_count() {
+        this.enrollment_count--;
+    }
+    void enroll_student(Student student) {
+        this.enrolled_students.add(student);
+        this.enrollment_count++;
+    }
+    void denroll_student(Student student) {
+        this.enrolled_students.remove(student);
+        this.enrollment_count--;
+
+    }
     // Static Functions -- will not be used for specific course.
     static Course create_course(Professor prof) {
         Course course = new Course();
@@ -137,29 +175,6 @@ public class Course {
         this.syllabus = sc.nextLine();
         System.out.println("Syllabus updated");
     }
-    void set_professor(Professor professor) {
-        this.professor = professor;
-    }
-    void set_enrollment_limit(Integer limit) {
-        enrollment_limit = limit;
-    }
-    void set_credits(Integer credit) {
-        this.credit = credit;
-    }
-    // void set_timings(String timings) {
-    //     this.timings = timings;
-    // }
-    void set_syllabus(String syllabus) {
-        this.syllabus = syllabus;
-    }
-    void set_enrollment_count(Integer count) {
-        enrollment_count = count;
-    }
-    void set_prerequisites(ArrayList<Course> prerequisites) {
-        this.prerequisites = prerequisites;
-    }
-    void enroll_student(Student student) {
-        enrolled_students.add(student);
-    }
+    
     
 }

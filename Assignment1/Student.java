@@ -21,11 +21,12 @@ public class Student extends User {
     private Integer current_semester;
 
     // Storing and Shared Datas -- may need to change it to protected
+    protected static HashMap<Integer, Student> Students = new HashMap<Integer, Student>();
+    protected static HashMap<Integer, HashMap<Boolean, String>> Complaints = new HashMap<Integer, HashMap<Boolean, String>>();
     // private ArrayList<Course> courses;
     private HashMap<String, Course> current_courses = new HashMap<String, Course>();
     private HashMap<String, Course> completed_courses = new HashMap<String, Course>();
-    private static HashMap<Integer, Student> Students = new HashMap<Integer, Student>();
-    private static HashMap<Integer, HashMap<Boolean, String>> Complaints = new HashMap<Integer, HashMap<Boolean, String>>();
+    private HashMap<String, Course> dropped_courses = new HashMap<String, Course>();
 
     // functionalites that i may require to implement everything easily
     // create a fucniton to check whether the student is already registered or not
@@ -49,6 +50,7 @@ public class Student extends User {
             return null;
         }
     }
+
     void set_details() {
         System.out.println("Enter Student Name: ");
         this.name = sc.nextLine();
@@ -92,18 +94,16 @@ public class Student extends User {
                                                          // meets the prerequisites.
         String code_of_course_to_register;
         while (true) {
-            System.out
-                    .println("Enter (-1) to return to previous Menu!\nEnter the course code to register the course: ");
+            System.out.println("Enter (-1) to return to previous Menu!\nEnter the course code to register the course: ");
             code_of_course_to_register = sc.nextLine();
             if (code_of_course_to_register.equals("-1")) {
                 return;
             } else if (Course.course_bank.containsKey(code_of_course_to_register)) {
                 if (this.check_prerequisites(Course.course_bank.get(code_of_course_to_register))) {
-                    if (Course.course_bank.get(code_of_course_to_register).get_enrollment_count() < Course.course_bank
-                            .get(code_of_course_to_register).get_enrollment_limit()) {
-                        Course.course_bank.get(code_of_course_to_register).increment_enrollment_count();
-                        this.current_courses.put(code_of_course_to_register,
-                                Course.course_bank.get(code_of_course_to_register));
+                    if ((Course.course_bank.get(code_of_course_to_register).get_enrollment_count()) < (Course.course_bank.get(code_of_course_to_register).get_enrollment_limit())) {
+                        Course.course_bank.get(code_of_course_to_register).enroll_student(this);
+                        // Course.course_bank.get(code_of_course_to_register).increment_enrollment_count(); // added in enroll_student
+                        this.current_courses.put(code_of_course_to_register,Course.course_bank.get(code_of_course_to_register));
                         System.out.println("Course Registered Successfully!");
                     } else {
                         System.out.println("Course Enrollment Limit Reached! Pleases select another course.");
@@ -118,7 +118,7 @@ public class Student extends User {
 
     }
 
-    void view_schedule() {
+    void view_schedule() { // will make later.
         // able to view weekly course schedule
         // class timings
         // location
@@ -126,11 +126,43 @@ public class Student extends User {
     }
 
     void track_academic_progress() {
+        // view the courses that are completed
+        // view the courses that are in progress
+        // view the courses that are dropped
+        // view the courses that are in the current semester
+        // view the grades of the completed courses
+        // SGPA adn CGPA -- GPA only computed for the completed courses.
 
     }
 
-    void drop_course() {
+    void drop_course() { 
+        // drop the course from the current courses
+        // add the course to the dropped courses
+        // decrement the enrollment count of the course
+        // check if the course is in the current courses
+        // check if the course is in the completed courses
+        // check if the course is in the dropped courses
 
+        System.out.println("Your current courses are: ");
+        for (String code : this.current_courses.keySet()) {
+            System.out.println(code + " : " + this.current_courses.get(code).get_title());
+        }
+        String code_of_course_to_drop;
+        while (true) {
+            System.out.println("Enter (-1) to return to previous Menu!\nEnter the course code to drop the course: ");
+            code_of_course_to_drop = sc.nextLine();
+            if (code_of_course_to_drop.equals("-1")) {
+                return;
+            } else if (this.current_courses.containsKey(code_of_course_to_drop)) {
+                this.current_courses.get(code_of_course_to_drop).denroll_student(this);
+                // this.current_courses.get(code_of_course_to_drop).decrement_enrollment_count(); // added in denroll_student
+                this.dropped_courses.put(code_of_course_to_drop, this.current_courses.get(code_of_course_to_drop));
+                this.current_courses.remove(code_of_course_to_drop);
+                System.out.println("Course Dropped Successfully!");
+            } else {
+                System.out.println("You don't have this Course! Please try again and Enter all things in Capitals.");
+            }
+        }
     }
 
     void submit_complaint() {
