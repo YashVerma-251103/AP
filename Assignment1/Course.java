@@ -20,7 +20,8 @@ public class Course {
     // Storing and Shared Datas
     protected ArrayList<Student> enrolled_students;
     protected ArrayList<Course> prerequisites;
-    protected static HashMap<Integer, ArrayList<Course>> Courses = new HashMap<Integer, ArrayList<Course>>();
+    protected static HashMap<String, Course> course_bank = new HashMap<String, Course>();
+    protected static HashMap<Integer, ArrayList<Course>> sem_course_bank = new HashMap<Integer, ArrayList<Course>>();
 
 
     // Functionalities that i may require to implement everything easily
@@ -32,12 +33,12 @@ public class Course {
     static Course create_course(Professor prof) {
         Course course = new Course();
         course.Set_Course(prof);
-        Courses.get(course.corresponding_semester).add(course); //check this line.
+        sem_course_bank.get(course.corresponding_semester).add(course); //check this line.
         return course;
     }
     static void show_course_list(Integer semester, Student student) { // made - test left
         System.out.println("Courses offered in Semester " + semester+" to you");
-        for (Course course : Courses.get(semester)) {
+        for (Course course : sem_course_bank.get(semester)) {
             if(student.check_prerequisites(course)){
                 System.out.println(course.code + " : " + course.title);
             }
@@ -46,7 +47,7 @@ public class Course {
     }
     static void show_course_list(Integer semester) { // made for profs and admins - test left
         System.out.println("Courses offered in Semester " + semester);
-        for (Course course : Courses.get(semester)) {
+        for (Course course : sem_course_bank.get(semester)) {
             System.out.println(course.code + " : " + course.title);
         }
         System.out.println();

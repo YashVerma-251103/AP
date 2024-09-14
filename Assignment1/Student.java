@@ -12,7 +12,7 @@ public class Student extends User {
      * drop courses
      * submit complaints
      */
-
+    private Scanner sc = new Scanner(System.in);
     // Personal Information
     private String name;
     private Integer roll_number;
@@ -38,22 +38,35 @@ public class Student extends User {
     }
 
     // Required Functionalities
-    void view_available_courses() {
-        // Things need to do -- get all the avialable courses in the current semester
-        // with all the details.
-
-        // just showing the course code and title
-        Integer semester = this.current_semester;
-        for (int i = 1; i <= semester; i += 2) {
-            System.out.println();
-            if (Course.Courses.containsKey(i)) {
-                Course.show_course_list(i);
-            }
-        }
-        System.out.println();
-
-        // make a menu for choosing a course to show all the details.
+    void view_available_courses(){
+        Course.show_course_list(this.current_semester);
+        
     }
+    // void view_available_courses() { // made - test left.
+    //     Integer semester = this.current_semester;
+    //     for (int i = 1; i <= semester; i += 2) {
+    //         System.out.println();
+    //         if (Course.sem_course_bank.containsKey(i)) {
+    //             Course.show_course_list(i);
+    //         }
+    //     }
+    //     System.out.println();
+    //     // menu to see the details of the course.
+    //     String code_of_course_to_show;
+    //     while (true){
+    //         System.out.println("Enter (-1) to return to previous Menu!\nEnter the course code to view the details of the course: ");
+    //         code_of_course_to_show = sc.nextLine();
+    //         if(code_of_course_to_show.equals("-1")){
+    //             return;
+    //         }
+    //         else if(Course.course_bank.containsKey(code_of_course_to_show)){
+    //             Course.view_course(Course.course_bank.get(code_of_course_to_show));
+    //         }
+    //         else{
+    //             System.out.println("Invalid Course Code! Please try again and Enter all things in Capitals.");
+    //         }
+    //     }
+    // }
 
     void register_courses() {
         /*
