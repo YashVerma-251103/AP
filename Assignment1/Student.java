@@ -33,7 +33,6 @@ public class Student extends User {
     private Float SGPAs[] = new Float[8];
 
     // functionalites that i may require to implement everything easily
-    // create a fucniton to check whether the student is already registered or not
     Boolean check_prerequisites(Course course_to_be_checked) { // need to check if this is working properly
         for (Course course : course_to_be_checked.prerequisites) {
             if (!this.completed_courses.containsKey(course.get_code())) {
@@ -42,23 +41,23 @@ public class Student extends User {
         }
         return true;
     }
-
+    
+    // Getters
     Float get_sgpa(int sem) {
         return SGPAs[sem - 1];
     }
-
     Float get_cgpa() {
         return CGPA;
     }
-
+    // Setters
     void set_sgpa(int sem, Float sgpa) {
         SGPAs[sem - 1] = sgpa;
     }
-
     void set_cgpa(Float cgpa) {
         CGPA = cgpa;
     }
 
+    // GPA Calculations
     void calculate_sgpa(int sem) {
         if (this.current_semester > 1) {
             Float sgpa = 0.0f;
@@ -75,7 +74,6 @@ public class Student extends User {
             this.set_sgpa(sem, 0.0f);
         }
     }
-
     void calculate_cgpa() {
         if (this.current_semester > 1) {
             Float cgpa = 0.0f;
@@ -92,6 +90,7 @@ public class Student extends User {
         }
     }
 
+    // Creating Student
     static Student create_course() {
         Student new_student = new Student();
         new_student.set_details();
@@ -103,14 +102,18 @@ public class Student extends User {
             return null;
         }
     }
-
     void set_details() {
+        // Personal Information
         System.out.println("Enter Student Name: ");
         this.name = sc.nextLine();
         System.out.println("Enter Student Roll Number: ");
         this.roll_number = sc.nextInt();
         this.current_semester = 1; // by default
-
+        // Login Information
+        System.out.println("Enter Student Email: ");
+        this.set_email(sc.nextLine());
+        System.out.println("Enter Student Password: ");
+        this.set_password(sc.nextLine());
     }
 
     // Required Functionalities
@@ -132,7 +135,6 @@ public class Student extends User {
         }
 
     }
-
     void register_courses() { // made - test left
         /*
          * registeration only for the available courses -- current the semester
@@ -180,14 +182,6 @@ public class Student extends User {
         }
 
     }
-
-    void view_schedule() { // will make later.
-        // able to view weekly course schedule
-        // class timings
-        // location
-        // professor name
-    }
-
     void track_academic_progress() { // made - test left
         // view the courses that are completed
         // view the grades of the completed courses
@@ -205,7 +199,6 @@ public class Student extends User {
         System.out.println();
 
     }
-
     void drop_course() { // made - test left
         // drop the course from the current courses
         // add the course to the dropped courses
@@ -237,8 +230,20 @@ public class Student extends User {
         }
     }
 
-    void submit_complaint() {
+    void submit_complaint() { // will do it later
+        // submit a complaint
+        // view the status of the complaint
+        // view the resolution of the complaint
+        // filter the complaints based on the status or date
+        // provide resolution for the complaints
 
+    }
+
+    void view_schedule() { // will make later.
+        // able to view weekly course schedule
+        // class timings
+        // location
+        // professor name
     }
 
 }

@@ -23,20 +23,6 @@ public class Administrator extends User {
 
 
     // Functionalities that i may require to implement everything easily
-    @Override
-    void set_email(String email) {
-        super.set_email(email);
-    }
-    void set_password(String password) {
-        super.set_password(password);
-    }
-
-    void set_admin_id(Integer admin_id) {
-        this.admin_id = admin_id;
-    }
-    Integer get_admin_id() {
-        return admin_id;
-    }
     
     
 
@@ -54,7 +40,7 @@ public class Administrator extends User {
     void assign_professors_to_courses() {
         // assign professors to courses
     }
-    void handle_complaints() {
+    void handle_complaints() { // Will do it later
         // view and respond to complaints
         // status of complaints should be updated as well
             // Pending 

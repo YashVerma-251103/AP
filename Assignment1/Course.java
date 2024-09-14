@@ -136,7 +136,14 @@ public class Course {
         }
         System.out.println();
     }
-
+    static void delete_course(Course course) { // made - test left
+        sem_course_bank.get(course.corresponding_semester).remove(course);
+        course_bank.remove(course.code);
+        System.out.println("Course deleted");
+    }
+    static void update_course_details(Course course_to_update){
+        // implement a way to update the course details via menu driven approach
+    }
 
     // Non-Static Functions -- will be used for specific course.
     void set_course(Professor prof) { // something left need to check the if block -- also add the checks before creation
