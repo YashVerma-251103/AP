@@ -201,7 +201,6 @@ public class Course {
                         student.current_courses.put(course.get_course_id(), course);
                     }
                     Student.changes_in_completed_courses(prev_id, course.get_course_id());
-
                 } else if (choice == 3) {
                     System.out.println("Enter new course description: ");
                     course.set_course_description(sc.nextLine());
@@ -213,7 +212,11 @@ public class Course {
                     course.set_timings(sc.nextLine());
                 } else if (choice == 6) {
                     System.out.println("Enter new course credits: ");
+                    Integer prev_credits = course.get_course_credits();
                     course.set_course_credits(sc.nextInt());
+                    for (Student student : course.enrolled_students.values()) {
+                        student.set_credits_registered(student.get_credits_registered() - prev_credits + course.get_course_credits());
+                    }
                 } else if (choice == 7) {
                     System.out.println("Enter new offered semester: ");
                     Integer prev_sem=course.get_offered_semester();
@@ -265,10 +268,7 @@ public class Course {
                 }else {
                     System.out.println("Invalid choice.");
                 }
-
             }
-            
-            System.out.println("Course updated successfully.");
         } else {
             System.out.println("Course not found.");
         }
@@ -303,6 +303,7 @@ public class Course {
             this.enrolled_students.put(student.get_student_roll_number(), student);
             this.current_enrollment++;
             student.current_courses.putIfAbsent(this.course_id, this);
+            student.set_credits_registered(student.get_credits_registered() + this.course_credits);
             System.out.println("Student enrolled successfully.");
         }
     }
@@ -311,10 +312,29 @@ public class Course {
             this.enrolled_students.remove(student.get_student_roll_number());
             this.current_enrollment--;
             student.current_courses.remove(this.course_id);
+            student.set_credits_registered(student.get_credits_registered() - this.course_credits);
             System.out.println("Student dropped successfully.");
         } else {
             System.out.println("Student not enrolled in this course.");
         }
     }
-    
+    public void show_prerequisites() {
+        System.out.println("Prerequisites: ");
+        for (Course course : this.course_prerequisites) {
+            System.out.println("Course ID: " + course.get_course_id() + " | Course Name: " + course.get_course_name());
+        }
+    }
+    public void add_prerequisite(Course course) {
+        this.course_prerequisites.add(course);
+    }
+    public void add_prerequisite_of(Course course) {
+        this.prerequist_of_courses.add(course);
+    }
+    public void remove_prerequisite(Course course) {
+        this.course_prerequisites.remove(course);
+    }
+    public void remove_prerequisite_of(Course course) {
+        this.prerequist_of_courses.remove(course);
+    }
+
 }
