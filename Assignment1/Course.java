@@ -77,6 +77,7 @@ public class Course {
     Character get_grade() {
         return this.grade;
     }
+   
     // Functionalities that i may require to implement everything easily
     void enroll_student(Student student) {
         this.enrolled_students.add(student);

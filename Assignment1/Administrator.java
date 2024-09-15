@@ -90,59 +90,6 @@ public class Administrator extends User {
 
         }
     }
-
-    void manage_student_records() {
-        // view and update student records, grades, and personal information
-        Student.show_all_students();
-        while (true) {
-            System.out.println("Enter -1 to return to the previous menu");
-            System.out.println("Enter the Student Roll Number to view the details of the student: ");
-            Integer student_id = sc.nextInt();
-            if (student_id == -1) {
-                return;
-            }
-            Student student = Student.Students.get(student_id);
-            if (student == null) {
-                System.out.println("No Student found with the given Roll Number!");
-            } else {
-                System.out.println("Student Roll Number : " + student.get_id());
-                System.out.println("Student Name : " + student.get_name());
-                System.out.println("Student Email : " + student.get_email());
-                System.out.println("Student Semester : " + student.get_semester());
-                System.out.println("Student CGPA : " + student.get_cgpa());
-                System.out.println("Student Courses : ");
-                student.get_current_courses().forEach((course) -> {
-                    System.out.println("Course Code : " + course.get_code() + " | Course Title : " + course.get_title());
-                });
-                System.out.println("Student Grades : ");
-                student.get_grades().forEach((course, grade) -> {
-                    System.out.println("Course Code : " + course.get_code() + " | Course Title : " + course.get_title()
-                            + " | Grade : " + grade);
-                });
-                System.out.println("Student Complaints : ");
-                student.get_complaints().forEach((complaint) -> {
-                    System.out.println("Complaint : " + complaint);
-                });
-                System.out.println("Do you want to update the student details? (Y/N)");
-                String choice = sc.next();
-                if (choice.equals("Y") || choice.equals("y")) {
-                    System.out.println("Enter the new Student Name: ");
-                    String new_name = sc.next();
-                    student.set_name(new_name);
-                    System.out.println("Enter the new Student Email: ");
-                    String new_email = sc.next();
-                    student.set_email(new_email);
-                    System.out.println("Enter the new Student Department: ");
-                    String new_department = sc.next();
-                    student.set_department(new_department);
-                    System.out.println("Enter the new Student Semester: ");
-                    Integer new_semester = sc.nextInt();
-                    student.set_semester(new_semester);
-                    System.out.println("Enter the new Student CGPA: ");
-                    Double new_cgpa = sc.nextDouble();
-                    student.set_cgpa(new_cgpa);
-    }
-
     static Professor assign_professors_to_courses() { // made - test left
         // assign professors to courses
         System.out.println("Enter Professor expertise (Mention Department): ");
@@ -171,8 +118,93 @@ public class Administrator extends User {
                 return prof;
             }
         }
-        
     }
+    void manage_student_records() {
+        // view and update student records, grades, and personal information
+        Student.show_all_students();
+        while (true) {
+            System.out.println("Enter -1 to return to the previous menu");
+            System.out.println("Enter the Student Roll Number to view the details of the student: ");
+            Integer student_roll_number = sc.nextInt();
+            if (student_roll_number == -1) {
+                return;
+            }
+            else{
+                Integer student_found = Student.show_student_details(student_roll_number);
+                if(student_found == 0){
+                    continue;
+                }
+                System.out.println("Do you want to update the student details? (Y/N)");
+                String choice = sc.next();
+                if (choice.equals("Y") || choice.equals("y")) {
+                    // System.out.println("Enter the new Student Name: ");
+                    // String new_name = sc.next();
+                    // student.set_name(new_name);
+                    // System.out.println("Enter the new Student Email: ");
+                    // String new_email = sc.next();
+                    // student.set_email(new_email);
+                    // System.out.println("Enter the new Student Department: ");
+                    // String new_department = sc.next();
+                    // student.set_department(new_department);
+                    // System.out.println("Enter the new Student Semester: ");
+                    // Integer new_semester = sc.nextInt();
+                    // student.set_semester(new_semester);
+                    // System.out.println("Enter the new Student CGPA: ");
+                    // Double new_cgpa = sc.nextDouble();
+                    // student.set_cgpa(new_cgpa);
+                    System.out.println("Enter -1 to return to previous menu!\nWhat do you want to update?\n1. Name (press 1)\n2. Email (press 2)\n3. Roll Number (press 3)\n4. Current Semester (press 4)\n5. Grade (press 5)\n6. SPGAs (press 6)\n7. CGPA (press 7)\n8. Current Courses (press 8)");
+                    Integer update_choice = sc.nextInt();
+                    if(update_choice == -1){
+                        return;
+                    } else{
+                        Student student = Student.Students.get(student_roll_number);
+                        if(update_choice == 1){
+                            System.out.println("Enter the new Student Name: ");
+                            String new_name = sc.next();
+                            student.set_name(new_name);
+                        } else if(update_choice == 2){
+                            System.out.println("Enter the new Student Email: ");
+                            String new_email = sc.next();
+                            student.set_email(new_email);
+                        } else if(update_choice == 3){
+                            System.out.println("Enter the new Student Roll Number: ");
+                            Integer new_roll_number = sc.nextInt();
+                            student.set_roll_number(new_roll_number);
+                        } else if(update_choice == 4){
+                            System.out.println("Enter the new Student Semester: ");
+                            Integer new_semester = sc.nextInt();
+                            student.set_current_semester(new_semester);
+                        } else if(update_choice == 5){
+                            System.out.println("Enter the new Student Grade: ");
+                            Integer new_grade = sc.nextInt();
+                            student.set_grade(new_grade);
+                        } else if(update_choice == 6){
+                            System.out.println("Enter the Semester for which you want to update the SGPA: ");
+                            Integer sem = sc.nextInt();
+                            System.out.println("Enter the new Student SGPA: ");
+                            Float new_sgpa = sc.nextFloat();
+                            student.set_sgpa(sem,new_sgpa);
+                            student.calculate_cgpa();
+                        } else if(update_choice == 7){
+                            System.out.println("Enter the new Student CGPA: ");
+                            Float new_cgpa = sc.nextFloat();
+                            student.set_cgpa(new_cgpa);
+                        } else if(update_choice == 8){
+                            System.out.println("Enter the Course Code for which you want to update the grade: ");
+                            String course_code = sc.next();
+                            
+
+                        } else{
+                            System.out.println("Invalid Input");
+                        }
+                    }
+                } else {
+                    continue;
+                }
+    }
+}
+}
+
 
     void handle_complaints() { // Will do it later
         // view and respond to complaints

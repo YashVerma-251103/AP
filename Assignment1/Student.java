@@ -23,12 +23,14 @@ public class Student extends User {
     private Float CGPA;
     private Integer credits_registered;
     private Integer credit_limit = 20;
+    private Integer grade;
 
     // Storage and Shared Datas
     protected static HashMap<Integer, Student> Students = new HashMap<Integer, Student>();
     protected static HashMap<Integer, HashMap<Boolean, String>> Complaints = new HashMap<Integer, HashMap<Boolean, String>>();
     private HashMap<String, Course> current_courses = new HashMap<String, Course>();
-    private HashMap<String, Course> completed_courses = new HashMap<String, Course>();
+    // private HashMap<String, Course> completed_courses = new HashMap<String, Course>();
+    private HashMap<String, <Course,Integer>> completed_courses = new HashMap<String, HashMap<Course,Integer>>();
     private HashMap<String, Course> dropped_courses = new HashMap<String, Course>();
     private Float SGPAs[] = new Float[8];
 
@@ -63,7 +65,27 @@ public class Student extends User {
             System.out.println("Name: "+student.name+" | Roll Number: "+student.roll_number);
         }
     }
-    
+    static Integer show_student_details(Integer roll_number){
+        Student student = Students.get(roll_number);
+        if(student == null){
+            System.out.println("No Student found with the given Roll Number!");
+            return 0;
+        }
+        System.out.println("Student Roll Number : " + student.get_roll_number());
+        System.out.println("Student Name : " + student.get_name());
+        System.out.println("Student Email : " + student.get_email());
+        System.out.println("Student Semester : " + student.current_semester);
+        System.out.println("Student CGPA : " + student.get_cgpa());
+        System.out.println("\nStudent Current Courses : ");
+        student.current_courses.forEach((code, course) -> {
+            System.out.println("Course Code : " + course.get_code() + " | Course Title : " + course.get_title());
+        });
+        System.out.println("\nStudent Grades : ");
+        student.completed_courses.forEach((code, course) -> {
+            System.out.println("Course Code : " + course.get_code() + " | Course Title : " + course.get_title() + " | Grade : " + course.get_grade());
+        });
+        return 1;
+    }
     
     // Getters
     Float get_sgpa(int sem) {
@@ -78,6 +100,12 @@ public class Student extends User {
     Integer get_roll_number() {
         return roll_number;
     }
+    Integer get_current_semester() {
+        return current_semester;
+    }
+    Integer get_grade() {
+        return grade;
+    }
     
     // Setters
     void set_sgpa(int sem, Float sgpa) {
@@ -86,6 +114,19 @@ public class Student extends User {
     void set_cgpa(Float cgpa) {
         CGPA = cgpa;
     }
+    void set_name(String name) {
+        this.name = name;
+    }
+    void set_roll_number(Integer roll_number) {
+        this.roll_number = roll_number;
+    }
+    void set_current_semester(Integer semester) {
+        this.current_semester = semester;
+    }
+    void set_grade(Integer grade) {
+        this.grade = grade;
+    }
+
 
     // GPA Calculations
     void calculate_sgpa(int sem) {
@@ -199,6 +240,7 @@ public class Student extends User {
                         // // added in enroll_student
                         this.current_courses.put(code_of_course_to_register,
                                 Course.course_bank.get(code_of_course_to_register));
+                                this.credits_registered += Course.course_bank.get(code_of_course_to_register).get_credits();
                         System.out.println("Course Registered Successfully!");
                     } else {
                         System.out.println("Course Enrollment Limit Reached! Pleases select another course.");
@@ -243,6 +285,10 @@ public class Student extends User {
         }
         String code_of_course_to_drop;
         while (true) {
+            if(this.credits_registered == 0){
+                System.out.println("You don't have any courses to drop!");
+                return;
+            }
             System.out.println("Enter (-1) to return to previous Menu!\nEnter the course code to drop the course: ");
             code_of_course_to_drop = sc.next();
             if (code_of_course_to_drop.equals("-1")) {
@@ -254,6 +300,7 @@ public class Student extends User {
                 this.dropped_courses.put(code_of_course_to_drop, this.current_courses.get(code_of_course_to_drop));
                 this.current_courses.remove(code_of_course_to_drop);
                 System.out.println("Course Dropped Successfully!");
+                this.credits_registered -= this.dropped_courses.get(code_of_course_to_drop).get_credits();
             } else {
                 System.out.println("You don't have this Course! Please try again and Enter all things in Capitals.");
             }
