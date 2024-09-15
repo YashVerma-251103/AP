@@ -1,6 +1,6 @@
 package redo1;
 import java.util.HashMap;
-public class Professor extends ProfStudComman {
+public class Professor extends ProfStudComman { // made -- testing left
     // Personal Information
     private String name;
 

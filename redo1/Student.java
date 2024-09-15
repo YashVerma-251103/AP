@@ -1,7 +1,7 @@
 package redo1;
 
 import java.util.HashMap;
-public class Student extends ProfStudComman{
+public class Student extends ProfStudComman{ // Left
 
     
     // Personal Information
@@ -31,14 +31,14 @@ public class Student extends ProfStudComman{
     public Integer get_current_semester() {
         return current_semester;
     }
-    public Float get_cgpa() {
-        return cgpa;
-    }
     public Integer get_credits_registered() {
         return credits_registered;
     }
     public Integer get_credit_limit() {
         return credit_limit;
+    }
+    public Float get_cgpa() {
+        return cgpa;
     }
 
     // Setters
@@ -238,7 +238,7 @@ public class Student extends ProfStudComman{
             System.out.println("Complaint not found.");
         }
     }
-    public void view_schedule(){} // To be implemented
+    public void view_schedule(){} // left.
 
 
 }

@@ -1,7 +1,7 @@
 package redo1;
 
 import java.util.*;
-public class Course {
+public class Course { // made -- test left
     private static Scanner sc = new Scanner(System.in);
 
     // Attributes

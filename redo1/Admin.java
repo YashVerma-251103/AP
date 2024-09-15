@@ -2,7 +2,7 @@ package redo1;
 
 import java.util.HashMap;
 
-public class Admin extends CommonUser{
+public class Admin extends CommonUser{ // left.
     // Personal information
     private String name;
     
@@ -10,8 +10,6 @@ public class Admin extends CommonUser{
     private String admin_id;
     
     // Storing and Sharing DataBase
-    // private Pair<String, Admin> admin_db=;
-    // private HashMap<String, Admin> admin_db=new HashMap<String,Admin>();
     protected HashMap<String, Admin> admin_db=new HashMap<String,Admin>();
 
     
@@ -49,8 +47,8 @@ public class Admin extends CommonUser{
     // methods for easy implementations
     
     // Required functionalities
-    void manage_courses(){}
-    static Professor assign_professor_to_course() {}
-    void manage_students(){}
-    void handle_complaints(){}
+    void manage_courses(){} // left
+    static Professor assign_professor_to_course() {} //left
+    void manage_students(){} // left
+    void handle_complaints(){} // left
 }

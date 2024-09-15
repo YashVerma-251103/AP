@@ -1,6 +1,5 @@
 package redo1;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Complaint {
@@ -19,6 +18,7 @@ public class Complaint {
     protected static HashMap<Integer,Complaint> complaint_db = new HashMap<Integer,Complaint>();
     // Structure == HashMap<Complaint_id,Complaint>
     
+    // Getters
     public static Integer get_current_complaint_id() {
         return current_complaint_id;
     }
@@ -44,6 +44,7 @@ public class Complaint {
     //     return this.conversation_thread;
     // }
     
+    // Setters
     public void set_complaint_id(Integer complaint_id) {
         this.complaint_id = complaint_id;
     }
