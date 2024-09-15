@@ -1,5 +1,5 @@
 package redo1;
 
-public class ProfStudComman extends CommonUser {
+public class ProfStudComman extends CommonUser { // left
     
 }
