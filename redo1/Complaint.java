@@ -14,15 +14,10 @@ public class Complaint {
     private Admin admin;
     // private Pair<String,String> conversation_thread = new Pair<>();
     // private ArrayList<Pair<String,String>> conversation_thread = new ArrayList<Pair<String,String>>();
-    
-
-    // 
 
     // Storage and Shared DataBase
     protected static HashMap<Integer,Complaint> complaint_db = new HashMap<Integer,Complaint>();
     // Structure == HashMap<Complaint_id,Complaint>
-    // protected static HashMap<Integer,HashMap<Pair<Boolean,Integer>,Pair<String,String>>> student_complaints_db = new HashMap<Integer,HashMap<Pair<Boolean,Integer>,Pair<String,String>>>();
-    //Structure == HashMap<student_roll_number,HashMap<Pair<Status,Complaint_id>,Pair<Complaint,Response>>> 
     
     public static Integer get_current_complaint_id() {
         return current_complaint_id;

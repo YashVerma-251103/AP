@@ -221,7 +221,8 @@ public class Student extends ProfStudComman{
         String complaint = sc.nextLine();
         //Structure == HashMap<student_roll_number,HashMap<Pair<Status,Complaint_id>,Pair<Complaint,Response>>> 
         // Adding complaint to the database
-        Complaint my_complaint = Complaint.create_complaint(this, complaint);
+        Complaint.create_complaint(this, complaint);
+        // Complaint my_complaint = Complaint.create_complaint(this, complaint);
 
         System.out.println("Complaint submitted successfully.");
     }
