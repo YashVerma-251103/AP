@@ -15,8 +15,6 @@ public class Student extends ProfStudComman{
     private Float cgpa=0.0f;
 
     // Storing and Sharing DataBase
-    protected static HashMap<Integer,HashMap<Pair<Boolean,Integer>,Pair<String,String>>> student_complaints_db = new HashMap<Integer,HashMap<Pair<Boolean,Integer>,Pair<String,String>>>();
-    //Structure == HashMap<student_roll_number,HashMap<Pair<Status,Complaint_id>,Pair<Complaint,Response>>> 
     protected static HashMap<Integer, Student> student_db = new HashMap<Integer, Student>();
     protected HashMap<String,Course> current_courses = new HashMap<String,Course>();
     protected HashMap<String,Course> dropped_courses = new HashMap<String,Course>();
@@ -214,7 +212,9 @@ public class Student extends ProfStudComman{
     public void submit_complaint(){
         System.out.println("Enter the complaint: ");
         String complaint = sc.nextLine();
+        //Structure == HashMap<student_roll_number,HashMap<Pair<Status,Complaint_id>,Pair<Complaint,Response>>> 
         // Adding complaint to the database
+        Complaint my_complaint = Complaint.create_complaint(this, complaint);
         System.out.println("Complaint submitted successfully.");
     }
     public void view_schedule(){}

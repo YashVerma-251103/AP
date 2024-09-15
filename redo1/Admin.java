@@ -42,6 +42,9 @@ public class Admin extends CommonUser{
     public String get_password() {
         return super.get_password();
     }
+    public String get_name() {
+        return name;
+    }
 
     // methods for easy implementations
     
