@@ -215,7 +215,20 @@ public class Student extends ProfStudComman{
         //Structure == HashMap<student_roll_number,HashMap<Pair<Status,Complaint_id>,Pair<Complaint,Response>>> 
         // Adding complaint to the database
         Complaint my_complaint = Complaint.create_complaint(this, complaint);
+
         System.out.println("Complaint submitted successfully.");
+    }
+    public void see_complaint(){
+        Complaint.view_all_complaints(this);
+    }
+    public void see_status_of_particular_complaint(){
+        System.out.println("Enter the complaint id: ");
+        Integer complaint_id = sc.nextInt();
+        if (Complaint.complaint_db.containsKey(complaint_id)) {
+            Complaint.complaint_db.get(complaint_id).view_complaint();
+        } else {
+            System.out.println("Complaint not found.");
+        }
     }
     public void view_schedule(){}
 
