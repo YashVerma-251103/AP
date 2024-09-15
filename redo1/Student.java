@@ -139,7 +139,14 @@ public class Student extends ProfStudComman{
         }
         return student;
     }
-
+    public void show_details(){
+        System.out.println("Name: " + this.name);
+        System.out.println("Roll Number: " + this.student_roll_number);
+        System.out.println("Email: " + this.get_email());
+        System.out.println("Current Semester: " + this.current_semester);
+        System.out.println("CGPA: " + this.cgpa);
+        System.out.println("Credits Registered for this semester: " + this.credits_registered);
+    }
 
     // Required functionalities
     public void view_available_courses(){
@@ -230,7 +237,7 @@ public class Student extends ProfStudComman{
             System.out.println("Complaint not found.");
         }
     }
-    public void view_schedule(){}
+    public void view_schedule(){} // To be implemented
 
 
 }

@@ -131,19 +131,7 @@ public class Course {
     public static void display_course_details(String course_id) {
         if (course_db.containsKey(course_id)) {
             Course course = course_db.get(course_id);
-            System.out.println("Course ID: " + course.course_id);
-            System.out.println("Course Name: " + course.course_name);
-            System.out.println("Course Description: " + course.course_description);
-            System.out.println("Syllabus: " + course.syllabus);
-            System.out.println("Timings: " + course.timings);
-            System.out.println("Course Credits: " + course.course_credits);
-            System.out.println("Offered Semester: " + course.offered_semester);
-            System.out.println("Enrollment Limit: " + course.enrollment_limit);
-            System.out.println("Current Enrollment: " + course.current_enrollment);
-            System.out.println("Enrolled Students: ");
-            for (Student student : course.enrolled_students.values()) {
-                System.out.println("Student Roll Number: " + student.get_student_roll_number() + " | Student Name: " + student.get_name());
-            }
+            course.show_details();
         } else {
             System.out.println("Course not found.");
         }
@@ -293,7 +281,7 @@ public class Course {
         System.out.println("Enter enrollment limit: ");
         this.set_enrollment_limit(sc.nextInt());
         this.set_current_enrollment(0);
-    }
+    } 
     public void enroll_student(Student student) {
         if (this.enrolled_students.containsKey(student.get_student_roll_number())) {
             System.out.println("Student already enrolled in this course.");
@@ -318,12 +306,6 @@ public class Course {
             System.out.println("Student not enrolled in this course.");
         }
     }
-    public void show_prerequisites() {
-        System.out.println("Prerequisites: ");
-        for (Course course : this.course_prerequisites) {
-            System.out.println("Course ID: " + course.get_course_id() + " | Course Name: " + course.get_course_name());
-        }
-    }
     public void add_prerequisite(Course course) {
         this.course_prerequisites.add(course);
     }
@@ -336,5 +318,37 @@ public class Course {
     public void remove_prerequisite_of(Course course) {
         this.prerequist_of_courses.remove(course);
     }
-
+    public void show_prerequisites() {
+        if (this.course_prerequisites.size() == 0) {
+            System.out.println("No prerequisites for this course.");
+            return;
+        }
+        System.out.println("Prerequisites: ");
+        for (Course course : this.course_prerequisites) {
+            System.out.println("Course ID: " + course.get_course_id() + " | Course Name: " + course.get_course_name());
+        }
+    }
+    public void show_enrolled_students() {
+        if (this.current_enrollment == 0) {
+            System.out.println("No students enrolled in this course.");
+            return;
+        }
+        System.out.println("Enrolled Students: ");
+        for (Student student : this.enrolled_students.values()) {
+            System.out.println("Student Roll Number: " + student.get_student_roll_number() + " | Student Name: " + student.get_name());
+        }
+    }
+    public void show_details(){
+        System.out.println("Course ID: " + this.course_id);
+        System.out.println("Course Name: " + this.course_name);
+        System.out.println("Course Description: " + this.course_description);
+        System.out.println("Syllabus: " + this.syllabus);
+        System.out.println("Timings: " + this.timings);
+        System.out.println("Course Credits: " + this.course_credits);
+        System.out.println("Offered Semester: " + this.offered_semester);
+        System.out.println("Enrollment Limit: " + this.enrollment_limit);
+        System.out.println("Current Enrollment: " + this.current_enrollment);
+        this.show_enrolled_students();
+        this.show_prerequisites();
+    }
 }

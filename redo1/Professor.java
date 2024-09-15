@@ -77,10 +77,96 @@ public class Professor extends ProfStudComman {
         System.out.print("Enter Professor's password: ");
         this.set_password(sc.nextLine());
     }
-
+    public void update_professor(){
+        while (true) {
+            System.out.println("Enter -1 to return to the previous menu.");   
+            System.out.println("What do you want to update?");
+            System.out.println("1. Name (press 1)");
+            System.out.println("2. Department (press 2)");
+            System.out.println("3. Office Timings (press 3)");
+            System.out.println("4. Email (press 4)");
+            System.out.println("5. Password (press 5)");
+            System.out.print("Enter your choice: ");
+            Integer choice = sc.nextInt();
+            if (choice == -1){
+                return;
+            } else if (choice == 1){
+                System.out.print("Enter new name: ");
+                this.name = sc.nextLine();
+                System.out.println("Name updated successfully.");
+            } else if (choice == 2){
+                System.out.print("Enter new department: ");
+                this.department = sc.nextLine();
+                System.out.println("Department updated successfully.");
+            } else if (choice == 3){
+                System.out.print("Enter new office timings: ");
+                this.office_timings = sc.nextLine();
+                System.out.println("Office Timings updated successfully.");
+            } else if (choice == 4){
+                System.out.print("Enter new email: ");
+                this.set_email(sc.nextLine());
+                System.out.println("Email updated successfully.");
+            } else if (choice == 5){
+                System.out.print("Enter new password: ");
+                this.set_password(sc.nextLine());
+                System.out.println("Password updated successfully.");
+            } else {
+                System.out.println("Invalid choice.");
+            }
+        }
+    }
+    
     // Required functionalities
-    public void manage_course(){}
-    public void view_enrolled_students(){}
+    public void manage_course(){
+        System.out.println("Current course assigned to you: ");
+        this.assigned_course.show_details();
+        while (true) {
+            System.out.println("Enter -1 to return to the previous menu.");
+            System.out.println("1. View enrolled students. (press 1)");
+            System.out.println("2. Update Course Details. (press 2)");
+            System.out.println("3. Update your details. (press 3)");
+            System.out.print("Enter your choice: ");
+            Integer choice = sc.nextInt();
+            if (choice == -1){
+                return;
+            } else if (choice == 1){
+                this.view_enrolled_students();
+            } else if (choice == 2){
+                Course.update_course(this.assigned_course.get_course_id());
+            } else if (choice == 3){
+                this.update_professor();
+            } else {
+                System.out.println("Invalid choice.");
+            }
+        }
+    }
+    public void view_enrolled_students(){
+        this.assigned_course.show_enrolled_students();
+        while (true) {
+            System.out.println("Enter -1 to return to the previous menu.");
+            System.out.println("Do you want to see details for any particular student? (Y/N)");
+            String choice = sc.next();
+            if (choice == "-1"){
+                return;
+            } else if (choice.equals("Y") || choice.equals("y")) {
+                System.out.println("Enter the student's roll number: ");
+                Integer roll_number = sc.nextInt();
+                if (Student.student_db.containsKey(roll_number)) {
+                    Student student = Student.student_db.get(roll_number);
+                    if (student.current_courses.containsKey(this.assigned_course.get_course_id())) {
+                        student.show_details();
+                    } else {
+                        System.out.println("Student not enrolled in this course.");
+                        
+                    }
+                } else {
+                    System.out.println("Student not found.");
+                }
+            } else{
+                break;
+            }
+        }
+    }
     
 
 }
