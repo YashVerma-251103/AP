@@ -64,37 +64,11 @@ public class Complaint { // made -- testing left
         this.admin = admin;
     }
 
-
+    // Functions for easy implementation
     public static Complaint create_complaint(Student student, String complaint){
         Complaint new_complaint = new Complaint();
         new_complaint.set_complaint(student,complaint);
         return new_complaint;
-    }
-    public void set_complaint(Student student,String Complaint){
-        this.student = student;
-        this.complaint = Complaint;
-        this.status = false;
-        this.complaint_id = current_complaint_id;
-        current_complaint_id++;
-        complaint_db.put(this.complaint_id,this);
-    }
-    public void resolve_complaint(String response){
-        this.final_response = response;
-        this.status = true;
-    }
-    public void view_complaint(){
-        System.out.println("Complaint ID: " + this.complaint_id);
-        System.out.println("Student: " + this.student.get_name());
-        System.out.println("Complaint: " + this.complaint);
-        System.out.println("Admin: " + this.admin.get_name());
-        if (this.final_response != null){
-            System.out.println("Response: " + this.final_response);
-        }
-        if (this.status){
-            System.out.println("Status: Resolved");
-        } else {
-            System.out.println("Status: Pending");
-        }
     }
     public static void view_all_complaints(){
         for (Complaint complaint : complaint_db.values()) {
@@ -128,6 +102,32 @@ public class Complaint { // made -- testing left
     public void show_complaint_status(){
         System.out.println("Complaint ID: " + this.complaint_id);
         System.out.println("Status: " + ((this.status)?"Resolved":"Pending"));
+    }
+    public void set_complaint(Student student,String Complaint){
+        this.student = student;
+        this.complaint = Complaint;
+        this.status = false;
+        this.complaint_id = current_complaint_id;
+        current_complaint_id++;
+        complaint_db.put(this.complaint_id,this);
+    }
+    public void resolve_complaint(String response){
+        this.final_response = response;
+        this.status = true;
+    }
+    public void view_complaint(){
+        System.out.println("Complaint ID: " + this.complaint_id);
+        System.out.println("Student: " + this.student.get_name());
+        System.out.println("Complaint: " + this.complaint);
+        System.out.println("Admin: " + this.admin.get_name());
+        if (this.final_response != null){
+            System.out.println("Response: " + this.final_response);
+        }
+        if (this.status){
+            System.out.println("Status: Resolved");
+        } else {
+            System.out.println("Status: Pending");
+        }
     }
     
 }

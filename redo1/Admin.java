@@ -14,22 +14,15 @@ public class Admin extends CommonUser { // left.
     protected HashMap<String, Admin> admin_db = new HashMap<String, Admin>();
 
     // Setters
-    public void set_admin(String admin_id) {
-        this.admin_id = admin_id;
-    }
-
     public void set_user(String email, String password) {
         super.set_user(email, password);
     }
-
     public void set_email(String email) {
         super.set_email(email);
     }
-
     public void set_password(String password) {
         super.set_password(password);
     }
-
     public void set_admin_id(String admin_id) {
         this.admin_id = admin_id;
     }
@@ -38,20 +31,46 @@ public class Admin extends CommonUser { // left.
     public String get_admin_id() {
         return admin_id;
     }
-
     public String get_email() {
         return super.get_email();
     }
-
     public String get_password() {
         return super.get_password();
     }
-
     public String get_name() {
         return name;
     }
 
     // methods for easy implementations
+    public static Admin create_admin() {
+        Admin admin = new Admin();
+        System.out.print("Enter the Admin ID: ");
+        String admin_id = sc.next();
+        admin.set_admin_id(admin_id);
+        System.out.print("Enter the Admin Name: ");
+        String name = sc.next();
+        admin.name = name;
+        System.out.print("Enter the email: ");
+        String email = sc.next();
+        admin.set_email(email);
+        System.out.print("Enter the password: ");
+        String password = sc.next();
+        admin.set_password(password);
+        if (admin.admin_db.containsKey(admin_id)) {
+            System.out.println("Admin already exists.");
+            return null;
+        } else {
+            admin.admin_db.put(admin_id, admin);
+            System.out.println("Admin added successfully.");
+            return admin;
+        }
+    }
+    // need to implement the function to allow admin to pass the semester of a course /  or may be this implementation better handled for each student -- i do not know right now.
+    public static void pass_semester() {
+        
+    }
+
+
 
     // Required functionalities
     void manage_course_catalog() {
@@ -61,7 +80,7 @@ public class Admin extends CommonUser { // left.
             System.out.println("2. Add a new Course (press 2)");
             System.out.println("3. Delete an existing Course (press 3)");
             System.out.println("4. Update the details for existing course (press 4)");
-            System.out.println("Enter your choice: ");
+            System.out.print("Enter your choice: ");
             Integer choice = sc.nextInt();
             if (choice == -1) {
                 return;
@@ -92,10 +111,10 @@ public class Admin extends CommonUser { // left.
                     } else {
                         System.out.println("Invalid Choice!");
                     }
-                    System.out.println("Wish to see all details of any particular course? (y/n)");
+                    System.out.print("Wish to see all details of any particular course? (y/n)");
                     String course_choice = sc.next();
                     if (course_choice.equals("y") || course_choice.equals("Y")) {
-                        System.out.println("Enter the course id: ");
+                        System.out.print("Enter the course id: ");
                         String course_id = sc.next();
                         Course.display_course_details(course_id);
                     }
@@ -127,9 +146,8 @@ public class Admin extends CommonUser { // left.
             }
         }
     }
-
     static Professor assign_professor_to_course() {
-        System.out.println("Enter Professor expertise (Mention Department): ");
+        System.out.print("Enter Professor expertise (Mention Department): ");
         String department = sc.next();
         department = department.toLowerCase();
         ArrayList<Professor> profs = Professor.department_based_list_of_profs(department);
@@ -144,7 +162,7 @@ public class Admin extends CommonUser { // left.
         }
         while (true) {
             System.out.println("Enter -1 to return to the previous menu");
-            System.out.println("Enter the Professor ID for to assign the new course to: ");
+            System.out.print("Enter the Professor ID for to assign the new course to: ");
             String prof_id = sc.next();
             if (prof_id.equals("-1")) {
                 return null;
@@ -157,7 +175,6 @@ public class Admin extends CommonUser { // left.
             }
         }
     }
-
     void manage_students() {
         Student.show_all_students();
         while (true) {
@@ -170,7 +187,7 @@ public class Admin extends CommonUser { // left.
                 if (Student.student_db.containsKey(student_roll)) {
                     Student student=Student.student_db.get(student_roll);
                     student.show_details();
-                    System.out.println("Do you want to update the student details? (Y/N)");
+                    System.out.print("Do you want to update the student details? (Y/N)");
                     String choice = sc.next();
                     if (choice.equals("Y") || choice.equals("y")) {
                         student.update_detials();
@@ -181,7 +198,6 @@ public class Admin extends CommonUser { // left.
             }
         }
     }
-
     void handle_complaints() {
         while (true) {
             System.out.println("Enter -1 to return to previous menu");
@@ -193,7 +209,7 @@ public class Admin extends CommonUser { // left.
             System.out.println("6. View complaint status (press 6)");
             System.out.println("7. Resolve a complaint (press 7)");
             // System.out.println("8. ");
-            System.out.println("Enter your choice: ");
+            System.out.print("Enter your choice: ");
             Integer choice = sc.nextInt();
             if (choice == -1) {
                 return;

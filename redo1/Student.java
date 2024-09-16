@@ -144,15 +144,15 @@ public class Student extends ProfStudComman{ // Left
         } else{
             Student student = student_db.get(student_roll_number);
             if(update_choice == 1){
-                System.out.println("Enter the new Student Name: ");
+                System.out.print("Enter the new Student Name: ");
                 String new_name = sc.next();
                 student.set_name(new_name);
             } else if(update_choice == 2){
-                System.out.println("Enter the new Student Email: ");
+                System.out.print("Enter the new Student Email: ");
                 String new_email = sc.next();
                 student.set_email(new_email);
             } else if(update_choice == 3){
-                System.out.println("Enter the new Student Roll Number: ");
+                System.out.print("Enter the new Student Roll Number: ");
                 Integer new_roll_number = sc.nextInt();
                 student.set_student_roll_number(new_roll_number);
                 student_db.remove(student_roll_number);
@@ -161,7 +161,7 @@ public class Student extends ProfStudComman{ // Left
                     course.correct_student_roll_number(student_roll_number, new_roll_number);
                 }
             } else if(update_choice == 4){
-                System.out.println("Enter the new Student Semester: ");
+                System.out.print("Enter the new Student Semester: ");
                 Integer new_semester = sc.nextInt();
                 student.set_current_semester(new_semester);
                 for (Course course : student.current_courses.values()) {
@@ -171,11 +171,11 @@ public class Student extends ProfStudComman{ // Left
                 student.credits_registered = 0;
             } else if(update_choice == 5){
                 student.show_completed_courses();
-                System.out.println("Enter the course id to update grade: ");
+                System.out.print("Enter the course id to update grade: ");
                 String course_id = sc.next();
                 if (student.completed_courses.containsKey(course_id)) {
                     Pair<Course,Integer> course_grade_pair = student.completed_courses.get(course_id);
-                    System.out.println("Enter the new grade: ");
+                    System.out.print("Enter the new grade: ");
                     Integer new_grade = sc.nextInt();
                     course_grade_pair.setSecond(new_grade);
                     student.calculate_sgpa(course_grade_pair.getFirst().get_offered_semester());
@@ -184,14 +184,14 @@ public class Student extends ProfStudComman{ // Left
                     System.out.println("Course not found.");
                 }
             } else if(update_choice == 6){
-                System.out.println("Enter the Semester for which you want to update the SGPA: ");
+                System.out.print("Enter the Semester for which you want to update the SGPA: ");
                 Integer sem = sc.nextInt();
-                System.out.println("Enter the new Student SGPA: ");
+                System.out.print("Enter the new Student SGPA: ");
                 Float new_sgpa = sc.nextFloat();
                 student.set_sgpa(sem,new_sgpa);
                 student.calculate_cgpa();
             } else if(update_choice == 7){
-                System.out.println("Enter the new Student CGPA: ");
+                System.out.print("Enter the new Student CGPA: ");
                 Float new_cgpa = sc.nextFloat();
                 student.set_cgpa(new_cgpa);
             } else{
@@ -232,11 +232,12 @@ public class Student extends ProfStudComman{ // Left
         }
         System.out.println();
     }
+    
     // Required functionalities
     public void view_available_courses(){
         System.out.println("Available Courses: ");
         Course.display_courses_by_semester(this.current_semester);
-        System.out.println("Would you like to see details of any course? (y/n)");
+        System.out.print("Would you like to see details of any course? (y/n)");
         String choice = sc.next();        
         if (choice.equals("y") || choice.equals("Y")) {
             System.out.println("Enter the course id: ");
@@ -248,7 +249,7 @@ public class Student extends ProfStudComman{ // Left
     public void register_course(){
         if (this.credits_registered < credit_limit) {
             Course.display_courses_by_semester(this.current_semester);
-            System.out.println("Enter the course id: ");
+            System.out.print("Enter the course id: ");
             String course_id = sc.next();
             if (Course.course_db.containsKey(course_id)) {
                 Course course = Course.course_db.get(course_id);
@@ -301,7 +302,7 @@ public class Student extends ProfStudComman{ // Left
         }
     }
     public void submit_complaint(){
-        System.out.println("Enter the complaint: ");
+        System.out.print("Enter the complaint: ");
         String complaint = sc.nextLine();
         //Structure == HashMap<student_roll_number,HashMap<Pair<Status,Complaint_id>,Pair<Complaint,Response>>> 
         // Adding complaint to the database
@@ -314,7 +315,7 @@ public class Student extends ProfStudComman{ // Left
         Complaint.view_all_complaints(this);
     }
     public void see_status_of_particular_complaint(){
-        System.out.println("Enter the complaint id: ");
+        System.out.print("Enter the complaint id: ");
         Integer complaint_id = sc.nextInt();
         if (Complaint.complaint_db.containsKey(complaint_id)) {
             Complaint.complaint_db.get(complaint_id).view_complaint();

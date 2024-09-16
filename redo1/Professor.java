@@ -13,6 +13,7 @@ public class Professor extends ProfStudComman { // made -- testing left
 
     // Storing and Sharing DataBase
     protected static HashMap<String, Professor> professor_db = new HashMap<String, Professor>();
+    // protected HashMap<> current_course_student_grade_assigning=new HashMap<>()
     
     // Getters 
     public String get_name() {
@@ -61,15 +62,24 @@ public class Professor extends ProfStudComman { // made -- testing left
         }
         return professor;
     }
+    public static ArrayList<Professor> department_based_list_of_profs(String department){
+        ArrayList<Professor> profs = new ArrayList<Professor>();
+        for(Professor prof : professor_db.values()){
+            if(prof.get_department().equals(department)){
+                profs.add(prof);
+            }
+        }
+        return profs;
+    }
     public void set_professor(){
         System.out.println("Enter the following details: ");
-        System.out.print("Name: ");
+        System.out.print("Enter Professor Name: ");
         this.name = sc.nextLine();
-        System.out.print("Department: ");
+        System.out.print("Enter Professor Department: ");
         this.department = sc.nextLine();
-        System.out.print("Professor ID: ");
+        System.out.print("Enter Professor ID: ");
         this.professor_id = sc.nextLine();
-        System.out.print("Office Timings: ");
+        System.out.print("Enter Office Timings: ");
         this.office_timings = sc.nextLine();
         
         // Login Info Setting
@@ -116,15 +126,10 @@ public class Professor extends ProfStudComman { // made -- testing left
             }
         }
     }
-    public static ArrayList<Professor> department_based_list_of_profs(String department){
-        ArrayList<Professor> profs = new ArrayList<Professor>();
-        for(Professor prof : professor_db.values()){
-            if(prof.get_department().equals(department)){
-                profs.add(prof);
-            }
-        }
-        return profs;
-    }
+    
+    // need to implement a professor to pass a student.
+
+
     // Required functionalities
     public void manage_course(){
         System.out.println("Current course assigned to you: ");
@@ -153,12 +158,12 @@ public class Professor extends ProfStudComman { // made -- testing left
         this.assigned_course.show_enrolled_students();
         while (true) {
             System.out.println("Enter -1 to return to the previous menu.");
-            System.out.println("Do you want to see details for any particular student? (Y/N)");
+            System.out.print("Do you want to see details for any particular student? (Y/N)");
             String choice = sc.next();
             if (choice == "-1"){
                 return;
             } else if (choice.equals("Y") || choice.equals("y")) {
-                System.out.println("Enter the student's roll number: ");
+                System.out.print("Enter the student's roll number: ");
                 Integer roll_number = sc.nextInt();
                 if (Student.student_db.containsKey(roll_number)) {
                     Student student = Student.student_db.get(roll_number);
