@@ -3,7 +3,7 @@ package redo1;
 import java.util.Scanner;
 
 public class CommonUser implements User {
-    public Scanner sc = new Scanner(System.in);
+    public static Scanner sc = new Scanner(System.in);
     private String email;
     private String password;
     void set_user(String email, String password) {

@@ -1,5 +1,6 @@
 package redo1;
 import java.util.HashMap;
+import java.util.ArrayList;
 public class Professor extends ProfStudComman { // made -- testing left
     // Personal Information
     private String name;
@@ -115,7 +116,15 @@ public class Professor extends ProfStudComman { // made -- testing left
             }
         }
     }
-    
+    public static ArrayList<Professor> department_based_list_of_profs(String department){
+        ArrayList<Professor> profs = new ArrayList<Professor>();
+        for(Professor prof : professor_db.values()){
+            if(prof.get_department().equals(department)){
+                profs.add(prof);
+            }
+        }
+        return profs;
+    }
     // Required functionalities
     public void manage_course(){
         System.out.println("Current course assigned to you: ");

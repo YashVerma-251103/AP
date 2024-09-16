@@ -23,7 +23,13 @@ public class Course { // made -- test left
     private HashMap<Integer, Student> enrolled_students = new HashMap<Integer, Student>();
     private ArrayList<Course> course_prerequisites = new ArrayList<Course>();
     private ArrayList<Course> prerequist_of_courses = new ArrayList<Course>();
-
+    public void correct_student_roll_number(Integer prev_roll, Integer new_roll) {
+        if (this.enrolled_students.containsKey(prev_roll)) {
+            Student student = this.enrolled_students.get(prev_roll);
+            this.enrolled_students.remove(prev_roll);
+            this.enrolled_students.put(new_roll, student);
+        }
+    }
 
     // Getters
     public String get_course_id() {

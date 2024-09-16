@@ -113,7 +113,93 @@ public class Student extends ProfStudComman{ // Left
             System.out.println(course.get_course_id() + " " + course.get_course_name());
         }
     }
-    
+    public void show_details(){
+        System.out.println("Name: " + this.name);
+        System.out.println("Roll Number: " + this.student_roll_number);
+        System.out.println("Email: " + this.get_email());
+        System.out.println("Current Semester: " + this.current_semester);
+        System.out.println("CGPA: " + this.cgpa);
+        System.out.println("Credits Registered for this semester: " + this.credits_registered);
+    }
+    public void show_completed_courses(){
+        System.out.println("Completed Courses: ");
+        for (Pair<Course,Integer> course_grade_pair : this.completed_courses.values()) {
+            System.out.println("Course ID : " + course_grade_pair.getFirst().get_course_id() + " | Course Name : " + course_grade_pair.getFirst().get_course_name() + " | Grade: " + course_grade_pair.getSecond());
+        }
+    }
+    public void update_detials(){
+        System.out.println("Enter -1 to return to previous menu!");
+        System.out.println("What do you want to update?");
+        System.out.println("1. Name (press 1)");
+        System.out.println("2. Email (press 2)");
+        System.out.println("3. Roll Number (press 3)");
+        System.out.println("4. Current Semester (press 4)");
+        System.out.println("5. Grades (press 5)");
+        System.out.println("6. SPGAs (press 6)");
+        System.out.println("7. CGPA (press 7)");
+        System.out.print("Enter your choice: ");
+        Integer update_choice = sc.nextInt();
+        if(update_choice == -1){
+            return;
+        } else{
+            Student student = student_db.get(student_roll_number);
+            if(update_choice == 1){
+                System.out.println("Enter the new Student Name: ");
+                String new_name = sc.next();
+                student.set_name(new_name);
+            } else if(update_choice == 2){
+                System.out.println("Enter the new Student Email: ");
+                String new_email = sc.next();
+                student.set_email(new_email);
+            } else if(update_choice == 3){
+                System.out.println("Enter the new Student Roll Number: ");
+                Integer new_roll_number = sc.nextInt();
+                student.set_student_roll_number(new_roll_number);
+                student_db.remove(student_roll_number);
+                student_db.put(new_roll_number, student);
+                for (Course course : student.current_courses.values()) {
+                    course.correct_student_roll_number(student_roll_number, new_roll_number);
+                }
+            } else if(update_choice == 4){
+                System.out.println("Enter the new Student Semester: ");
+                Integer new_semester = sc.nextInt();
+                student.set_current_semester(new_semester);
+                for (Course course : student.current_courses.values()) {
+                    course.drop_student(student);
+                }
+                student.current_courses.clear();
+                student.credits_registered = 0;
+            } else if(update_choice == 5){
+                student.show_completed_courses();
+                System.out.println("Enter the course id to update grade: ");
+                String course_id = sc.next();
+                if (student.completed_courses.containsKey(course_id)) {
+                    Pair<Course,Integer> course_grade_pair = student.completed_courses.get(course_id);
+                    System.out.println("Enter the new grade: ");
+                    Integer new_grade = sc.nextInt();
+                    course_grade_pair.setSecond(new_grade);
+                    student.calculate_sgpa(course_grade_pair.getFirst().get_offered_semester());
+                    student.calculate_cgpa();
+                } else {
+                    System.out.println("Course not found.");
+                }
+            } else if(update_choice == 6){
+                System.out.println("Enter the Semester for which you want to update the SGPA: ");
+                Integer sem = sc.nextInt();
+                System.out.println("Enter the new Student SGPA: ");
+                Float new_sgpa = sc.nextFloat();
+                student.set_sgpa(sem,new_sgpa);
+                student.calculate_cgpa();
+            } else if(update_choice == 7){
+                System.out.println("Enter the new Student CGPA: ");
+                Float new_cgpa = sc.nextFloat();
+                student.set_cgpa(new_cgpa);
+            } else{
+                System.out.println("Invalid Input");
+            }
+        }
+    }
+
     public static void changes_in_completed_courses(String old_course_id,String new_course_id){
         for (Student student : student_db.values()) {
             if (student.completed_courses.containsKey(old_course_id)) {
@@ -139,15 +225,13 @@ public class Student extends ProfStudComman{ // Left
         }
         return student;
     }
-    public void show_details(){
-        System.out.println("Name: " + this.name);
-        System.out.println("Roll Number: " + this.student_roll_number);
-        System.out.println("Email: " + this.get_email());
-        System.out.println("Current Semester: " + this.current_semester);
-        System.out.println("CGPA: " + this.cgpa);
-        System.out.println("Credits Registered for this semester: " + this.credits_registered);
+    public static void show_all_students(){
+        System.out.println("Current Students : ");
+        for (Student student : student_db.values()){
+            System.out.println("Name : "+student.name+" | Roll Number : "+student.student_roll_number);
+        }
+        System.out.println();
     }
-
     // Required functionalities
     public void view_available_courses(){
         System.out.println("Available Courses: ");
