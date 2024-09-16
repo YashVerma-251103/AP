@@ -183,5 +183,62 @@ public class Admin extends CommonUser { // left.
     }
 
     void handle_complaints() {
-    } // left
+        while (true) {
+            System.out.println("Enter -1 to return to previous menu");
+            System.out.println("1. View all complaints (press 1)");
+            System.out.println("2. View resolved complaints (press 2)");
+            System.out.println("3. View pending complaints (press 3)");
+            System.out.println("4. View complaints by a student (press 4)");
+            System.out.println("5. View complaints resolved by me (press 5)");
+            System.out.println("6. View complaint status (press 6)");
+            System.out.println("7. Resolve a complaint (press 7)");
+            // System.out.println("8. ");
+            System.out.println("Enter your choice: ");
+            Integer choice = sc.nextInt();
+            if (choice == -1) {
+                return;
+            } else if (choice == 1) {
+                Complaint.view_all_complaints();
+            } else if (choice == 2) {
+                Complaint.view_all_complaints(true);
+            } else if (choice == 3) {
+                Complaint.view_all_complaints(false);
+            } else if (choice == 4) {
+                System.out.print("Enter the student roll number: ");
+                Integer student_roll = sc.nextInt();
+                if (Student.student_db.containsKey(student_roll)) {
+                    Student student = Student.student_db.get(student_roll);
+                    Complaint.view_all_complaints(student);
+                } else {
+                    System.out.println("No student found with the given roll number.");
+                }
+            } else if (choice == 5) {
+                Complaint.view_all_complaints(this);
+            } else if (choice == 6){
+                System.out.print("Enter the complaint id: ");
+                Integer complaint_id = sc.nextInt();
+                if (Complaint.complaint_db.containsKey(complaint_id)){
+                    Complaint complaint = Complaint.complaint_db.get(complaint_id);
+                    complaint.show_complaint_status();
+                } else {
+                    System.out.println("No complaint found with the given complaint id.");
+                }
+            } else if (choice == 7){
+                System.out.print("Enter the complaint id: ");
+                Integer complaint_id = sc.nextInt();
+                if (Complaint.complaint_db.containsKey(complaint_id)){
+                    Complaint complaint = Complaint.complaint_db.get(complaint_id);
+                    System.out.print("Enter the response: ");
+                    String response = sc.next();
+                    complaint.resolve_complaint(response);
+                } else {
+                    System.out.println("No complaint found with the given complaint id.");
+                }
+            // } else if (choice == 8){
+            // } else if (){
+            }else {
+                System.out.println("Invalid choice. Please try again.");
+            }
+        }
+    } 
 }
