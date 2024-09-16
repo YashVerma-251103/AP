@@ -11,7 +11,7 @@ public class Admin extends CommonUser { // left.
     private String admin_id;
 
     // Storing and Sharing DataBase
-    protected HashMap<String, Admin> admin_db = new HashMap<String, Admin>();
+    protected static HashMap<String, Admin> admin_db = new HashMap<String, Admin>();
 
     // Setters
     public void set_user(String email, String password) {
