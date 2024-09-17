@@ -1,7 +1,9 @@
-package redo1;
+package Assignment1.redo1;
 import java.util.HashMap;
 import java.util.ArrayList;
+import java.util.Scanner;
 public class Professor extends CommonUser { // made -- testing left
+    public static Scanner sc = new Scanner(System.in);
     // Personal Information
     private String name;
 
@@ -93,8 +95,8 @@ public class Professor extends CommonUser { // made -- testing left
         while (true) {
             System.out.println("Enter -1 to return to the previous menu.");   
             System.out.println("What do you want to update?");
-            System.out.println("1. Name (press 1)");
-            System.out.println("2. Department (press 2)");
+            System.out.println("1. Department (press 1)");
+            System.out.println("2. Name (press 2)");
             System.out.println("3. Office Timings (press 3)");
             System.out.println("4. Email (press 4)");
             System.out.println("5. Password (press 5)");
@@ -102,25 +104,31 @@ public class Professor extends CommonUser { // made -- testing left
             Integer choice = sc.nextInt();
             if (choice == -1){
                 return;
-            } else if (choice == 1){
-                System.out.print("Enter new name: ");
-                this.name = sc.nextLine();
-                System.out.println("Name updated successfully.");
-            } else if (choice == 2){
+            }
+            if (choice == 1){
                 System.out.print("Enter new department: ");
-                this.department = sc.nextLine();
+                String temp = sc.nextLine();
+                this.department = temp;
                 System.out.println("Department updated successfully.");
+            } else if (choice == 2){
+                System.out.print("Enter new name: ");
+                String temp = sc.nextLine();
+                this.name = temp;
+                System.out.println("Name updated successfully.");
             } else if (choice == 3){
                 System.out.print("Enter new office timings: ");
-                this.office_timings = sc.nextLine();
+                String temp = sc.nextLine();
+                this.office_timings = temp;
                 System.out.println("Office Timings updated successfully.");
             } else if (choice == 4){
                 System.out.print("Enter new email: ");
-                this.set_email(sc.nextLine());
+                String temp = sc.nextLine();
+                this.set_email(temp);
                 System.out.println("Email updated successfully.");
             } else if (choice == 5){
                 System.out.print("Enter new password: ");
-                this.set_password(sc.nextLine());
+                String temp = sc.nextLine();
+                this.set_password(temp);
                 System.out.println("Password updated successfully.");
             } else {
                 System.out.println("Invalid choice.");
@@ -147,6 +155,10 @@ public class Professor extends CommonUser { // made -- testing left
     // Required functionalities
     public void manage_course(){
         System.out.println("Current course assigned to you: ");
+        if (this.assigned_course == null){
+            System.out.println("No course assigned to you.");
+            return;
+        } 
         this.assigned_course.show_details();
         while (true) {
             System.out.println("Enter -1 to return to the previous menu.");
@@ -169,6 +181,13 @@ public class Professor extends CommonUser { // made -- testing left
         }
     }
     public void view_enrolled_students(){
+        if (this.assigned_course == null){
+            System.out.println("No course assigned to this professor.");
+            return;
+        } else if (this.assigned_course.get_enrolled_students().isEmpty()){
+            System.out.println("No students enrolled in the assigned course.");
+            return;
+        }
         this.assigned_course.show_enrolled_students();
         while (true) {
             System.out.println("Enter -1 to return to the previous menu.");
@@ -210,6 +229,13 @@ public class Professor extends CommonUser { // made -- testing left
         }
     }
     public void assign_grades_to_student(){
+        if (this.assigned_course == null) {
+            System.out.println("No course assigned to this professor.");
+            return;
+        } else if (this.assigned_course.get_enrolled_students().isEmpty()) {
+            System.out.println("No students enrolled in the assigned course.");
+            return;
+        }
         System.out.println("Assigning grades to students for the course: " + this.assigned_course.get_course_id());
         this.assigned_course.show_enrolled_students();
         while (true) {

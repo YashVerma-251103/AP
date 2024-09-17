@@ -1,28 +1,14 @@
-// package redo1;
-// public class MenuDriver { // left
-//     public static void main(String[] args) {
-//         Admin ad = Admin.create_admin();
-//         Student st = Student.create_student();
-//         Professor pr = Professor.create_professor();
-//         Course cr = Course.create_course(pr);
-//         Complaint cm = Complaint.create_complaint(st,"complaint");
-//     }
-// }
-
-
-
-
-package redo1;
+package Assignment1.redo1;
 
 import java.util.Scanner;
 
-public class UniversitySystemDriver {
+public class ERP {
+    public static Scanner sc = new Scanner(System.in);
     public static void main(String[] args) {
-        Scanner sc = new Scanner(System.in);
         DataSeeder.seedData();  // Load predefined data
 
         while (true) {
-            System.out.println("Welcome to the University Course Registration System");
+            System.out.println("Welcome to the IIITD Course Registration System");
             System.out.println("1. Enter the Application");
             System.out.println("2. Exit the Application");
             System.out.print("Enter your choice: ");
@@ -114,10 +100,10 @@ public class UniversitySystemDriver {
     public static void studentInterface(Student student, Scanner sc) {
         while (true) {
             int i=1;
-            System.out.println((i++) + ". Logout");
+            System.out.println((i++) + ". Logout"); 
             System.out.println((i++) + ". Show my details");
             System.out.println((i++) + ". View Schedule");
-            System.out.println((i++) + ". View Courses Offered this Semester");
+            System.out.println((i++)+ ". View Courses Offered this Semester");
             System.out.println((i++) + ". View Completed Courses");
             System.out.println((i++) + ". View Registered Course");
             System.out.println((i++) + ". Register for Course");
@@ -131,22 +117,24 @@ public class UniversitySystemDriver {
                 System.out.println("Logging out...");
                 break;
             } else if (choice == 2) {
-                student.view_schedule();
+                student.show_details();
             } else if (choice == 3) {
-                student.view_available_courses();
+                student.view_schedule();
             } else if (choice == 4) {
-                student.show_completed_courses();
+                student.view_available_courses();
             } else if (choice == 5) {
-                student.view_registered_courses();
+                student.show_completed_courses();
             } else if (choice == 6) {
-                student.register_course();
+                student.view_registered_courses();
             } else if (choice == 7) {
-                student.drop_course();
+                student.register_course();
             } else if (choice == 8) {
-                student.submit_complaint();
+                student.drop_course();
             } else if (choice == 9) {
-                student.see_complaint();
+                student.submit_complaint();
             } else if (choice == 10) {
+                student.see_complaint();
+            } else if (choice == 11) {
                 student.see_status_of_particular_complaint();
             } else {
                 System.out.println("Invalid choice! Please try again.");
@@ -164,6 +152,7 @@ public class UniversitySystemDriver {
             System.out.println((i++) + ". View Students in My Course");
             System.out.println((i++) + ". Assign Grade to Student");
             System.out.println((i++) + ". Pass Semester for Assigned Course");
+            System.out.println((i++) + ". Update My Details");
             System.out.print("Enter your choice: ");
             int choice = sc.nextInt();
             if (choice == 1) {
@@ -181,6 +170,8 @@ public class UniversitySystemDriver {
                 professor.assign_grades_to_student();
             } else if (choice == 7) {
                 professor.pass_semester();
+            } else if (choice == 8) {
+                professor.update_professor();
             } else {
                 System.out.println("Invalid choice! Please try again.");
             }

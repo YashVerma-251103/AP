@@ -1,9 +1,11 @@
-package redo1;
+package Assignment1.redo1;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Admin extends CommonUser { // left.
+    public static Scanner sc = new Scanner(System.in);
     // Personal information
     private String name;
 

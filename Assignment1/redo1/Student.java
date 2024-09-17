@@ -1,8 +1,9 @@
-package redo1;
+package Assignment1.redo1;
 
 import java.util.HashMap;
 import java.util.Scanner;
 public class Student extends CommonUser{ // Left
+    
     public static Scanner sc = new Scanner(System.in);
     
     // Personal Information
@@ -109,9 +110,13 @@ public class Student extends CommonUser{ // Left
 
     }
     public void view_registered_courses(){
+        if (this.current_courses.isEmpty()) {
+            System.out.println("No courses registered.");
+            return;
+        }
         System.out.println("Registered Courses: ");
         for (Course course : this.current_courses.values()) {
-            System.out.println(course.get_course_id() + " " + course.get_course_name());
+            System.out.println("Course ID : " + course.get_course_id() + " | Course Name : " + course.get_course_name());
         }
     }
     public void show_details(){
@@ -123,6 +128,10 @@ public class Student extends CommonUser{ // Left
         System.out.println("Credits Registered for this semester: " + this.credits_registered);
     }
     public void show_completed_courses(){
+        if (this.completed_courses.isEmpty()) {
+            System.out.println("No courses completed.");
+            return;
+        }
         System.out.println("Completed Courses: ");
         for (Pair<Course,Integer> course_grade_pair : this.completed_courses.values()) {
             System.out.println("Course ID : " + course_grade_pair.getFirst().get_course_id() + " | Course Name : " + course_grade_pair.getFirst().get_course_name() + " | Grade: " + course_grade_pair.getSecond());
@@ -240,7 +249,7 @@ public class Student extends CommonUser{ // Left
         System.out.print("Would you like to see details of any course? (y/n)");
         String choice = sc.next();        
         if (choice.equals("y") || choice.equals("Y")) {
-            System.out.println("Enter the course id: ");
+            System.out.print("Enter the course id: ");
             String course_id = sc.next();
             Course.display_course_details(course_id);
         }
@@ -337,7 +346,6 @@ public class Student extends CommonUser{ // Left
                 System.out.println("Course Name: " + course.get_course_name());
                 System.out.println("Course Timing: " + course.get_timings());
                 System.out.println("Instructor: " + course.get_course_professor().get_name());
-                System.out.println("-------------------------------");
             }
         }
     }

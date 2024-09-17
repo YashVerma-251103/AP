@@ -1,9 +1,8 @@
-package redo1;
+package Assignment1.redo1;
 
 import java.util.*;
 public class Course { // made -- test left
-    private static Scanner sc = new Scanner(System.in);
-    private static Boolean trigger = true;
+    public static Scanner sc = new Scanner(System.in);
 
     // Attributes
     private String course_id;

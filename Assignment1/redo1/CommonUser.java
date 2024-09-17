@@ -1,4 +1,4 @@
-package redo1;
+package Assignment1.redo1;
 
 import java.util.Scanner;
 

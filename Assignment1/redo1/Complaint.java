@@ -1,8 +1,10 @@
-package redo1;
+package Assignment1.redo1;
 
 import java.util.HashMap;
+import java.util.Scanner;
 
 public class Complaint { // made -- testing left
+    public static Scanner sc = new Scanner(System.in);
     // Attributes
     private static Integer current_complaint_id = 0;
     private Integer complaint_id;
@@ -71,32 +73,48 @@ public class Complaint { // made -- testing left
         return new_complaint;
     }
     public static void view_all_complaints(){
+        System.out.println("Line checkS");
         for (Complaint complaint : complaint_db.values()) {
             complaint.view_complaint();
         }
     }
     public static void view_all_complaints(Boolean resolved){
+        boolean trigger = true;
         System.out.println((resolved)?"Resolved Complaints:":"Pending Complaints:");
         for (Complaint complaint : complaint_db.values()) {
             if (complaint.get_status()==resolved){
+                trigger = false;
                 complaint.view_complaint();
             }
         }
+        if (trigger){
+            System.out.println("No Complaints Found!");
+        }
     }
     public static void view_all_complaints(Student student){
+        boolean trigger = true;
         System.out.println("Complaints by " + student.get_name() + ":");
         for (Complaint complaint : complaint_db.values()) {
             if (complaint.get_student().get_student_roll_number()==student.get_student_roll_number()){
                 complaint.view_complaint();
+                trigger = false;
             }
+        }
+        if (trigger){
+            System.out.println("No Complaints Found!");
         }
     }
     public static void view_all_complaints(Admin admin){
+        boolean trigger = true;
         System.out.println("Complaints resolved by " + admin.get_name() + ":");
         for (Complaint complaint : complaint_db.values()) {
             if (complaint.get_admin().get_admin_id()==admin.get_admin_id()){
                 complaint.view_complaint();
+                trigger = false;
             }
+        }
+        if (trigger){
+            System.out.println("No Complaints Found!");
         }
     }
     public void show_complaint_status(){
@@ -119,7 +137,12 @@ public class Complaint { // made -- testing left
         System.out.println("Complaint ID: " + this.complaint_id);
         System.out.println("Student: " + this.student.get_name());
         System.out.println("Complaint: " + this.complaint);
-        System.out.println("Admin: " + this.admin.get_name());
+        if (this.admin == null){
+            System.out.println("Admin: Not Assigned");
+            
+        } else {
+            System.out.println("Admin: " + this.admin.get_name());
+        }
         if (this.final_response != null){
             System.out.println("Response: " + this.final_response);
         }

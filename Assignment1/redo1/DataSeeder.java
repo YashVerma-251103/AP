@@ -5,7 +5,7 @@
 // }
 
 
-package redo1;
+package Assignment1.redo1;
 public class DataSeeder {
 
     public static void seedData() {
@@ -81,6 +81,10 @@ public class DataSeeder {
         course.set_course_name(course_name);
         course.set_offered_semester(semester);
         course.set_course_professor(prof);
+        course.set_course_credits(4);
+        course.set_current_enrollment(0);
+        course.set_enrollment_limit(69);
+        // course.
     }
 }
 
