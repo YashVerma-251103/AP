@@ -2,7 +2,7 @@ package Assignment1.redo1;
 
 import java.util.*;
 public class Course { // made -- test left
-    public static Scanner sc = new Scanner(System.in);
+    public static Scanner course_sc = new Scanner(System.in);
 
     // Attributes
     private String course_id;
@@ -179,16 +179,16 @@ public class Course { // made -- test left
                 System.out.println("8. Update Enrollment Limit (Press 8)");
                 System.out.println("9. Update Prerequisites (Press 9)");
                 System.out.println("Enter your choice: ");
-                Integer choice = sc.nextInt();
+                Integer choice = course_sc.nextInt();
                 if (choice == -1) {
                     return;
                 } else if (choice == 1) {
                     System.out.print("Enter new course name: ");
-                    course.set_course_name(sc.nextLine());
+                    course.set_course_name(course_sc.nextLine());
                 } else if (choice == 2) {
                     System.out.print("Enter new course id: ");
                     String prev_id = course.get_course_id();
-                    course.set_course_id(sc.nextLine());
+                    course.set_course_id(course_sc.nextLine());
                     course_db.remove(prev_id);
                     course_db.put(course.get_course_id(), course);
                     for (Student student : course.enrolled_students.values()) {
@@ -198,24 +198,24 @@ public class Course { // made -- test left
                     Student.changes_in_completed_courses(prev_id, course.get_course_id());
                 } else if (choice == 3) {
                     System.out.print("Enter new course description: ");
-                    course.set_course_description(sc.nextLine());
+                    course.set_course_description(course_sc.nextLine());
                 } else if (choice == 4) {
                     System.out.print("Enter new syllabus: ");
-                    course.set_syllabus(sc.nextLine());
+                    course.set_syllabus(course_sc.nextLine());
                 } else if (choice == 5) {
                     System.out.print("Enter new timings: ");
-                    course.set_timings(sc.nextLine());
+                    course.set_timings(course_sc.nextLine());
                 } else if (choice == 6) {
                     System.out.print("Enter new course credits: ");
                     Integer prev_credits = course.get_course_credits();
-                    course.set_course_credits(sc.nextInt());
+                    course.set_course_credits(course_sc.nextInt());
                     for (Student student : course.enrolled_students.values()) {
                         student.set_credits_registered(student.get_credits_registered() - prev_credits + course.get_course_credits());
                     }
                 } else if (choice == 7) {
                     System.out.print("Enter new offered semester: ");
                     Integer prev_sem=course.get_offered_semester();
-                    course.set_offered_semester(sc.nextInt());
+                    course.set_offered_semester(course_sc.nextInt());
                     semester_course_db.get(prev_sem).remove(course);
                     if (semester_course_db.containsKey(course.get_offered_semester())) {
                         semester_course_db.get(course.get_offered_semester()).add(course);
@@ -226,7 +226,7 @@ public class Course { // made -- test left
                     }
                 } else if (choice == 8) {
                     System.out.print("Enter new enrollment limit: ");
-                    course.set_enrollment_limit(sc.nextInt());
+                    course.set_enrollment_limit(course_sc.nextInt());
                 } else if (choice == 9) {
                     course.show_prerequisites();
                     while (true) {
@@ -235,10 +235,10 @@ public class Course { // made -- test left
                         System.out.println("1. Add prerequisites (Press 1)");
                         System.out.println("2. Remove prerequisites (Press 2)");
                         System.out.print("Enter your choice: ");
-                        Integer choice2 = sc.nextInt();
+                        Integer choice2 = course_sc.nextInt();
                         if (choice2 == 1) {
                             System.out.print("Enter the course id of the prerequisite: ");
-                            String prereq_id = sc.nextLine();
+                            String prereq_id = course_sc.nextLine();
                             if (course_db.containsKey(prereq_id)) {
                                 course.add_prerequisite(course_db.get(prereq_id));
                                 course_db.get(prereq_id).add_prerequisite_of(course);
@@ -247,7 +247,7 @@ public class Course { // made -- test left
                             }
                         } else if (choice2 == 2) {
                             System.out.print("Enter the course id of the prerequisite: ");
-                            String prereq_id = sc.nextLine();
+                            String prereq_id = course_sc.nextLine();
                             if (course_db.containsKey(prereq_id)) {
                                 course.remove_prerequisite(course_db.get(prereq_id));
                                 course_db.get(prereq_id).remove_prerequisite_of(course);
@@ -272,21 +272,21 @@ public class Course { // made -- test left
     // Course specific functions
     public void set_course() {
         System.out.print("Enter course name: ");
-        this.set_course_name(sc.nextLine());
+        this.set_course_name(course_sc.nextLine());
         System.out.print("Enter course id: ");
-        this.set_course_id(sc.nextLine());
+        this.set_course_id(course_sc.nextLine());
         System.out.print("Enter course description: ");
-        this.set_course_description(sc.nextLine());
+        this.set_course_description(course_sc.nextLine());
         System.out.print("Enter syllabus: ");
-        this.set_syllabus(sc.nextLine());
+        this.set_syllabus(course_sc.nextLine());
         System.out.print("Enter timings: ");
-        this.set_timings(sc.nextLine());
+        this.set_timings(course_sc.nextLine());
         System.out.print("Enter course credits: ");
-        this.set_course_credits(sc.nextInt());
+        this.set_course_credits(course_sc.nextInt());
         System.out.print("Enter offered semester: ");
-        this.set_offered_semester(sc.nextInt());
+        this.set_offered_semester(course_sc.nextInt());
         System.out.print("Enter enrollment limit: ");
-        this.set_enrollment_limit(sc.nextInt());
+        this.set_enrollment_limit(course_sc.nextInt());
         this.set_current_enrollment(0);
     } 
     public void enroll_student(Student student) {

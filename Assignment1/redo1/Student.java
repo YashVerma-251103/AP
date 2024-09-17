@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 public class Student extends CommonUser{ // Left
     
-    public static Scanner sc = new Scanner(System.in);
+    public static Scanner student_sc = new Scanner(System.in);
     
     // Personal Information
     private String name;
@@ -98,15 +98,15 @@ public class Student extends CommonUser{ // Left
     public void set_student(){
         System.out.println("Enter the following details: ");
         System.out.print("Enter the name of the student:");
-        this.set_name(sc.nextLine());
+        this.set_name(student_sc.nextLine());
         System.out.print("Enter the roll number of the student:");
-        this.set_student_roll_number(Integer.parseInt(sc.nextLine()));
+        this.set_student_roll_number(Integer.parseInt(student_sc.nextLine()));
 
         // Login Info Setting
         System.out.print("Enter Student's email:");
-        this.set_email(sc.nextLine());
+        this.set_email(student_sc.nextLine());
         System.out.print("Enter Student's password:");
-        this.set_password(sc.nextLine());
+        this.set_password(student_sc.nextLine());
 
     }
     public void view_registered_courses(){
@@ -148,21 +148,21 @@ public class Student extends CommonUser{ // Left
         System.out.println("6. SPGAs (press 6)");
         System.out.println("7. CGPA (press 7)");
         System.out.print("Enter your choice: ");
-        Integer update_choice = sc.nextInt();
+        Integer update_choice = student_sc.nextInt();
         if(update_choice == -1){
             return;
         } else{
             Student student = student_db.get(student_roll_number);
             if(update_choice == 1){
                 System.out.print("Enter the new Student Email: ");
-                String new_email = sc.next();
+                String new_email = student_sc.next();
                 student.set_email(new_email);
             } else if(update_choice == 2){
                 System.out.print("Enter the new Student Name: ");
-                student.set_name(sc.nextLine());
+                student.set_name(student_sc.nextLine());
             } else if(update_choice == 3){
                 System.out.print("Enter the new Student Roll Number: ");
-                Integer new_roll_number = sc.nextInt();
+                Integer new_roll_number = student_sc.nextInt();
                 student.set_student_roll_number(new_roll_number);
                 student_db.remove(student_roll_number);
                 student_db.put(new_roll_number, student);
@@ -171,7 +171,7 @@ public class Student extends CommonUser{ // Left
                 }
             } else if(update_choice == 4){
                 System.out.print("Enter the new Student Semester: ");
-                Integer new_semester = sc.nextInt();
+                Integer new_semester = student_sc.nextInt();
                 student.set_current_semester(new_semester);
                 for (Course course : student.current_courses.values()) {
                     course.drop_student(student);
@@ -181,11 +181,11 @@ public class Student extends CommonUser{ // Left
             } else if(update_choice == 5){
                 student.show_completed_courses();
                 System.out.print("Enter the course id to update grade: ");
-                String course_id = sc.next();
+                String course_id = student_sc.next();
                 if (student.completed_courses.containsKey(course_id)) {
                     Pair<Course,Integer> course_grade_pair = student.completed_courses.get(course_id);
                     System.out.print("Enter the new grade: ");
-                    Integer new_grade = sc.nextInt();
+                    Integer new_grade = student_sc.nextInt();
                     course_grade_pair.setSecond(new_grade);
                     student.calculate_sgpa(course_grade_pair.getFirst().get_offered_semester());
                     student.calculate_cgpa();
@@ -194,14 +194,14 @@ public class Student extends CommonUser{ // Left
                 }
             } else if(update_choice == 6){
                 System.out.print("Enter the Semester for which you want to update the SGPA: ");
-                Integer sem = sc.nextInt();
+                Integer sem = student_sc.nextInt();
                 System.out.print("Enter the new Student SGPA: ");
-                Float new_sgpa = sc.nextFloat();
+                Float new_sgpa = student_sc.nextFloat();
                 student.set_sgpa(sem,new_sgpa);
                 student.calculate_cgpa();
             } else if(update_choice == 7){
                 System.out.print("Enter the new Student CGPA: ");
-                Float new_cgpa = sc.nextFloat();
+                Float new_cgpa = student_sc.nextFloat();
                 student.set_cgpa(new_cgpa);
             } else{
                 System.out.println("Invalid Input");
@@ -247,10 +247,10 @@ public class Student extends CommonUser{ // Left
         System.out.println("Available Courses: ");
         Course.display_courses_by_semester(this.current_semester);
         System.out.print("Would you like to see details of any course? (y/n)");
-        String choice = sc.next();        
+        String choice = student_sc.next();        
         if (choice.equals("y") || choice.equals("Y")) {
             System.out.print("Enter the course id: ");
-            String course_id = sc.next();
+            String course_id = student_sc.next();
             Course.display_course_details(course_id);
         }
         return;
@@ -259,7 +259,7 @@ public class Student extends CommonUser{ // Left
         if (this.credits_registered < credit_limit) {
             Course.display_courses_by_semester(this.current_semester);
             System.out.print("Enter the course id: ");
-            String course_id = sc.next();
+            String course_id = student_sc.next();
             if (Course.course_db.containsKey(course_id)) {
                 Course course = Course.course_db.get(course_id);
                 if (course.get_offered_semester() == this.current_semester) {
@@ -281,7 +281,7 @@ public class Student extends CommonUser{ // Left
                 System.out.println("Course Id : " + course.get_course_id() + " | Course Name : " + course.get_course_name());
             }
             System.out.print("Enter the course id to delete: ");
-            String course_id = sc.next();
+            String course_id = student_sc.next();
             if (this.current_courses.containsKey(course_id)) {
                 Course course = this.current_courses.get(course_id);
                 course.drop_student(this);
@@ -312,7 +312,7 @@ public class Student extends CommonUser{ // Left
     }
     public void submit_complaint(){
         System.out.print("Enter the complaint: ");
-        String complaint = sc.nextLine();
+        String complaint = student_sc.nextLine();
         //Structure == HashMap<student_roll_number,HashMap<Pair<Status,Complaint_id>,Pair<Complaint,Response>>> 
         // Adding complaint to the database
         Complaint.create_complaint(this, complaint);
@@ -325,7 +325,7 @@ public class Student extends CommonUser{ // Left
     }
     public void see_status_of_particular_complaint(){
         System.out.print("Enter the complaint id: ");
-        Integer complaint_id = sc.nextInt();
+        Integer complaint_id = student_sc.nextInt();
         if (Complaint.complaint_db.containsKey(complaint_id)) {
             Complaint.complaint_db.get(complaint_id).view_complaint();
         } else {

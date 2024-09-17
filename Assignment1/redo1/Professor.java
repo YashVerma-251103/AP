@@ -3,7 +3,7 @@ import java.util.HashMap;
 import java.util.ArrayList;
 import java.util.Scanner;
 public class Professor extends CommonUser { // made -- testing left
-    public static Scanner sc = new Scanner(System.in);
+    public static Scanner prof_sc = new Scanner(System.in);
     // Personal Information
     private String name;
 
@@ -77,19 +77,19 @@ public class Professor extends CommonUser { // made -- testing left
     public void set_professor(){
         System.out.println("Enter the following details: ");
         System.out.print("Enter Professor Name: ");
-        this.name = sc.nextLine();
+        this.name = prof_sc.nextLine();
         System.out.print("Enter Professor Department: ");
-        this.department = sc.nextLine();
+        this.department = prof_sc.nextLine();
         System.out.print("Enter Professor ID: ");
-        this.professor_id = sc.nextLine();
+        this.professor_id = prof_sc.nextLine();
         System.out.print("Enter Office Timings: ");
-        this.office_timings = sc.nextLine();
+        this.office_timings = prof_sc.nextLine();
         
         // Login Info Setting
         System.out.print("Enter Professor's email: ");
-        this.set_email(sc.nextLine());
+        this.set_email(prof_sc.nextLine());
         System.out.print("Enter Professor's password: ");
-        this.set_password(sc.nextLine());
+        this.set_password(prof_sc.nextLine());
     }
     public void update_professor(){
         while (true) {
@@ -101,33 +101,33 @@ public class Professor extends CommonUser { // made -- testing left
             System.out.println("4. Email (press 4)");
             System.out.println("5. Password (press 5)");
             System.out.print("Enter your choice: ");
-            Integer choice = sc.nextInt();
+            Integer choice = prof_sc.nextInt();
             if (choice == -1){
                 return;
             }
             if (choice == 1){
                 System.out.print("Enter new department: ");
-                String temp = sc.nextLine();
+                String temp = prof_sc.nextLine();
                 this.department = temp;
                 System.out.println("Department updated successfully.");
             } else if (choice == 2){
                 System.out.print("Enter new name: ");
-                String temp = sc.nextLine();
+                String temp = prof_sc.nextLine();
                 this.name = temp;
                 System.out.println("Name updated successfully.");
             } else if (choice == 3){
                 System.out.print("Enter new office timings: ");
-                String temp = sc.nextLine();
+                String temp = prof_sc.nextLine();
                 this.office_timings = temp;
                 System.out.println("Office Timings updated successfully.");
             } else if (choice == 4){
                 System.out.print("Enter new email: ");
-                String temp = sc.nextLine();
+                String temp = prof_sc.nextLine();
                 this.set_email(temp);
                 System.out.println("Email updated successfully.");
             } else if (choice == 5){
                 System.out.print("Enter new password: ");
-                String temp = sc.nextLine();
+                String temp = prof_sc.nextLine();
                 this.set_password(temp);
                 System.out.println("Password updated successfully.");
             } else {
@@ -166,7 +166,7 @@ public class Professor extends CommonUser { // made -- testing left
             System.out.println("2. Update Course Details. (press 2)");
             System.out.println("3. Update your details. (press 3)");
             System.out.print("Enter your choice: ");
-            Integer choice = sc.nextInt();
+            Integer choice = prof_sc.nextInt();
             if (choice == -1){
                 return;
             } else if (choice == 1){
@@ -192,12 +192,12 @@ public class Professor extends CommonUser { // made -- testing left
         while (true) {
             System.out.println("Enter -1 to return to the previous menu.");
             System.out.print("Do you want to see details for any particular student? (Y/N)");
-            String choice = sc.next();
+            String choice = prof_sc.next();
             if (choice == "-1"){
                 return;
             } else if (choice.equals("Y") || choice.equals("y")) {
                 System.out.print("Enter the student's roll number: ");
-                Integer roll_number = sc.nextInt();
+                Integer roll_number = prof_sc.nextInt();
                 if (Student.student_db.containsKey(roll_number)) {
                     Student student = Student.student_db.get(roll_number);
                     if (student.current_courses.containsKey(this.assigned_course.get_course_id())) {
@@ -241,18 +241,18 @@ public class Professor extends CommonUser { // made -- testing left
         while (true) {
             System.out.println("Enter -1 to return to the previous menu.");
             System.out.print("Do you want to assign grades to any student? (Y/N)");
-            String choice = sc.next();
+            String choice = prof_sc.next();
             if (choice == "-1"){
                 return;
             } else if (choice.equals("Y") || choice.equals("y")) {
                 this.show_students_with_grades_assigned();
                 System.out.print("Enter the student's roll number: ");
-                Integer roll_number = sc.nextInt();
+                Integer roll_number = prof_sc.nextInt();
                 if (Student.student_db.containsKey(roll_number)) {
                     Student student = Student.student_db.get(roll_number);
                     if (student.current_courses.containsKey(this.assigned_course.get_course_id())) {
                         System.out.print("Enter the grade: ");
-                        Integer grade = sc.nextInt();
+                        Integer grade = prof_sc.nextInt();
                         Pair<Student,Integer> pair = new Pair<Student,Integer>(student, grade);
                         assigning_grades_to_student.put(roll_number, pair);
                         System.out.println("Grade assigned successfully.");

@@ -3,7 +3,7 @@ package Assignment1.redo1;
 import java.util.Scanner;
 
 public class CommonUser implements User {
-    public static Scanner sc = new Scanner(System.in);
+    public static Scanner comman_user_sc = new Scanner(System.in);
     private String email;
     private String password;
     

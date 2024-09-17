@@ -5,7 +5,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Admin extends CommonUser { // left.
-    public static Scanner sc = new Scanner(System.in);
+    public static Scanner admin_sc = new Scanner(System.in);
     // Personal information
     private String name;
 
@@ -49,16 +49,16 @@ public class Admin extends CommonUser { // left.
     public static Admin create_admin() {
         Admin admin = new Admin();
         System.out.print("Enter the Admin ID: ");
-        String admin_id = sc.next();
+        String admin_id = admin_sc.next();
         admin.set_admin_id(admin_id);
         System.out.print("Enter the Admin Name: ");
-        String name = sc.next();
+        String name = admin_sc.next();
         admin.name = name;
         System.out.print("Enter the email: ");
-        String email = sc.next();
+        String email = admin_sc.next();
         admin.set_email(email);
         System.out.print("Enter the password: ");
-        String password = sc.next();
+        String password = admin_sc.next();
         admin.set_password(password);
         if (admin_db.containsKey(admin_id)) {
             System.out.println("Admin already exists.");
@@ -79,7 +79,7 @@ public class Admin extends CommonUser { // left.
             System.out.println("3. Delete an existing Course (press 3)");
             System.out.println("4. Update the details for existing course (press 4)");
             System.out.print("Enter your choice: ");
-            Integer choice = sc.nextInt();
+            Integer choice = admin_sc.nextInt();
             if (choice == -1) {
                 return;
             } else if (choice == 1) {
@@ -89,7 +89,7 @@ public class Admin extends CommonUser { // left.
                     System.out.println("1. To see all courses (press 1)");
                     System.out.println("2. To see courses by semester (press 2)");
                     System.out.print("Enter your choice: ");
-                    Integer format_choice = sc.nextInt();
+                    Integer format_choice = admin_sc.nextInt();
                     if (format_choice == -1) {
                         break;
                     } else if (format_choice == 1) {
@@ -97,7 +97,7 @@ public class Admin extends CommonUser { // left.
                         break;
                     } else if (format_choice == 2) {
                         System.out.print("Enter the Semester: ");
-                        Integer sem = sc.nextInt();
+                        Integer sem = admin_sc.nextInt();
                         if (sem == -1) {
                             break;
                         } else if (Course.semester_course_db.containsKey(sem)) {
@@ -115,10 +115,10 @@ public class Admin extends CommonUser { // left.
                         System.out.println("Invalid Choice!");
                     }
                     System.out.print("Wish to see all details of any particular course? (y/n)");
-                    String course_choice = sc.next();
+                    String course_choice = admin_sc.next();
                     if (course_choice.equals("y") || course_choice.equals("Y")) {
                         System.out.print("Enter the course id: ");
-                        String course_id = sc.next();
+                        String course_id = admin_sc.next();
                         Course.display_course_details(course_id);
                     }
                 }
@@ -129,7 +129,7 @@ public class Admin extends CommonUser { // left.
                 }
             } else if (choice == 3) {
                 System.out.print("Enter the course id to be deleted: ");
-                String course_id_to_delete = sc.next();
+                String course_id_to_delete = admin_sc.next();
                 if (Course.course_db.containsKey(course_id_to_delete)) {
                     Course.delete_course(course_id_to_delete);
                 } else {
@@ -137,7 +137,7 @@ public class Admin extends CommonUser { // left.
                 }
             } else if (choice == 4) {
                 System.out.print("Enter the course id to updating course: ");
-                String course_id_to_update = sc.next();
+                String course_id_to_update = admin_sc.next();
                 if (Course.course_db.containsKey(course_id_to_update)) {
                     Course.update_course(course_id_to_update);
                 } else {
@@ -151,7 +151,7 @@ public class Admin extends CommonUser { // left.
     }
     static Professor assign_professor_to_course() {
         System.out.print("Enter Professor expertise (Mention Department): ");
-        String department = sc.next();
+        String department = admin_sc.next();
         department = department.toLowerCase();
         ArrayList<Professor> profs = Professor.department_based_list_of_profs(department);
         if (profs.size() == 0) {
@@ -166,7 +166,7 @@ public class Admin extends CommonUser { // left.
         while (true) {
             System.out.println("Enter -1 to return to the previous menu");
             System.out.print("Enter the Professor ID for to assign the new course to: ");
-            String prof_id = sc.next();
+            String prof_id = admin_sc.next();
             if (prof_id.equals("-1")) {
                 return null;
             }
@@ -183,7 +183,7 @@ public class Admin extends CommonUser { // left.
         while (true) {
             System.out.println("Enter -1 to return to previous menu");
             System.out.print("Student Roll Number to view the details of that student: ");
-            Integer student_roll=sc.nextInt();
+            Integer student_roll=admin_sc.nextInt();
             if (student_roll.equals(-1)) {
                 return;
             } else {
@@ -191,7 +191,7 @@ public class Admin extends CommonUser { // left.
                     Student student=Student.student_db.get(student_roll);
                     student.show_details();
                     System.out.print("Do you want to update the student details? (Y/N)");
-                    String choice = sc.next();
+                    String choice = admin_sc.next();
                     if (choice.equals("Y") || choice.equals("y")) {
                         student.update_detials();
                     }    
@@ -213,7 +213,7 @@ public class Admin extends CommonUser { // left.
             System.out.println("7. Resolve a complaint (press 7)");
             // System.out.println("8. ");
             System.out.print("Enter your choice: ");
-            Integer choice = sc.nextInt();
+            Integer choice = admin_sc.nextInt();
             if (choice == -1) {
                 return;
             } else if (choice == 1) {
@@ -224,7 +224,7 @@ public class Admin extends CommonUser { // left.
                 Complaint.view_all_complaints(false);
             } else if (choice == 4) {
                 System.out.print("Enter the student roll number: ");
-                Integer student_roll = sc.nextInt();
+                Integer student_roll = admin_sc.nextInt();
                 if (Student.student_db.containsKey(student_roll)) {
                     Student student = Student.student_db.get(student_roll);
                     Complaint.view_all_complaints(student);
@@ -235,7 +235,7 @@ public class Admin extends CommonUser { // left.
                 Complaint.view_all_complaints(this);
             } else if (choice == 6){
                 System.out.print("Enter the complaint id: ");
-                Integer complaint_id = sc.nextInt();
+                Integer complaint_id = admin_sc.nextInt();
                 if (Complaint.complaint_db.containsKey(complaint_id)){
                     Complaint complaint = Complaint.complaint_db.get(complaint_id);
                     complaint.show_complaint_status();
@@ -244,11 +244,11 @@ public class Admin extends CommonUser { // left.
                 }
             } else if (choice == 7){
                 System.out.print("Enter the complaint id: ");
-                Integer complaint_id = sc.nextInt();
+                Integer complaint_id = admin_sc.nextInt();
                 if (Complaint.complaint_db.containsKey(complaint_id)){
                     Complaint complaint = Complaint.complaint_db.get(complaint_id);
                     System.out.print("Enter the response: ");
-                    String response = sc.next();
+                    String response = admin_sc.next();
                     complaint.resolve_complaint(response);
                 } else {
                     System.out.println("No complaint found with the given complaint id.");

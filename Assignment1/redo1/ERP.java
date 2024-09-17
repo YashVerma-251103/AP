@@ -3,7 +3,7 @@ package Assignment1.redo1;
 import java.util.Scanner;
 
 public class ERP {
-    public static Scanner sc = new Scanner(System.in);
+    public static Scanner main_sc = new Scanner(System.in);
     public static void main(String[] args) {
         DataSeeder.seedData();  // Load predefined data
 
@@ -12,7 +12,7 @@ public class ERP {
             System.out.println("1. Enter the Application");
             System.out.println("2. Exit the Application");
             System.out.print("Enter your choice: ");
-            int mainChoice = sc.nextInt();
+            int mainChoice = main_sc.nextInt();
 
             if (mainChoice == 2) {
                 System.out.println("Exiting the application. Goodbye!");
@@ -24,14 +24,14 @@ public class ERP {
                 System.out.println("3. Administrator");
                 System.err.println("4. Exit");
                 System.out.print("Enter your choice: ");
-                int roleChoice = sc.nextInt();
+                int roleChoice = main_sc.nextInt();
 
                 if (roleChoice == 1) {
-                    studentLogin(sc);
+                    studentLogin(main_sc);
                 } else if (roleChoice == 2) {
-                    professorLogin(sc);
+                    professorLogin(main_sc);
                 } else if (roleChoice == 3) {
-                    adminLogin(sc);
+                    adminLogin(main_sc);
                 } else if (roleChoice == 4) {
                     System.out.println("Exiting the application. Goodbye!");
                     break;
@@ -42,62 +42,62 @@ public class ERP {
                 System.out.println("Invalid choice! Please try again.");
             }
         }
-        sc.close();
+        main_sc.close();
     }
 
-    public static void studentLogin(Scanner sc) {
+    public static void studentLogin(Scanner main_sc) {
         System.out.print("Enter Roll Number: ");
-        int rollNumber = sc.nextInt();
+        int rollNumber = main_sc.nextInt();
         Student student = Student.student_db.get(rollNumber);
         if (student != null) {
             System.out.println("Welcome, " + student.get_name() + "!");
             System.out.print("Enter Student Password: ");
-            if (!student.get_password().equals(sc.next())) {
+            if (!student.get_password().equals(main_sc.next())) {
                 System.out.println("Incorrect password! Please try again.");
                 return;
             }
-            studentInterface(student, sc);
+            studentInterface(student, main_sc);
         } else {
             System.out.println("Student not found.");
         }
     }
 
-    public static void professorLogin(Scanner sc) {
+    public static void professorLogin(Scanner main_sc) {
         System.out.print("Enter Professor ID: ");
-        String profId = sc.next();
+        String profId = main_sc.next();
         Professor professor = Professor.professor_db.get(profId);
         if (professor != null) {
             System.out.println("Welcome, " + professor.get_name() + "!");
             System.out.print("Enter Professor Password: ");
-            if (!professor.get_password().equals(sc.next())) {
+            if (!professor.get_password().equals(main_sc.next())) {
                 System.out.println("Incorrect password! Please try again.");
                 return;
             }
-            professorInterface(professor, sc);
+            professorInterface(professor, main_sc);
         } else {
             System.out.println("Professor not found.");
         }
     }
 
-    public static void adminLogin(Scanner sc) {
+    public static void adminLogin(Scanner main_sc) {
         System.out.print("Enter Admin ID: ");
-        String adminId = sc.next();
+        String adminId = main_sc.next();
         Admin admin = Admin.admin_db.get(adminId);
         if (admin != null) {
             System.out.println("Welcome, " + admin.get_name() + "!");
             System.out.print("Enter Admin Password: ");
-            if (!admin.get_password().equals(sc.next())) {
+            if (!admin.get_password().equals(main_sc.next())) {
                 System.out.println("Incorrect password! Please try again.");
                 return;
                 
             }
-            adminInterface(admin, sc);
+            adminInterface(admin, main_sc);
         } else {
             System.out.println("Admin not found.");
         }
     }
 
-    public static void studentInterface(Student student, Scanner sc) {
+    public static void studentInterface(Student student, Scanner main_sc) {
         while (true) {
             int i=1;
             System.out.println((i++) + ". Logout"); 
@@ -112,7 +112,7 @@ public class ERP {
             System.out.println((i++) + ". View My Complaints");
             System.out.println((i++) + ". View Particular Complaint");
             System.out.print("Enter your choice: ");
-            int choice = sc.nextInt();
+            int choice = main_sc.nextInt();
             if (choice == 1) {
                 System.out.println("Logging out...");
                 break;
@@ -142,7 +142,7 @@ public class ERP {
         }
     }
 
-    public static void professorInterface(Professor professor, Scanner sc) {
+    public static void professorInterface(Professor professor, Scanner main_sc) {
         while (true) {
             int i = 1;
             System.out.println((i++) + ". Logout");
@@ -154,7 +154,7 @@ public class ERP {
             System.out.println((i++) + ". Pass Semester for Assigned Course");
             System.out.println((i++) + ". Update My Details");
             System.out.print("Enter your choice: ");
-            int choice = sc.nextInt();
+            int choice = main_sc.nextInt();
             if (choice == 1) {
                 System.out.println("Logging out...");
                 break;
@@ -178,7 +178,7 @@ public class ERP {
         }
     }
 
-    public static void adminInterface(Admin admin, Scanner sc) {
+    public static void adminInterface(Admin admin, Scanner main_sc) {
         while (true) {
             int i = 1;
             System.out.println((i++) + ". Logout");
@@ -189,7 +189,7 @@ public class ERP {
             System.out.println((i++) + ". Create New Professor");
             System.out.println((i++) + ". Create New Student");
             System.out.print("Enter your choice: ");
-            int choice = sc.nextInt();
+            int choice = main_sc.nextInt();
             if (choice == 1) {
                 System.out.println("Logging out...");
                 break;

@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Scanner;
 
 public class Complaint { // made -- testing left
-    public static Scanner sc = new Scanner(System.in);
+    public static Scanner complaint_sc = new Scanner(System.in);
     // Attributes
     private static Integer current_complaint_id = 0;
     private Integer complaint_id;
