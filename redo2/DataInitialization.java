@@ -1,7 +1,4 @@
 package redo2;
-import java.util.ArrayList;
-import java.util.List;
-
 public class DataInitialization {
 
     public static void initializeData() {

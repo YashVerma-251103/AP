@@ -1,8 +1,9 @@
 package redo1;
 
 import java.util.HashMap;
-public class Student extends ProfStudComman{ // Left
-
+import java.util.Scanner;
+public class Student extends CommonUser{ // Left
+    public static Scanner sc = new Scanner(System.in);
     
     // Personal Information
     private String name;
@@ -130,8 +131,8 @@ public class Student extends ProfStudComman{ // Left
     public void update_detials(){
         System.out.println("Enter -1 to return to previous menu!");
         System.out.println("What do you want to update?");
-        System.out.println("1. Name (press 1)");
-        System.out.println("2. Email (press 2)");
+        System.out.println("1. Email (press 1)");
+        System.out.println("2. Name (press 2)");
         System.out.println("3. Roll Number (press 3)");
         System.out.println("4. Current Semester (press 4)");
         System.out.println("5. Grades (press 5)");
@@ -144,13 +145,12 @@ public class Student extends ProfStudComman{ // Left
         } else{
             Student student = student_db.get(student_roll_number);
             if(update_choice == 1){
-                System.out.print("Enter the new Student Name: ");
-                String new_name = sc.next();
-                student.set_name(new_name);
-            } else if(update_choice == 2){
                 System.out.print("Enter the new Student Email: ");
                 String new_email = sc.next();
                 student.set_email(new_email);
+            } else if(update_choice == 2){
+                System.out.print("Enter the new Student Name: ");
+                student.set_name(sc.nextLine());
             } else if(update_choice == 3){
                 System.out.print("Enter the new Student Roll Number: ");
                 Integer new_roll_number = sc.nextInt();
@@ -323,7 +323,25 @@ public class Student extends ProfStudComman{ // Left
             System.out.println("Complaint not found.");
         }
     }
-    public void view_schedule(){} // left.
+    public void view_schedule() {
+        if (this.current_courses.isEmpty()) {
+            System.out.println("No courses enrolled.");
+            return;
+        }
+        
+        System.out.println("Current Schedule:");
+        for (String courseId : this.current_courses.keySet()) {
+            Course course = Course.course_db.get(courseId);
+            if (course != null) {
+                System.out.println("Course ID: " + courseId);
+                System.out.println("Course Name: " + course.get_course_name());
+                System.out.println("Course Timing: " + course.get_timings());
+                System.out.println("Instructor: " + course.get_course_professor().get_name());
+                System.out.println("-------------------------------");
+            }
+        }
+    }
+    
 
 
 }

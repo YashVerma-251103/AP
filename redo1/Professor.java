@@ -1,7 +1,7 @@
 package redo1;
 import java.util.HashMap;
 import java.util.ArrayList;
-public class Professor extends ProfStudComman { // made -- testing left
+public class Professor extends CommonUser { // made -- testing left
     // Personal Information
     private String name;
 
@@ -14,10 +14,11 @@ public class Professor extends ProfStudComman { // made -- testing left
     // Storing and Sharing DataBase
     protected static HashMap<String, Professor> professor_db = new HashMap<String, Professor>();
     // protected HashMap<> current_course_student_grade_assigning=new HashMap<>()
-    
+    protected HashMap<Integer, Pair<Student,Integer>> assigning_grades_to_student = new HashMap<Integer, Pair<Student,Integer>>();
+
     // Getters 
     public String get_name() {
-        return name;
+        return this.name;
     }
     public String get_department() {
         return department;
@@ -126,10 +127,23 @@ public class Professor extends ProfStudComman { // made -- testing left
             }
         }
     }
+    public void view_my_details(){
+        System.out.println("Professor Details: ");
+        System.out.println("Name: " + this.name);
+        System.out.println("Department: " + this.department);
+        System.out.println("Professor ID: " + this.professor_id);
+        System.out.println("Office Timings: " + this.office_timings);
+        System.out.println("Email: " + this.get_email());
+    }
+    public void view_my_course(){
+        if (this.assigned_course == null){
+            System.out.println("No course assigned to this professor.");
+        } else {
+            System.out.println("Course assigned to this professor: ");
+            this.assigned_course.show_details();
+        }
+    }
     
-    // need to implement a professor to pass a student.
-
-
     // Required functionalities
     public void manage_course(){
         System.out.println("Current course assigned to you: ");
@@ -182,5 +196,74 @@ public class Professor extends ProfStudComman { // made -- testing left
         }
     }
     
+
+    // need to implement a professor to pass a student.
+    public void show_students_with_grades_assigned(){
+        if (assigning_grades_to_student.isEmpty()){
+            System.out.println("No students with grades assigned.");
+            return;
+        }
+        System.out.println("Students with grades assigned: ");
+        for (Integer roll_number : assigning_grades_to_student.keySet()){
+            Pair<Student,Integer> pair = assigning_grades_to_student.get(roll_number);
+            System.out.println("Roll Number: " + roll_number + " Grade: " + pair.getSecond());
+        }
+    }
+    public void assign_grades_to_student(){
+        System.out.println("Assigning grades to students for the course: " + this.assigned_course.get_course_id());
+        this.assigned_course.show_enrolled_students();
+        while (true) {
+            System.out.println("Enter -1 to return to the previous menu.");
+            System.out.print("Do you want to assign grades to any student? (Y/N)");
+            String choice = sc.next();
+            if (choice == "-1"){
+                return;
+            } else if (choice.equals("Y") || choice.equals("y")) {
+                this.show_students_with_grades_assigned();
+                System.out.print("Enter the student's roll number: ");
+                Integer roll_number = sc.nextInt();
+                if (Student.student_db.containsKey(roll_number)) {
+                    Student student = Student.student_db.get(roll_number);
+                    if (student.current_courses.containsKey(this.assigned_course.get_course_id())) {
+                        System.out.print("Enter the grade: ");
+                        Integer grade = sc.nextInt();
+                        Pair<Student,Integer> pair = new Pair<Student,Integer>(student, grade);
+                        assigning_grades_to_student.put(roll_number, pair);
+                        System.out.println("Grade assigned successfully.");
+                    } else {
+                        System.out.println("Student not enrolled in this course.");
+                    }
+                } else {
+                    System.out.println("Student not found.");
+                }
+            } else{
+                break;
+            }
+        }
+    }
+    public void pass_semester() {
+        if (this.assigned_course == null) {
+            System.out.println("No course assigned to this professor.");
+            return;
+        }else if (this.assigned_course.get_enrolled_students().isEmpty()) {
+            System.out.println("No students enrolled in the assigned course.");
+            return;
+        } else if (assigning_grades_to_student.size() != this.assigned_course.get_enrolled_students().size()) {
+            System.out.println("Grades not assigned to all students.");
+            if (assigning_grades_to_student.isEmpty()) {
+                System.out.println("No grades assigned to any student.");
+            } else {
+                System.out.println("Grades assigned to some students.");
+                this.show_students_with_grades_assigned();
+            }
+            System.out.println("Please assign grades to all students before passing the semester.");
+            return;
+        }
+        System.out.println("Passing semester for the assigned course...");
+        this.assigned_course.advance_to_next_semester(this.assigning_grades_to_student);
+        // need to assign grades to students before this.
+        System.out.println("Semester passed successfully for course: " + this.assigned_course.get_course_id());
+    }
+
 
 }

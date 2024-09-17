@@ -27,6 +27,9 @@ public class Admin extends CommonUser { // left.
     public void set_admin_id(String admin_id) {
         this.admin_id = admin_id;
     }
+    public void set_name(String name) {
+        this.name = name;
+    }
 
     // Getters
     public String get_admin_id() {
@@ -57,11 +60,11 @@ public class Admin extends CommonUser { // left.
         System.out.print("Enter the password: ");
         String password = sc.next();
         admin.set_password(password);
-        if (admin.admin_db.containsKey(admin_id)) {
+        if (admin_db.containsKey(admin_id)) {
             System.out.println("Admin already exists.");
             return null;
         } else {
-            admin.admin_db.put(admin_id, admin);
+            admin_db.put(admin_id, admin);
             System.out.println("Admin added successfully.");
             return admin;
         }
@@ -284,7 +287,7 @@ public class Admin extends CommonUser { // left.
                     System.out.print("Do you want to update the student details? (Y/N)");
                     String choice = sc.next();
                     if (choice.equals("Y") || choice.equals("y")) {
-                        student.update_detials();
+                        student.update_details();
                     }    
                 } else{
                     System.out.println("No student found with the given roll number!");

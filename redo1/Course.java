@@ -3,6 +3,7 @@ package redo1;
 import java.util.*;
 public class Course { // made -- test left
     private static Scanner sc = new Scanner(System.in);
+    private static Boolean trigger = true;
 
     // Attributes
     private String course_id;
@@ -20,7 +21,12 @@ public class Course { // made -- test left
     // Storing and Sharing DataBase
     protected static HashMap<String, Course> course_db = new HashMap<String, Course>();
     protected static HashMap<Integer, ArrayList<Course>> semester_course_db = new HashMap<Integer, ArrayList<Course>>();
-    private HashMap<Integer, Student> enrolled_students = new HashMap<Integer, Student>();
+    public static void sem_course_initializer(){
+        for(int i=1;i<=8;i++){
+            semester_course_db.put(i,new ArrayList<Course>());
+        }
+    }
+    protected HashMap<Integer, Student> enrolled_students = new HashMap<Integer, Student>();
     private ArrayList<Course> course_prerequisites = new ArrayList<Course>();
     private ArrayList<Course> prerequist_of_courses = new ArrayList<Course>();
     
@@ -56,7 +62,9 @@ public class Course { // made -- test left
     public Integer get_current_enrollment() {
         return current_enrollment;
     }
-    
+    public HashMap<Integer, Student> get_enrolled_students() {
+        return enrolled_students;
+    }
 
     // Setters
     public void set_course_id(String course_id) {
@@ -264,10 +272,10 @@ public class Course { // made -- test left
 
     // Course specific functions
     public void set_course() {
-        System.out.print("Enter course id: ");
-        this.set_course_id(sc.nextLine());
         System.out.print("Enter course name: ");
         this.set_course_name(sc.nextLine());
+        System.out.print("Enter course id: ");
+        this.set_course_id(sc.nextLine());
         System.out.print("Enter course description: ");
         this.set_course_description(sc.nextLine());
         System.out.print("Enter syllabus: ");
@@ -358,4 +366,15 @@ public class Course { // made -- test left
             this.enrolled_students.put(new_roll, student);
         }
     }
+
+
+    public void advance_to_next_semester(HashMap<Integer,Pair<Student,Integer>> students_with_grades) {
+        for (Pair<Student,Integer> pair : students_with_grades.values()) {
+            Course course = pair.getFirst().current_courses.get(this.course_id);
+            pair.getFirst().current_courses.remove(this.course_id);
+            pair.getFirst().completed_courses.put(this.course_id, Pair.of(course, pair.getSecond()));
+            pair.getFirst().set_credits_registered(pair.getFirst().get_credits_registered() - this.course_credits);
+        }
+    }
+
 }

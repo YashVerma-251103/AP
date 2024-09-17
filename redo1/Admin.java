@@ -26,7 +26,9 @@ public class Admin extends CommonUser { // left.
     public void set_admin_id(String admin_id) {
         this.admin_id = admin_id;
     }
-
+    public void set_name(String name) {
+        this.name = name;
+    }
     // Getters
     public String get_admin_id() {
         return admin_id;
@@ -56,21 +58,15 @@ public class Admin extends CommonUser { // left.
         System.out.print("Enter the password: ");
         String password = sc.next();
         admin.set_password(password);
-        if (admin.admin_db.containsKey(admin_id)) {
+        if (admin_db.containsKey(admin_id)) {
             System.out.println("Admin already exists.");
             return null;
         } else {
-            admin.admin_db.put(admin_id, admin);
+            admin_db.put(admin_id, admin);
             System.out.println("Admin added successfully.");
             return admin;
         }
     }
-    // need to implement the function to allow admin to pass the semester of a course /  or may be this implementation better handled for each student -- i do not know right now.
-    public static void pass_semester() {
-        
-    }
-
-
 
     // Required functionalities
     void manage_course_catalog() {
@@ -103,8 +99,13 @@ public class Admin extends CommonUser { // left.
                         if (sem == -1) {
                             break;
                         } else if (Course.semester_course_db.containsKey(sem)) {
-                            Course.display_courses_by_semester(sem);
-                        } else {
+                            if (Course.semester_course_db.get(sem).size() == 0) {
+                                System.out.println("No Course exist for this semester.");
+                            }
+                            else {
+                                Course.display_courses_by_semester(sem);
+                            }
+                        }else {
                             System.out.println("No Course exist for this semester.");
                         }
                         break;

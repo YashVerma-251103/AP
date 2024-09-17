@@ -57,6 +57,13 @@ public class Course { // made -- test left
     public Integer get_current_enrollment() {
         return current_enrollment;
     }
+    public ArrayList<String> get_prerequisites() {
+        ArrayList<String> course_ids = new ArrayList<String>();
+        for (Course course : course_prerequisites) {
+            course_ids.add(course.get_course_id());
+        }
+        return course_ids;
+    }
     
 
     // Setters
