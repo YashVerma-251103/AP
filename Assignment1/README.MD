@@ -1,6 +1,8 @@
-Project Overview
+#Project Overview
 This project allows Students, Professors, and Admins, to manage various Courses offered by the IIITD. In Short its management system implemented in Java. It demonstrates several Object-Oriented Programming (OOP) concepts including inheritance, encapsulation, abstraction, and polymorphism as well as its relationships including aggregation, association, inheritance, dependancy, and composition. The system manages students, professors, and courses, providing functionality for course registration, academic progress tracking, and complaint management.
+
 Link for UML Diagram: [UML Diagram](https://miro.com/app/board/uXjVLd338TU=/?share_link_id=727113134233)
+
 Link for GitHub Repo: [GitHub Repo for Assignment 1](https://github.com/YashVerma-251103/AP/tree/1542971eb65dd4581da8d43cf3943583f0b20d30/Assignment1)
 
 Brief Description of system.
