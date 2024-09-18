@@ -20,16 +20,14 @@ public class Course { // made -- test left
     // Storing and Sharing DataBase
     protected static HashMap<String, Course> course_db = new HashMap<String, Course>();
     protected static HashMap<Integer, ArrayList<Course>> semester_course_db = new HashMap<Integer, ArrayList<Course>>();
+    protected HashMap<Integer, Student> enrolled_students = new HashMap<Integer, Student>();
+    private ArrayList<Course> course_prerequisites = new ArrayList<Course>();
+    private ArrayList<Course> prerequist_of_courses = new ArrayList<Course>();
     public static void sem_course_initializer(){
         for(int i=1;i<=8;i++){
             semester_course_db.put(i,new ArrayList<Course>());
         }
     }
-    protected HashMap<Integer, Student> enrolled_students = new HashMap<Integer, Student>();
-    private ArrayList<Course> course_prerequisites = new ArrayList<Course>();
-    private ArrayList<Course> prerequist_of_courses = new ArrayList<Course>();
-    
-
     // Getters
     public String get_course_id() {
         return course_id;
@@ -67,7 +65,7 @@ public class Course { // made -- test left
     public ArrayList<Course> get_prereq_List(){
         return this.course_prerequisites;
     }
-    public ArrayList<Course> idk_need_to_change_name(){
+    public ArrayList<Course> get_super_courses(){
         return this.prerequist_of_courses;
     }
 
