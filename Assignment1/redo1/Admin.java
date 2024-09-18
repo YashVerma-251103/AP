@@ -148,6 +148,7 @@ public class Admin extends CommonUser { // left.
                 System.out.print("Enter the course id to updating course: ");
                 String course_id_to_update = admin_sc.next();
                 if (Course.course_db.containsKey(course_id_to_update)) {
+                    Course.course_db.get(course_id_to_update).show_details();
                     Course.update_course(course_id_to_update);
                 } else {
                     System.out.println("Course does not exist.");

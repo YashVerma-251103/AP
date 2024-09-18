@@ -244,6 +244,7 @@ public class Course { // made -- test left
                         System.out.println("Do you want to add or remove prerequisites?");
                         System.out.println("1. Add prerequisites (Press 1)");
                         System.out.println("2. Remove prerequisites (Press 2)");
+                        System.out.println("3. View Course that can be set as prerequisites (Press 3)");
                         System.out.print("Enter your choice: ");
                         Integer choice2 = course_sc.nextInt();
                         course_sc.nextLine();
@@ -253,6 +254,7 @@ public class Course { // made -- test left
                             if (course_db.containsKey(prereq_id)) {
                                 course.add_prerequisite(course_db.get(prereq_id));
                                 course_db.get(prereq_id).add_prerequisite_of(course);
+                                System.out.println("Prerequisite added successfully.");
                             } else {
                                 System.out.println("Course not found.");
                             }
@@ -262,9 +264,15 @@ public class Course { // made -- test left
                             if (course_db.containsKey(prereq_id)) {
                                 course.remove_prerequisite(course_db.get(prereq_id));
                                 course_db.get(prereq_id).remove_prerequisite_of(course);
+                                System.out.println("Prerequisite removed successfully.");
                             } else {
                                 System.out.println("Course not found.");
                             }
+                        } else if (choice2 == 3) {
+                            for (int i = 1; i < course.get_offered_semester(); i++) {
+                                Course.display_courses_by_semester(i);
+                            }
+                            System.out.println();
                         } else if (choice2 == -1) {
                             break;
                         } else {
