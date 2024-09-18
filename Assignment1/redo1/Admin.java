@@ -75,9 +75,11 @@ public class Admin extends CommonUser { // left.
         while (true) {
             System.out.println("Enter -1 to return to previous menu");
             System.out.println("1. View Courses (press 1)");
-            System.out.println("2. Add a new Course (press 2)");
-            System.out.println("3. Delete an existing Course (press 3)");
-            System.out.println("4. Update the details for existing course (press 4)");
+            System.out.println("2. View Details of a particular course (press 2)");
+            System.out.println("3. Add a new Course (press 3)");
+            System.out.println("4. Delete an existing Course (press 4)");
+            System.out.println("5. Update the details for existing course (press 5)");
+            System.out.println("6. Assign a Professor to a course (press 6)");
             System.out.print("Enter your choice: ");
             Integer choice = admin_sc.nextInt();
             if (choice == -1) {
@@ -94,7 +96,7 @@ public class Admin extends CommonUser { // left.
                         break;
                     } else if (format_choice == 1) {
                         Course.display_all_courses();
-                        break;
+                        // break;
                     } else if (format_choice == 2) {
                         System.out.print("Enter the Semester: ");
                         Integer sem = admin_sc.nextInt();
@@ -103,14 +105,15 @@ public class Admin extends CommonUser { // left.
                         } else if (Course.semester_course_db.containsKey(sem)) {
                             if (Course.semester_course_db.get(sem).size() == 0) {
                                 System.out.println("No Course exist for this semester.");
+                                break;
                             }
                             else {
                                 Course.display_courses_by_semester(sem);
                             }
                         }else {
                             System.out.println("No Course exist for this semester.");
+                            break;
                         }
-                        break;
                     } else {
                         System.out.println("Invalid Choice!");
                     }
@@ -122,12 +125,18 @@ public class Admin extends CommonUser { // left.
                         Course.display_course_details(course_id);
                     }
                 }
-            } else if (choice == 2) {
+            } else if (choice == 2){
+                System.out.print("Enter the course id to see details: ");
+                String temp = admin_sc.next();
+                if (Course.course_db.containsKey(temp)) {
+                    Course.display_course_details(temp);
+                }
+            } else if (choice == 3) {
                 Professor prof_to_be_assigned = assign_professor_to_course();
                 if (prof_to_be_assigned != null) {
                     Course.create_course(prof_to_be_assigned);
                 }
-            } else if (choice == 3) {
+            } else if (choice == 4) {
                 System.out.print("Enter the course id to be deleted: ");
                 String course_id_to_delete = admin_sc.next();
                 if (Course.course_db.containsKey(course_id_to_delete)) {
@@ -135,7 +144,7 @@ public class Admin extends CommonUser { // left.
                 } else {
                     System.out.println("Course does not exist.");
                 }
-            } else if (choice == 4) {
+            } else if (choice == 5) {
                 System.out.print("Enter the course id to updating course: ");
                 String course_id_to_update = admin_sc.next();
                 if (Course.course_db.containsKey(course_id_to_update)) {
@@ -144,6 +153,17 @@ public class Admin extends CommonUser { // left.
                     System.out.println("Course does not exist.");
                 }
 
+            } else if (choice == 6) {
+                System.out.print("Enter the course id to assign a professor: ");
+                String course_id_to_assign = admin_sc.next();
+                if (Course.course_db.containsKey(course_id_to_assign)) {
+                    Professor prof_to_be_assigned = assign_professor_to_course();
+                    if (prof_to_be_assigned != null) {
+                        Course.course_db.get(course_id_to_assign).set_course_professor(prof_to_be_assigned);
+                    }
+                } else {
+                    System.out.println("Course does not exist.");
+                }
             } else {
                 System.out.println("Invalid choice. Please try again.");
             }
@@ -182,22 +202,43 @@ public class Admin extends CommonUser { // left.
         Student.show_all_students();
         while (true) {
             System.out.println("Enter -1 to return to previous menu");
-            System.out.print("Student Roll Number to view the details of that student: ");
-            Integer student_roll=admin_sc.nextInt();
-            if (student_roll.equals(-1)) {
+            System.out.println("What do you want to do?");
+            System.out.println("1. View or Update the details of a student (press 1)");
+            System.out.println("2. Add a new student (press 2)");
+            System.out.println("3. Remove a student (press 3)");
+            System.out.println("4. Pass a particular student (press 4)");
+            System.out.println("5. Pass all eligible students (press 5)");
+            System.out.print("Enter your choice: ");
+            Integer choice = admin_sc.nextInt();
+            if (choice == -1) {
                 return;
-            } else {
-                if (Student.student_db.containsKey(student_roll)) {
-                    Student student=Student.student_db.get(student_roll);
+            } if (choice == 2) {
+                Student.create_student();
+                continue;
+            } else if (choice == 5) {
+                Student.pass_all_eligible_students();
+                continue;
+            }
+            System.out.print("Enter the student roll number to view the details of that student: ");
+            Integer student_roll=admin_sc.nextInt();
+            if (!Student.student_db.containsKey(student_roll)) {
+                System.out.println("No student found with the given roll number!");
+                continue;
+            }
+            Student student=Student.student_db.get(student_roll);
+            if (choice == 1) {
                     student.show_details();
                     System.out.print("Do you want to update the student details? (Y/N)");
-                    String choice = admin_sc.next();
-                    if (choice.equals("Y") || choice.equals("y")) {
+                    String update_choice = admin_sc.next();
+                    if (update_choice.equals("Y") || update_choice.equals("y")) {
                         student.update_detials();
                     }    
-                } else{
-                    System.out.println("No student found with the given roll number!");
-                }
+            } else if (choice == 3) {
+                    student.remove_student();
+            } else if (choice == 4) {
+                    student.get_to_next_semester(true);
+            } else {
+                System.out.println("Invalid choice. Please try again.");
             }
         }
     }

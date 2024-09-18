@@ -44,7 +44,7 @@ public class ERP {
         }
         main_sc.close();
     }
-
+    
     public static void studentLogin(Scanner main_sc) {
         System.out.print("Enter Roll Number: ");
         int rollNumber = main_sc.nextInt();
@@ -103,9 +103,10 @@ public class ERP {
             System.out.println((i++) + ". Logout"); 
             System.out.println((i++) + ". Show my details");
             System.out.println((i++) + ". View Schedule");
-            System.out.println((i++)+ ". View Courses Offered this Semester");
+            System.out.println((i++) + ". View Courses Offered this Semester");
             System.out.println((i++) + ". View Completed Courses");
             System.out.println((i++) + ". View Registered Course");
+            System.out.println((i++) + ". View Dropped Courses");
             System.out.println((i++) + ". Register for Course");
             System.out.println((i++) + ". Drop Course");
             System.out.println((i++) + ". Submit Complaint");
@@ -127,14 +128,16 @@ public class ERP {
             } else if (choice == 6) {
                 student.view_registered_courses();
             } else if (choice == 7) {
-                student.register_course();
+                student.view_dropped_courses();
             } else if (choice == 8) {
-                student.drop_course();
+                student.register_course();
             } else if (choice == 9) {
-                student.submit_complaint();
+                student.drop_course();
             } else if (choice == 10) {
-                student.see_complaint();
+                student.submit_complaint();
             } else if (choice == 11) {
+                student.see_complaint();
+            } else if (choice == 12) {
                 student.see_status_of_particular_complaint();
             } else {
                 System.out.println("Invalid choice! Please try again.");

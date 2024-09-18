@@ -285,7 +285,6 @@ public class Professor extends CommonUser { // made -- testing left
             System.out.println("Please assign grades to all students before passing the semester.");
             return;
         }
-        System.out.println("Passing semester for the assigned course...");
         this.assigned_course.advance_to_next_semester(this.assigning_grades_to_student);
         // need to assign grades to students before this.
         System.out.println("Semester passed successfully for course: " + this.assigned_course.get_course_id());

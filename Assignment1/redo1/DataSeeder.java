@@ -11,19 +11,27 @@ public class DataSeeder {
     public static void seedData() {
         // Add Admin
         Admin admin = new Admin();
-        admin.set_user("admin@university.com", "admin123");
+        admin.set_user("admin@iiitd.ac.in", "admin123");
         admin.set_admin_id("A001");
         admin.set_name("Admin One");
         Admin.admin_db.put(admin.get_admin_id(), admin);
 
         // Add Professors
         Professor prof1 = new Professor();
-        make_professor(prof1, "Professor Alpha","prof1@university.com","prof123","Prof001","mathematics");
+        make_professor(prof1, "Professor Alpha","prof1@iiitd.ac.in","prof123","Prof001","mathematics");
         Professor.professor_db.put(prof1.get_professor_id(), prof1);
         Professor prof2 = new Professor();
-        prof2.set_name("Professor Beta");
-        make_professor(prof2,"Professor Beta","prof2@university.com", "prof456", "Prof002", "computer science");
+        make_professor(prof2,"Professor Beta","prof2@iiitd.ac.in", "prof123", "Prof002", "computer science");
         Professor.professor_db.put(prof2.get_professor_id(), prof2);
+        Professor prof3 = new Professor();
+        make_professor(prof3,"Professor Gamma","prof3@iiitd.ac.in", "prof123", "Prof003", "mathematics");
+        Professor.professor_db.put(prof3.get_professor_id(), prof3);
+        Professor prof4 = new Professor();
+        make_professor(prof4,"Professor Theta","prof4@iiitd.ac.in", "prof123", "Prof004", "computer science");
+        Professor.professor_db.put(prof4.get_professor_id(), prof4);
+        Professor prof5 = new Professor();
+        make_professor(prof5,"Professor Phi","prof5@iiitd.ac.in", "prof123", "Prof005", "computer science");
+        Professor.professor_db.put(prof5.get_professor_id(), prof5);
 
         // Add Students
         Student student1 = new Student();
@@ -43,7 +51,7 @@ public class DataSeeder {
         Course.course_db.put(course1.get_course_id(), course1);
         Course.semester_course_db.get(1).add(course1);
         Course course2 = new Course();
-        make_course(course2,"C102", "Linear Algebra", 1, prof1);
+        make_course(course2,"C102", "Linear Algebra", 1, prof3);
         Course.course_db.put(course2.get_course_id(), course2);
         Course.semester_course_db.get(1).add(course2);
         Course course3 = new Course();
@@ -51,11 +59,11 @@ public class DataSeeder {
         Course.course_db.put(course3.get_course_id(), course3);
         Course.semester_course_db.get(2).add(course3);
         Course course4 = new Course();
-        make_course(course4,"C202", "Operating Systems", 2, prof2);
+        make_course(course4,"C202", "Operating Systems", 2, prof4);
         Course.course_db.put(course4.get_course_id(), course4);
         Course.semester_course_db.get(2).add(course4);
         Course course5 = new Course();
-        make_course(course5,"C301", "Artificial Intelligence", 3, prof2);
+        make_course(course5,"C301", "Artificial Intelligence", 3, prof5);
         Course.course_db.put(course5.get_course_id(), course5);
         Course.semester_course_db.get(3).add(course5);
         System.out.println("Sample data has been seeded successfully!");
@@ -81,6 +89,7 @@ public class DataSeeder {
         course.set_course_name(course_name);
         course.set_offered_semester(semester);
         course.set_course_professor(prof);
+        course.get_course_professor().set_assigned_course(course);
         course.set_course_credits(4);
         course.set_current_enrollment(0);
         course.set_enrollment_limit(69);

@@ -22,6 +22,8 @@ public class Student extends CommonUser{ // Left
     protected HashMap<String,Course> dropped_courses = new HashMap<String,Course>();
     protected HashMap<String,Pair<Course,Integer>> completed_courses = new HashMap<String,Pair<Course,Integer>>();
     private Float sgpas[]=new Float[8];
+    protected HashMap<String,Pair<Course,Boolean>> current_courses_pass_check = new HashMap<String,Pair<Course,Boolean>>();
+
 
     // Getters
     public String get_name() {
@@ -208,7 +210,17 @@ public class Student extends CommonUser{ // Left
             }
         }
     }
-
+    public boolean prereq_check(Course course_to_check){
+        if (course_to_check.get_prereq_List().isEmpty()) {
+            return true;
+        }
+        for (Course prereqs : course_to_check.get_prereq_List()){
+            if (!this.completed_courses.containsKey(prereqs.get_course_id())) {
+                return false;
+            }
+        }
+        return true;
+    }
     public static void changes_in_completed_courses(String old_course_id,String new_course_id){
         for (Student student : student_db.values()) {
             if (student.completed_courses.containsKey(old_course_id)) {
@@ -241,7 +253,58 @@ public class Student extends CommonUser{ // Left
         }
         System.out.println();
     }
-    
+    public void remove_student(){
+        student_db.remove(this.student_roll_number);
+        for (Course course : this.current_courses.values()) {
+            if (course.get_course_professor().assigning_grades_to_student.containsKey(this.student_roll_number)) {
+                course.get_course_professor().assigning_grades_to_student.remove(this.student_roll_number);
+            }
+            course.drop_student(this);
+        }
+        System.out.println("Student removed successfully.");
+    }
+    public void view_dropped_courses(){
+        if (this.dropped_courses.isEmpty()) {
+            System.out.println("No courses dropped.");
+            return;
+        }
+        System.out.println("Dropped Courses: ");
+        for (Course course : this.dropped_courses.values()) {
+            System.out.println("Course ID : " + course.get_course_id() + " | Course Name : " + course.get_course_name());
+        }
+    }
+    public void get_to_next_semester(Boolean printing){
+        if (this.current_courses.size() == this.current_courses_pass_check.size()) {
+            this.current_semester++;
+            this.current_courses.clear();
+            this.current_courses_pass_check.clear();
+            this.dropped_courses.clear();
+            this.credits_registered = 0;
+            this.calculate_sgpa(this.current_semester - 1);
+            this.calculate_cgpa();
+            if (printing) {
+                System.out.println("Semester ended successfully.");
+            }
+            return;
+        } 
+        if (printing) {
+            System.out.println("Grade not assigned to all the courses.");
+        }
+    }
+    public static void pass_all_eligible_students(){
+        for (Student student : student_db.values()) {
+            if (student.current_courses.size() == student.current_courses_pass_check.size()) {
+                // for (Pair<Course,Boolean> course_pass_check : student.current_courses_pass_check.values()) {
+                //     if (course_pass_check.getSecond()) {
+                //         student.completed_courses.put(course_pass_check.getFirst().get_course_id(), new Pair<Course,Integer>(course_pass_check.getFirst(),10));
+                //     } else {
+                //         student.dropped_courses.put(course_pass_check.getFirst().get_course_id(), course_pass_check.getFirst());
+                //     }
+                // }
+                student.get_to_next_semester(false);
+            }
+        }
+    }
     // Required functionalities
     public void view_available_courses(){
         System.out.println("Available Courses: ");
@@ -263,7 +326,14 @@ public class Student extends CommonUser{ // Left
             if (Course.course_db.containsKey(course_id)) {
                 Course course = Course.course_db.get(course_id);
                 if (course.get_offered_semester() == this.current_semester) {
-                    course.enroll_student(this);
+                    if (this.prereq_check(course)){
+                        course.enroll_student(this);
+                    }
+                    else{
+                        System.out.println("Requirements for the course not met!");
+                    }
+                        
+                    
                 } else {
                     System.out.println("Course not offered in this semester.");
                 }
@@ -346,10 +416,10 @@ public class Student extends CommonUser{ // Left
                 System.out.println("Course Name: " + course.get_course_name());
                 System.out.println("Course Timing: " + course.get_timings());
                 System.out.println("Instructor: " + course.get_course_professor().get_name());
+                System.out.println();
             }
         }
     }
-    
 
 
 }

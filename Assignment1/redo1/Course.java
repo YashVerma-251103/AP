@@ -64,6 +64,13 @@ public class Course { // made -- test left
     public HashMap<Integer, Student> get_enrolled_students() {
         return enrolled_students;
     }
+    public ArrayList<Course> get_prereq_List(){
+        return this.course_prerequisites;
+    }
+    public ArrayList<Course> idk_need_to_change_name(){
+        return this.prerequist_of_courses;
+    }
+
 
     // Setters
     public void set_course_id(String course_id) {
@@ -180,15 +187,18 @@ public class Course { // made -- test left
                 System.out.println("9. Update Prerequisites (Press 9)");
                 System.out.println("Enter your choice: ");
                 Integer choice = course_sc.nextInt();
+                course_sc.nextLine();
                 if (choice == -1) {
                     return;
                 } else if (choice == 1) {
                     System.out.print("Enter new course name: ");
-                    course.set_course_name(course_sc.nextLine());
+                    String temp = Course.course_sc.nextLine();
+                    course.set_course_name(temp);
                 } else if (choice == 2) {
                     System.out.print("Enter new course id: ");
                     String prev_id = course.get_course_id();
-                    course.set_course_id(course_sc.nextLine());
+                    String temp = course_sc.nextLine();
+                    course.set_course_id(temp);
                     course_db.remove(prev_id);
                     course_db.put(course.get_course_id(), course);
                     for (Student student : course.enrolled_students.values()) {
@@ -236,6 +246,7 @@ public class Course { // made -- test left
                         System.out.println("2. Remove prerequisites (Press 2)");
                         System.out.print("Enter your choice: ");
                         Integer choice2 = course_sc.nextInt();
+                        course_sc.nextLine();
                         if (choice2 == 1) {
                             System.out.print("Enter the course id of the prerequisite: ");
                             String prereq_id = course_sc.nextLine();
@@ -349,6 +360,7 @@ public class Course { // made -- test left
         System.out.println("Course ID: " + this.course_id);
         System.out.println("Course Name: " + this.course_name);
         System.out.println("Course Description: " + this.course_description);
+        System.out.println("Professor: " + this.course_professor.get_name()); ////////////////////////
         System.out.println("Syllabus: " + this.syllabus);
         System.out.println("Timings: " + this.timings);
         System.out.println("Course Credits: " + this.course_credits);
@@ -365,12 +377,11 @@ public class Course { // made -- test left
             this.enrolled_students.put(new_roll, student);
         }
     }
-
-
     public void advance_to_next_semester(HashMap<Integer,Pair<Student,Integer>> students_with_grades) {
         for (Pair<Student,Integer> pair : students_with_grades.values()) {
             Course course = pair.getFirst().current_courses.get(this.course_id);
-            pair.getFirst().current_courses.remove(this.course_id);
+            // pair.getFirst().current_courses.remove(this.course_id);
+            pair.getFirst().current_courses_pass_check.put(this.course_id,Pair.of(course,true));
             pair.getFirst().completed_courses.put(this.course_id, Pair.of(course, pair.getSecond()));
             pair.getFirst().set_credits_registered(pair.getFirst().get_credits_registered() - this.course_credits);
         }
