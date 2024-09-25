@@ -1,4 +1,4 @@
-package Assignment1.redo1;
+package Assignment2;
 
 import java.util.*;
 public class Course { // made -- test left
@@ -28,6 +28,7 @@ public class Course { // made -- test left
             semester_course_db.put(i,new ArrayList<Course>());
         }
     }
+
     // Getters
     public String get_course_id() {
         return course_id;
@@ -393,4 +394,7 @@ public class Course { // made -- test left
         }
     }
 
+
+    // Additions made for assignment 2
+    protected static HashMap<String, Pair<Course, 
 }

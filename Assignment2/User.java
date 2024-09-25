@@ -1,4 +1,4 @@
-package Assignment1.redo1;
+package Assignment2;
 
 public interface User {
     String get_email();

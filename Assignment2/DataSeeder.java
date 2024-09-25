@@ -5,7 +5,7 @@
 // }
 
 
-package Assignment1.redo1;
+package Assignment2;
 public class DataSeeder {
 
     public static void seedData() {
