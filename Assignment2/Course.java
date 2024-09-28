@@ -1,6 +1,7 @@
 package Assignment2;
 
 import java.util.*;
+
 public class Course { // made -- test left
     public static Scanner course_sc = new Scanner(System.in);
 
@@ -16,16 +17,16 @@ public class Course { // made -- test left
     private Integer enrollment_limit;
     private Integer current_enrollment;
 
-    
     // Storing and Sharing DataBase
     protected static HashMap<String, Course> course_db = new HashMap<String, Course>();
     protected static HashMap<Integer, ArrayList<Course>> semester_course_db = new HashMap<Integer, ArrayList<Course>>();
     protected HashMap<Integer, Student> enrolled_students = new HashMap<Integer, Student>();
     private ArrayList<Course> course_prerequisites = new ArrayList<Course>();
     private ArrayList<Course> prerequist_of_courses = new ArrayList<Course>();
-    public static void sem_course_initializer(){
-        for(int i=1;i<=8;i++){
-            semester_course_db.put(i,new ArrayList<Course>());
+
+    public static void sem_course_initializer() {
+        for (int i = 1; i <= 8; i++) {
+            semester_course_db.put(i, new ArrayList<Course>());
         }
     }
 
@@ -33,76 +34,95 @@ public class Course { // made -- test left
     public String get_course_id() {
         return course_id;
     }
+
     public String get_course_name() {
         return course_name;
-    }   
+    }
+
     public String get_course_description() {
         return course_description;
-    }   
+    }
+
     public String get_syllabus() {
         return syllabus;
     }
+
     public String get_timings() {
         return timings;
     }
+
     public Professor get_course_professor() {
         return course_professor;
     }
+
     public Integer get_course_credits() {
         return course_credits;
     }
+
     public Integer get_offered_semester() {
         return offered_semester;
     }
+
     public Integer get_enrollment_limit() {
         return enrollment_limit;
     }
+
     public Integer get_current_enrollment() {
         return current_enrollment;
     }
+
     public HashMap<Integer, Student> get_enrolled_students() {
         return enrolled_students;
     }
-    public ArrayList<Course> get_prereq_List(){
+
+    public ArrayList<Course> get_prereq_List() {
         return this.course_prerequisites;
     }
-    public ArrayList<Course> get_super_courses(){
+
+    public ArrayList<Course> get_super_courses() {
         return this.prerequist_of_courses;
     }
-
 
     // Setters
     public void set_course_id(String course_id) {
         this.course_id = course_id;
     }
+
     public void set_course_name(String course_name) {
         this.course_name = course_name;
     }
+
     public void set_course_description(String course_description) {
         this.course_description = course_description;
     }
+
     public void set_syllabus(String syllabus) {
         this.syllabus = syllabus;
     }
+
     public void set_timings(String timings) {
         this.timings = timings;
     }
+
     public void set_course_professor(Professor course_professor) {
         this.course_professor = course_professor;
     }
+
     public void set_course_credits(Integer course_credits) {
         this.course_credits = course_credits;
     }
+
     public void set_offered_semester(Integer offered_semester) {
         this.offered_semester = offered_semester;
     }
+
     public void set_enrollment_limit(Integer enrollment_limit) {
         this.enrollment_limit = enrollment_limit;
     }
+
     public void set_current_enrollment(Integer current_enrollment) {
         this.current_enrollment = current_enrollment;
     }
-
 
     /* Functions I need for smooth implementation */
     // Static Functions
@@ -127,11 +147,13 @@ public class Course { // made -- test left
         }
         return course;
     }
+
     public static void display_all_courses() {
         for (Course course : course_db.values()) {
             System.out.println("Course ID: " + course.course_id + " | Course Name: " + course.course_name);
         }
     }
+
     public static void display_courses_by_semester(Integer semester) {
         if (semester_course_db.containsKey(semester)) {
             for (Course course : semester_course_db.get(semester)) {
@@ -141,6 +163,7 @@ public class Course { // made -- test left
             System.out.println("No courses offered in this semester.");
         }
     }
+
     public static void display_course_details(String course_id) {
         if (course_db.containsKey(course_id)) {
             Course course = course_db.get(course_id);
@@ -149,13 +172,15 @@ public class Course { // made -- test left
             System.out.println("Course not found.");
         }
     }
+
     public static void delete_course(String course_id) {
         if (course_db.containsKey(course_id)) {
             Course course = course_db.get(course_id);
             course.course_professor.set_assigned_course(null);
             for (Student student : course.enrolled_students.values()) {
                 student.current_courses.remove(course_id);
-                // student.completed_courses.remove(course_id); // they will still get credits for that so no need to remove from this list.
+                // student.completed_courses.remove(course_id); // they will still get credits
+                // for that so no need to remove from this list.
                 student.set_credits_registered(student.get_credits_registered() - course.course_credits);
             }
             for (Course prereq : course.prerequist_of_courses) {
@@ -163,12 +188,13 @@ public class Course { // made -- test left
             }
             course_db.remove(course_id);
             semester_course_db.get(course.offered_semester).remove(course);
-            
+
             System.out.println("Course deleted successfully.");
         } else {
             System.out.println("Course not found.");
         }
     }
+
     public static void update_course(String course_id) {
         if (course_db.containsKey(course_id)) {
             Course course = course_db.get(course_id);
@@ -219,11 +245,12 @@ public class Course { // made -- test left
                     Integer prev_credits = course.get_course_credits();
                     course.set_course_credits(course_sc.nextInt());
                     for (Student student : course.enrolled_students.values()) {
-                        student.set_credits_registered(student.get_credits_registered() - prev_credits + course.get_course_credits());
+                        student.set_credits_registered(
+                                student.get_credits_registered() - prev_credits + course.get_course_credits());
                     }
                 } else if (choice == 7) {
                     System.out.print("Enter new offered semester: ");
-                    Integer prev_sem=course.get_offered_semester();
+                    Integer prev_sem = course.get_offered_semester();
                     course.set_offered_semester(course_sc.nextInt());
                     semester_course_db.get(prev_sem).remove(course);
                     if (semester_course_db.containsKey(course.get_offered_semester())) {
@@ -278,7 +305,7 @@ public class Course { // made -- test left
                             System.out.println("Invalid choice.");
                         }
                     }
-                }else {
+                } else {
                     System.out.println("Invalid choice.");
                 }
             }
@@ -306,13 +333,14 @@ public class Course { // made -- test left
         System.out.print("Enter enrollment limit: ");
         this.set_enrollment_limit(course_sc.nextInt());
         this.set_current_enrollment(0);
-    } 
+    }
+
     public void enroll_student(Student student) {
         if (this.enrolled_students.containsKey(student.get_student_roll_number())) {
             System.out.println("Student already enrolled in this course.");
         } else if (this.current_enrollment >= this.enrollment_limit) {
             System.out.println("Course is full. Cannot enroll more students.");
-        } else{
+        } else {
             this.enrolled_students.put(student.get_student_roll_number(), student);
             this.current_enrollment++;
             student.current_courses.putIfAbsent(this.course_id, this);
@@ -320,6 +348,7 @@ public class Course { // made -- test left
             System.out.println("Student enrolled successfully.");
         }
     }
+
     public void drop_student(Student student) {
         if (this.enrolled_students.containsKey(student.get_student_roll_number())) {
             this.enrolled_students.remove(student.get_student_roll_number());
@@ -331,18 +360,23 @@ public class Course { // made -- test left
             System.out.println("Student not enrolled in this course.");
         }
     }
+
     public void add_prerequisite(Course course) {
         this.course_prerequisites.add(course);
     }
+
     public void add_prerequisite_of(Course course) {
         this.prerequist_of_courses.add(course);
     }
+
     public void remove_prerequisite(Course course) {
         this.course_prerequisites.remove(course);
     }
+
     public void remove_prerequisite_of(Course course) {
         this.prerequist_of_courses.remove(course);
     }
+
     public void show_prerequisites() {
         if (this.course_prerequisites.size() == 0) {
             System.out.println("No prerequisites for this course.");
@@ -353,6 +387,7 @@ public class Course { // made -- test left
             System.out.println("Course ID: " + course.get_course_id() + " | Course Name: " + course.get_course_name());
         }
     }
+
     public void show_enrolled_students() {
         if (this.current_enrollment == 0) {
             System.out.println("No students enrolled in this course.");
@@ -360,10 +395,12 @@ public class Course { // made -- test left
         }
         System.out.println("Enrolled Students: ");
         for (Student student : this.enrolled_students.values()) {
-            System.out.println("Student Roll Number: " + student.get_student_roll_number() + " | Student Name: " + student.get_name());
+            System.out.println("Student Roll Number: " + student.get_student_roll_number() + " | Student Name: "
+                    + student.get_name());
         }
     }
-    public void show_details(){
+
+    public void show_details() {
         System.out.println("Course ID: " + this.course_id);
         System.out.println("Course Name: " + this.course_name);
         System.out.println("Course Description: " + this.course_description);
@@ -377,6 +414,7 @@ public class Course { // made -- test left
         this.show_enrolled_students();
         this.show_prerequisites();
     }
+
     public void correct_student_roll_number(Integer prev_roll, Integer new_roll) {
         if (this.enrolled_students.containsKey(prev_roll)) {
             Student student = this.enrolled_students.get(prev_roll);
@@ -384,17 +422,40 @@ public class Course { // made -- test left
             this.enrolled_students.put(new_roll, student);
         }
     }
-    public void advance_to_next_semester(HashMap<Integer,Pair<Student,Integer>> students_with_grades) {
-        for (Pair<Student,Integer> pair : students_with_grades.values()) {
+
+    public void advance_to_next_semester(HashMap<Integer, Pair<Student, Integer>> students_with_grades) {
+        for (Pair<Student, Integer> pair : students_with_grades.values()) {
             Course course = pair.getFirst().current_courses.get(this.course_id);
             // pair.getFirst().current_courses.remove(this.course_id);
-            pair.getFirst().current_courses_pass_check.put(this.course_id,Pair.of(course,true));
+            pair.getFirst().current_courses_pass_check.put(this.course_id, Pair.of(course, true));
             pair.getFirst().completed_courses.put(this.course_id, Pair.of(course, pair.getSecond()));
             pair.getFirst().set_credits_registered(pair.getFirst().get_credits_registered() - this.course_credits);
         }
     }
 
-
     // Additions made for assignment 2
-    protected static HashMap<String, Pair<Course, 
+    protected HashMap<Integer, Feedback<?>> course_feedback = new HashMap<>();
+    // protected HashMap<Integer,Feedback<?>> course_feedback = new
+    // HashMap<Integer,Feedback<?>>();
+
+    public <T> void add_feeback(Student kid, Feedback<T> feedback) {
+        this.course_feedback.put(kid.get_student_roll_number(), feedback);
+
+    }
+
+    public void show_feedbacks() {
+        if (!(this.course_feedback.isEmpty())) {
+            for (Integer i : this.course_feedback.keySet()) {
+                System.out.println("Student : " + (Student.student_db.get(i)) + " | Feedback: "
+                        + this.course_feedback.get(i).get_feedback());
+                // System.out.println("Student : " + (Student.student_db.get(i)) + " | Feedback:
+                // "+course_feedback.get(i));
+
+            }
+        } else{
+            System.out.println("No Feedback available yet.");
+        }
+    }
+
+    // add a check to see if all pass student have added the feedback or not.
 }

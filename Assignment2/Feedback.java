@@ -1,5 +1,7 @@
 package Assignment2;
 
+import java.lang.Object;
+
 public class Feedback<T>{
     // private T feedback;
     // private int rating;
@@ -49,11 +51,20 @@ public class Feedback<T>{
     // Attributes
     private T feedback_given;
 
-
-
+    
     // Setters
-    void set_feedback(<T> feedback){
+    void set_feedback(T feedback){
         this.feedback_given = feedback;
     }
-    
+
+
+    // Getters
+    T get_feedback(){
+        return this.feedback_given;    
+    }
+
+    @Override
+    public String toString() {
+        return "\""+this.feedback_given+"\"";
+    }
 }
