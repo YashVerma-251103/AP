@@ -299,24 +299,25 @@ public class Student extends CommonUser { // Left
         }
     }
 
-    // public void get_to_next_semester(Boolean printing){
-    // if (this.current_courses.size() == this.current_courses_pass_check.size()) {
-    // this.current_semester++;
-    // this.current_courses.clear();
-    // this.current_courses_pass_check.clear();
-    // this.dropped_courses.clear();
-    // this.credits_registered = 0;
-    // this.calculate_sgpa(this.current_semester - 1);
-    // this.calculate_cgpa();
-    // if (printing) {
-    // System.out.println("Semester ended successfully.");
+    // public void get_to_next_semester(Boolean printing) {
+    //     if (this.current_courses.size() == this.current_courses_pass_check.size()) {
+    //         this.current_semester++;
+    //         this.current_courses.clear();
+    //         this.current_courses_pass_check.clear();
+    //         this.dropped_courses.clear();
+    //         this.credits_registered = 0;
+    //         this.calculate_sgpa(this.current_semester - 1);
+    //         this.calculate_cgpa();
+    //         if (printing) {
+    //             System.out.println("Semester ended successfully.");
+    //         }
+    //         return;
+    //     }
+    //     if (printing) {
+    //         System.out.println("Grade not assigned to all the courses.");
+    //     }
     // }
-    // return;
-    // }
-    // if (printing) {
-    // System.out.println("Grade not assigned to all the courses.");
-    // }
-    // }
+
     public static void pass_all_eligible_students() {
         for (Student student : student_db.values()) {
             if (student.current_courses.size() == student.current_courses_pass_check.size()) {
@@ -349,30 +350,30 @@ public class Student extends CommonUser { // Left
         return;
     }
 
-    public void register_course() {
-        if (this.credits_registered < credit_limit) {
-            Course.display_courses_by_semester(this.current_semester);
-            System.out.print("Enter the course id: ");
-            String course_id = student_sc.next();
-            if (Course.course_db.containsKey(course_id)) {
-                Course course = Course.course_db.get(course_id);
-                if (course.get_offered_semester() == this.current_semester) {
-                    if (this.prereq_check(course)) {
-                        course.enroll_student(this);
-                    } else {
-                        System.out.println("Requirements for the course not met!");
-                    }
-
-                } else {
-                    System.out.println("Course not offered in this semester.");
-                }
-            } else {
-                System.out.println("Course not found.");
-            }
-        } else {
-            System.out.println("Credit limit reached.");
-        }
-    }
+    // public void register_course() {
+    //     if (this.credits_registered < credit_limit) {
+    //         Course.display_courses_by_semester(this.current_semester);
+    //         System.out.print("Enter the course id: ");
+    //         String course_id = student_sc.next();
+    //         if (Course.course_db.containsKey(course_id)) {
+    //             Course course = Course.course_db.get(course_id);
+    //             if (course.get_offered_semester() == this.current_semester) {
+    //                 if (this.prereq_check(course)) {
+    //                     course.enroll_student(this);
+    //                 } else {
+    //                     System.out.println("Requirements for the course not met!");
+    //                 }
+    // 
+    //             } else {
+    //                 System.out.println("Course not offered in this semester.");
+    //             }
+    //         } else {
+    //             System.out.println("Course not found.");
+    //         }
+    //     } else {
+    //         System.out.println("Credit limit reached.");
+    //     }
+    // }
 
     public void drop_course() {
         if (this.current_courses.size() > 0) {
@@ -462,33 +463,68 @@ public class Student extends CommonUser { // Left
     }
 
     // Additions
-    // protected HashMap<String,Feedback<?>> completed_feedbacks = new
-    // HashMap<String,Feedback<?>>();
-    protected HashMap<String, Pair<Course, Feedback<?>>> completed_feedbacks = new HashMap<>();
-    protected HashMap<String, Pair<Course, Feedback<?>>> current_feedbacks = new HashMap<>();
+    private Boolean pending_feedbacks = false;
+    protected HashMap<String, Pair<Course,Feedback<Object>>> completed_course_feedbacks = new HashMap<>();
+    protected HashMap<String, Pair<Course,Feedback<Object>>> current_course_feedbacks = new HashMap<>();
 
-    // len(completed_courses) == len(completed_feedbacks) is must to
-    public <T> Boolean check_feedback_for_completed_courses(HashMap<> completed_courses, HashMap<> completed_feedbacks) {
-        if (this.completed_courses.size() == this.completed_feedbacks.size()) {
-            return true;
+
+    public Boolean check_for_pending_feedbacks() {
+        if (this.current_semester==1) {
+            this.pending_feedbacks = false;
+            return false;
+        } // can not give feedbacks for the first semester.
+        if(completed_courses.size() == completed_course_feedbacks.size()){
+            this.pending_feedbacks = false;
+            return false;
         }
-        return false;
+        this.pending_feedbacks = true;
+        return true;
     }
 
+    public void register_course() {
+        if (this.check_for_pending_feedbacks()) {
+            System.out.println("You have pending feedbacks to fill.\n");
+            return;
+        }
+        if (this.credits_registered < credit_limit) {
+            Course.display_courses_by_semester(this.current_semester);
+            System.out.print("Enter the course id: ");
+            String course_id = student_sc.next();
+            if (Course.course_db.containsKey(course_id)) {
+                Course course = Course.course_db.get(course_id);
+                if (course.get_offered_semester() == this.current_semester) {
+                    if (this.prereq_check(course)) {
+                        course.enroll_student(this);
+                    } else {
+                        System.out.println("Requirements for the course not met!");
+                    }
+
+                } else {
+                    System.out.println("Course not offered in this semester.");
+                }
+            } else {
+                System.out.println("Course not found.");
+            }
+        } else {
+            System.out.println("Credit limit reached.");
+        }
+    }
 
     public void get_to_next_semester(Boolean printing) {
         if (this.current_courses.size() == this.current_courses_pass_check.size()) {
-            if () {
-                this.current_semester++;
-                this.current_courses.clear();
-                this.current_courses_pass_check.clear();
-                this.dropped_courses.clear();
-                this.credits_registered = 0;
-                this.calculate_sgpa(this.current_semester - 1);
-                this.calculate_cgpa();
-                if (printing) {
-                    System.out.println("Semester ended successfully.");
-                }
+            for (Pair<Course,Boolean> course_pass_check : this.current_courses_pass_check.values()) {
+                    this.completed_courses.put(course_pass_check.getFirst().get_course_id(), new Pair<Course,Integer>(course_pass_check.getFirst(),course_pass_check.getSecond()));
+                    this.current_course_feedbacks.put(course_pass_check.getFirst().get_course_id(), new Pair<Course,Feedback<Object>>(course_pass_check.getFirst(),null));
+            }
+            this.current_semester++;
+            this.current_courses.clear();
+            this.current_courses_pass_check.clear();
+            this.dropped_courses.clear();
+            this.credits_registered = 0;
+            this.calculate_sgpa(this.current_semester - 1);
+            this.calculate_cgpa();
+            if (printing) {
+                System.out.println("Semester ended successfully.");
             }
             return;
         }
@@ -497,41 +533,75 @@ public class Student extends CommonUser { // Left
         }
     }
 
-    public void give_feedback() {
-        System.out.println("Enter the course id for which you want to give feedback: ");
+    public void add_feeback() {
+        if (this.current_course_feedbacks.isEmpty()) {
+            System.out.println("No courses to give feedback for.");
+            return;
+        }
+        System.out.println("\nCourses to give feedback for: ");
+        for (Pair<Course,Feedback<Object>> pair : current_course_feedbacks.values()) {
+            if (pair.getSecond() != null) {
+                continue
+            }
+            Course course = pair.getFirst();
+            System.out.println("Course ID: " + course.get_course_id() + " | Course Name: " + course.get_course_name());
+        }
+        System.out.print("\nEnter -1 to return to previous menu\nEnter Course ID: ");
         String course_id = student_sc.next();
-        if (this.current_courses.containsKey(course_id)) {
-            Course course = this.current_courses.get(course_id);
-            if (course.get_feedbacks().containsKey(this.student_roll_number)) {
-                System.out.println("Feedback already given.");
+        Boolean feedback_given = false;
+        Pair<Course,Feedback<Object>> selected_pair = null;
+        if (course_id.equals("-1")){
+            return;
+        } else if (this.current_course_feedbacks.containsKey(course_id)) {
+            if (this.current_course_feedbacks.get(course_id).getSecond() != null) {
+                System.out.println("Feedback already given for this course.");
                 return;
             }
-            Feedback<?> feedback = new Feedback<>();
-            feedback.set_feedback_given();
-            course.add_feedback(this.student_roll_number, feedback);
-            System.out.println("Feedback submitted successfully.");
-        } else {
-            System.out.println("Course not found.");
+            selected_pair = this.current_course_feedbacks.get(course_id);
+            while (!feedback_given){
+                System.out.println("\nEnter -1 to go to previous menu\nPress 1 to give feedback in the form of a string.");
+                System.out.println("Press 2 to give feedback in the form of a rating. (1-10)");
+                System.out.print("Enter your choice: ");
+                Integer choice = student_sc.nextInt();
+                student_sc.nextLine();
+                Feedback<Object> feedback_object = new Feedback<>();
+                if (choice == 1) {
+                    System.out.print("Enter your feedback: ");
+                    String feedback = student_sc.nextLine();
+                    feedback_object.set_feedback(feedback);
+                    selected_pair.setSecond(feedback_object);
+                    feedback_given = true;
+                    break;
+                } else if (choice == 2) {
+                    System.out.print("Enter your rating: ");
+                    Integer rating = student_sc.nextInt();
+                    student_sc.nextLine();
+                    feedback_object.set_feedback(rating);
+                    selected_pair.setSecond(feedback_object);
+                    feedback_given = true;
+                    break;
+                } else if(choice == -1){        
+                    return;
+                }else {
+                    System.out.println("Invalid Input.");
+                    continue;
+                }
+            }   
+        } else{
+            System.out.println("You have not completed this.");
+        }
+        if (feedback_given) {
+            Course course = selected_pair.getFirst();
+            this.completed_course_feedbacks.put(course.get_course_id(), selected_pair);
+            this.current_course_feedbacks.remove(course.get_course_id());
         }
     }
 
-    public void view_feedback() {
-        System.out.println("Enter the course id for which you want to view feedback: ");
-        String course_id = student_sc.next();
-        if (this.current_courses.containsKey(course_id)) {
-            Course course = this.current_courses.get(course_id);
-            if (course.get_feedbacks().containsKey(this.student_roll_number)) {
-                Feedback<?> feedback = course.get_feedbacks().get(this.student_roll_number);
-                System.out.println("Feedback: ");
-                System.out.println(feedback.get_feedback());
-            } else {
-                System.out.println("Feedback not found.");
-            }
-        } else {
-            System.out.println("Course not found.");
+    public void view_feedback_as_prof(String course_id){
+        if (this.completed_course_feedbacks.containsKey(course_id)) {
+            System.out.println(this.completed_course_feedbacks.get(course_id));
+            return;
         }
+        System.out.println("Student did not complete this course.");
     }
-
-    
-
 }

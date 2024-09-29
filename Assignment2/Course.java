@@ -2,6 +2,8 @@ package Assignment2;
 
 import java.util.*;
 
+import Assignment2.Exceptions.CourseFull;
+
 public class Course { // made -- test left
     public static Scanner course_sc = new Scanner(System.in);
 
@@ -336,16 +338,20 @@ public class Course { // made -- test left
     }
 
     public void enroll_student(Student student) {
-        if (this.enrolled_students.containsKey(student.get_student_roll_number())) {
-            System.out.println("Student already enrolled in this course.");
-        } else if (this.current_enrollment >= this.enrollment_limit) {
-            System.out.println("Course is full. Cannot enroll more students.");
-        } else {
-            this.enrolled_students.put(student.get_student_roll_number(), student);
-            this.current_enrollment++;
-            student.current_courses.putIfAbsent(this.course_id, this);
-            student.set_credits_registered(student.get_credits_registered() + this.course_credits);
-            System.out.println("Student enrolled successfully.");
+        try {
+            if (this.enrolled_students.containsKey(student.get_student_roll_number())) {
+                System.out.println("Student already enrolled in this course.");
+            } else if (this.current_enrollment >= this.enrollment_limit) {
+                throw new CourseFull(this);
+            } else {
+                this.enrolled_students.put(student.get_student_roll_number(), student);
+                this.current_enrollment++;
+                student.current_courses.putIfAbsent(this.course_id, this);
+                student.set_credits_registered(student.get_credits_registered() + this.course_credits);
+                System.out.println("Student enrolled successfully.");
+            }
+        } catch (CourseFull e) {
+            System.out.println(e.getMessage());
         }
     }
 
@@ -434,28 +440,29 @@ public class Course { // made -- test left
     }
 
     // Additions made for assignment 2
-    protected HashMap<Integer, Feedback<?>> course_feedback = new HashMap<>();
+    // protected HashMap<Integer, Feedback<?>> course_feedback = new HashMap<>();
     // protected HashMap<Integer,Feedback<?>> course_feedback = new
     // HashMap<Integer,Feedback<?>>();
+    // may not need it here 
 
-    public <T> void add_feeback(Student kid, Feedback<T> feedback) {
-        this.course_feedback.put(kid.get_student_roll_number(), feedback);
+    // public <T> void add_feeback(Student kid, Feedback<T> feedback) {
+    //     this.course_feedback.put(kid.get_student_roll_number(), feedback);
 
-    }
+    // }
 
-    public void show_feedbacks() {
-        if (!(this.course_feedback.isEmpty())) {
-            for (Integer i : this.course_feedback.keySet()) {
-                System.out.println("Student : " + (Student.student_db.get(i)) + " | Feedback: "
-                        + this.course_feedback.get(i).get_feedback());
-                // System.out.println("Student : " + (Student.student_db.get(i)) + " | Feedback:
-                // "+course_feedback.get(i));
+    // public void show_feedbacks() {
+    //     if (!(this.course_feedback.isEmpty())) {
+    //         for (Integer i : this.course_feedback.keySet()) {
+    //             System.out.println("Student : " + (Student.student_db.get(i)) + " | Feedback: "
+    //                     + this.course_feedback.get(i).get_feedback());
+    //             // System.out.println("Student : " + (Student.student_db.get(i)) + " | Feedback:
+    //             // "+course_feedback.get(i));
 
-            }
-        } else{
-            System.out.println("No Feedback available yet.");
-        }
-    }
+    //         }
+    //     } else{
+    //         System.out.println("No Feedback available yet.");
+    //     }
+    // }
 
-    // add a check to see if all pass student have added the feedback or not.
+    // // add a check to see if all pass student have added the feedback or not.
 }

@@ -1,7 +1,5 @@
 package Assignment2;
 
-import java.lang.Object;
-
 public class Feedback<T>{
     // private T feedback;
     // private int rating;

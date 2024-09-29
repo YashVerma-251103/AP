@@ -267,6 +267,31 @@ public class Professor extends CommonUser { // made -- testing left
             }
         }
     }
+    // public void pass_semester() {
+    //     if (this.assigned_course == null) {
+    //         System.out.println("No course assigned to this professor.");
+    //         return;
+    //     }else if (this.assigned_course.get_enrolled_students().isEmpty()) {
+    //         System.out.println("No students enrolled in the assigned course.");
+    //         return;
+    //     } else if (assigning_grades_to_student.size() != this.assigned_course.get_enrolled_students().size()) {
+    //         System.out.println("Grades not assigned to all students.");
+    //         if (assigning_grades_to_student.isEmpty()) {
+    //             System.out.println("No grades assigned to any student.");
+    //         } else {
+    //             System.out.println("Grades assigned to some students.");
+    //             this.show_students_with_grades_assigned();
+    //         }
+    //         System.out.println("Please assign grades to all students before passing the semester.");
+    //         return;
+    //     }
+    //     this.assigned_course.advance_to_next_semester(this.assigning_grades_to_student);
+    //     System.out.println("Semester passed successfully for course: " + this.assigned_course.get_course_id());
+    // }
+
+    // additions
+    protected HashMap<String, Course> taught_courses = new HashMap<>();
+
     public void pass_semester() {
         if (this.assigned_course == null) {
             System.out.println("No course assigned to this professor.");
@@ -285,10 +310,16 @@ public class Professor extends CommonUser { // made -- testing left
             System.out.println("Please assign grades to all students before passing the semester.");
             return;
         }
+        this.taught_courses.put(this.assigned_course.get_course_id(), this.assigned_course);
         this.assigned_course.advance_to_next_semester(this.assigning_grades_to_student);
-        // need to assign grades to students before this.
         System.out.println("Semester passed successfully for course: " + this.assigned_course.get_course_id());
     }
 
-
+    public void see_feedback(){
+        if (this.taught_courses.isEmpty()) {
+            System.out.println("You have not taught any course yet.");
+            return;
+        }
+        
+    }
 }

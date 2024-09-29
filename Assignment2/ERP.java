@@ -2,6 +2,8 @@ package Assignment2;
 
 import java.util.Scanner;
 
+import Assignment2.Exceptions.InvalidLogin;
+
 public class ERP {
     public static Scanner main_sc = new Scanner(System.in);
     public static void main(String[] args) {
@@ -48,52 +50,75 @@ public class ERP {
     public static void studentLogin(Scanner main_sc) {
         System.out.print("Enter Roll Number: ");
         int rollNumber = main_sc.nextInt();
-        Student student = Student.student_db.get(rollNumber);
-        if (student != null) {
-            System.out.println("Welcome, " + student.get_name() + "!");
-            System.out.print("Enter Student Password: ");
-            if (!student.get_password().equals(main_sc.next())) {
-                System.out.println("Incorrect password! Please try again.");
-                return;
+        try {
+            Student student = Student.student_db.get(rollNumber);
+            if (student != null) {
+                System.out.println("Welcome, " + student.get_name() + "!");
+                System.out.print("Enter Student Password: ");
+                try {
+                    if (!student.get_password().equals(main_sc.next())) {
+                        throw new InvalidLogin("Student ("+student.get_name()+" | "student.get_student_roll_number()+") Password");
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    return;
+                }
+                studentInterface(student, main_sc);
+            } else {
+                throw new InvalidLogin("student");
             }
-            studentInterface(student, main_sc);
-        } else {
-            System.out.println("Student not found.");
-        }
+        } catch (InvalidLogin e) {
+            System.out.println(e.getMessage());
+        } 
     }
 
     public static void professorLogin(Scanner main_sc) {
         System.out.print("Enter Professor ID: ");
         String profId = main_sc.next();
-        Professor professor = Professor.professor_db.get(profId);
-        if (professor != null) {
-            System.out.println("Welcome, " + professor.get_name() + "!");
-            System.out.print("Enter Professor Password: ");
-            if (!professor.get_password().equals(main_sc.next())) {
-                System.out.println("Incorrect password! Please try again.");
-                return;
+        try {
+            Professor professor = Professor.professor_db.get(profId);
+            if (professor != null) {
+                System.out.println("Welcome, " + professor.get_name() + "!");
+                System.out.print("Enter Professor Password: ");
+                try {
+                    if (!professor.get_password().equals(main_sc.next())) {
+                        throw new InvalidLogin("Professor ("+professor.get_name()+" | "+professor.get_professor_id()+") Password");
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    return;
+                }
+                professorInterface(professor, main_sc);
+            } else {
+                throw new InvalidLogin("Professor");
             }
-            professorInterface(professor, main_sc);
-        } else {
-            System.out.println("Professor not found.");
-        }
+        } catch (InvalidLogin e) {
+            System.out.println(e.getMessage());
+        } 
     }
 
     public static void adminLogin(Scanner main_sc) {
         System.out.print("Enter Admin ID: ");
         String adminId = main_sc.next();
-        Admin admin = Admin.admin_db.get(adminId);
-        if (admin != null) {
-            System.out.println("Welcome, " + admin.get_name() + "!");
-            System.out.print("Enter Admin Password: ");
-            if (!admin.get_password().equals(main_sc.next())) {
-                System.out.println("Incorrect password! Please try again.");
-                return;
-                
+        try {
+            Admin admin = Admin.admin_db.get(adminId);
+            if (admin != null) {
+                System.out.println("Welcome, " + admin.get_name() + "!");
+                System.out.print("Enter Admin Password: ");
+                try {
+                    if (!admin.get_password().equals(main_sc.next())) {
+                        throw new InvalidLogin("Admin ("+admin.get_name()+" | "+admin.get_admin_id()+") Password");
+                    }
+                } catch (Exception e) {
+                    System.out.println(e.getMessage());
+                    return;
+                }
+                adminInterface(admin, main_sc);
+            } else {
+                throw new InvalidLogin("Admin");
             }
-            adminInterface(admin, main_sc);
-        } else {
-            System.out.println("Admin not found.");
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 
