@@ -102,6 +102,7 @@ public class Professor extends CommonUser { // made -- testing left
             System.out.println("5. Password (press 5)");
             System.out.print("Enter your choice: ");
             Integer choice = prof_sc.nextInt();
+            prof_sc.nextLine();
             if (choice == -1){
                 return;
             }
@@ -167,6 +168,7 @@ public class Professor extends CommonUser { // made -- testing left
             System.out.println("3. Update your details. (press 3)");
             System.out.print("Enter your choice: ");
             Integer choice = prof_sc.nextInt();
+            prof_sc.nextLine();
             if (choice == -1){
                 return;
             } else if (choice == 1){
@@ -198,6 +200,7 @@ public class Professor extends CommonUser { // made -- testing left
             } else if (choice.equals("Y") || choice.equals("y")) {
                 System.out.print("Enter the student's roll number: ");
                 Integer roll_number = prof_sc.nextInt();
+                prof_sc.nextLine();
                 if (Student.student_db.containsKey(roll_number)) {
                     Student student = Student.student_db.get(roll_number);
                     if (student.current_courses.containsKey(this.assigned_course.get_course_id())) {
@@ -248,11 +251,13 @@ public class Professor extends CommonUser { // made -- testing left
                 this.show_students_with_grades_assigned();
                 System.out.print("Enter the student's roll number: ");
                 Integer roll_number = prof_sc.nextInt();
+                prof_sc.nextLine();
                 if (Student.student_db.containsKey(roll_number)) {
                     Student student = Student.student_db.get(roll_number);
                     if (student.current_courses.containsKey(this.assigned_course.get_course_id())) {
                         System.out.print("Enter the grade: ");
                         Integer grade = prof_sc.nextInt();
+                        prof_sc.nextLine();
                         Pair<Student,Integer> pair = new Pair<Student,Integer>(student, grade);
                         assigning_grades_to_student.put(roll_number, pair);
                         System.out.println("Grade assigned successfully.");
@@ -290,6 +295,8 @@ public class Professor extends CommonUser { // made -- testing left
     // }
 
     // additions
+    HashMap<Integer,TAs> tas = null;
+        
     protected HashMap<String, Course> taught_courses = new HashMap<>();
 
     public void pass_semester() {
@@ -314,12 +321,116 @@ public class Professor extends CommonUser { // made -- testing left
         this.assigned_course.advance_to_next_semester(this.assigning_grades_to_student);
         System.out.println("Semester passed successfully for course: " + this.assigned_course.get_course_id());
     }
-
     public void see_feedback(){
         if (this.taught_courses.isEmpty()) {
             System.out.println("You have not taught any course yet.");
             return;
         }
+        System.out.println("Courses taught by you: ");
+        for (String course_id : this.taught_courses.keySet()) {
+            System.out.println("Course ID: " + course_id + " Course Name: " + this.taught_courses.get(course_id).get_course_name());
+        }
+        System.out.println("\nEnter the course ID to see feedback: ");
+        String course_id = prof_sc.nextLine();
+        if (this.taught_courses.containsKey(course_id)) {
+            Course selected_course = this.taught_courses.get(course_id);
+            for (Student student : selected_course.get_enrolled_students().values()) {
+                // System.out.println("Student Roll Number: " + student.get_roll_number())+" | Feedback: " + student.view_feedback_as_prof(course_id);
+                student.view_feedback_as_prof(course_id); //for anonymous feedback
+            }
+        } else {
+            System.out.println("Course not found.");
+        }
+    }
+    
+    public void view_tas(){
+        if (this.tas.isEmpty()){
+            System.out.println("No TAs assigned to you.");
+            return;
+        }
+        System.out.println("TAs assigned to you: ");
+        for (Integer ta_id : this.tas.keySet()){
+            System.out.println("TA ID: " + ta_id + " TA Name: " + this.tas.get(ta_id).get_name());
+        }
+    }
+    public void assign_ta(){
+        while (true) {
+            System.out.print("Do you want to assign any TA? (Y/N)");
+            String choice = prof_sc.next();
+            if (choice.equals("Y") || choice.equals("y")) {
+                System.out.println("Do you want to make a student a TA? (Y/N)");
+                String choice2 = prof_sc.next();
+                if (choice2.equals("y") || choice2.equals("Y")) {
+                    System.out.println("Enter the student's roll number: ");
+                    Integer roll_number = prof_sc.nextInt();
+                    prof_sc.nextLine();
+                    if (Student.student_db.containsKey(roll_number)) {
+                        TAs.ta_maker(roll_number, this.assigned_course, this);
+                    } else {
+                        System.out.println("Student not found.");
+                    }
+                }
+                System.out.print("Enter the TA ID: ");
+                Integer ta_id = prof_sc.nextInt();
+                prof_sc.nextLine();
+                if (TAs.ta_db.containsKey(ta_id)) {
+                    if(TAs.ta_db.get(ta_id).get_teaching_course() == null){
+                        TAs ta = TAs.ta_db.get(ta_id);
+                        this.tas.put(ta_id, ta);
+                        System.out.println("TA assigned successfully.");
+                    } else if(TAs.ta_db.get(ta_id).get_teaching_course().get_course_id().equals(this.assigned_course.get_course_id())){
+                        System.out.println("TA already assigned to this course.");
+                    } else{
+                        System.out.println("TA already assigned to another course.");
+                    }
+                } else {
+                    System.out.println("TA not found.");
+                }
+            } else{
+                return;
+            }
+        }
+    }
+    public void remove_ta(){
+        while (true) {
+            System.out.print("Do you want to remove any TA from course? (Y/N)");
+            String choice = prof_sc.next();
+            if (choice.equals("Y") || choice.equals("y")) {
+                System.out.print("Enter the TA ID: ");
+                Integer ta_id = prof_sc.nextInt();
+                prof_sc.nextLine();
+                if (this.tas.containsKey(ta_id)) {
+                    this.tas.remove(ta_id);
+                    System.out.println("TA removed successfully.");
+                } else {
+                    System.out.println("TA not found.");
+                }
+            } else{
+                return;
+            }
+        }
+    }
+    public void manage_ta(){
+        System.out.println("What do you want to do?");
+        System.out.println("1. View TAs assigned to you. (press 1)");
+        System.out.println("2. Assign TAs to course. (press 2)");
+        System.out.println("3. Remove a TA from course. (press 3)");
+        System.out.println("4. Return to previous menu. (press 4)");
+        System.out.print("Enter your choice: ");
+        Integer choice = prof_sc.nextInt();
+        prof_sc.nextLine();
+        if(choice == 1){
+            this.view_tas();
+        } else if (choice == 2){
+            this.assign_ta();
+        } else if (choice == 3){
+            this.remove_ta();
+        } else if (choice == 4){
+            return;
+        } else {
+            System.out.println("Invalid choice.");
+        }
         
+
     }
 }

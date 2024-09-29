@@ -3,7 +3,7 @@ package Assignment2;
 import java.util.HashMap;
 import java.util.Scanner;
 
-public class Student extends CommonUser { // Left
+public class Student extends CommonUser implements Cloneable { // Left
 
     public static Scanner student_sc = new Scanner(System.in);
 
@@ -463,21 +463,17 @@ public class Student extends CommonUser { // Left
     }
 
     // Additions
-    private Boolean pending_feedbacks = false;
     protected HashMap<String, Pair<Course,Feedback<Object>>> completed_course_feedbacks = new HashMap<>();
     protected HashMap<String, Pair<Course,Feedback<Object>>> current_course_feedbacks = new HashMap<>();
 
 
     public Boolean check_for_pending_feedbacks() {
         if (this.current_semester==1) {
-            this.pending_feedbacks = false;
             return false;
         } // can not give feedbacks for the first semester.
         if(completed_courses.size() == completed_course_feedbacks.size()){
-            this.pending_feedbacks = false;
             return false;
         }
-        this.pending_feedbacks = true;
         return true;
     }
 
@@ -513,8 +509,7 @@ public class Student extends CommonUser { // Left
     public void get_to_next_semester(Boolean printing) {
         if (this.current_courses.size() == this.current_courses_pass_check.size()) {
             for (Pair<Course,Boolean> course_pass_check : this.current_courses_pass_check.values()) {
-                    this.completed_courses.put(course_pass_check.getFirst().get_course_id(), new Pair<Course,Integer>(course_pass_check.getFirst(),course_pass_check.getSecond()));
-                    this.current_course_feedbacks.put(course_pass_check.getFirst().get_course_id(), new Pair<Course,Feedback<Object>>(course_pass_check.getFirst(),null));
+                this.current_course_feedbacks.put(course_pass_check.getFirst().get_course_id(), new Pair<Course,Feedback<Object>>(course_pass_check.getFirst(),null));
             }
             this.current_semester++;
             this.current_courses.clear();
@@ -541,7 +536,7 @@ public class Student extends CommonUser { // Left
         System.out.println("\nCourses to give feedback for: ");
         for (Pair<Course,Feedback<Object>> pair : current_course_feedbacks.values()) {
             if (pair.getSecond() != null) {
-                continue
+                continue;
             }
             Course course = pair.getFirst();
             System.out.println("Course ID: " + course.get_course_id() + " | Course Name: " + course.get_course_name());
@@ -603,5 +598,15 @@ public class Student extends CommonUser { // Left
             return;
         }
         System.out.println("Student did not complete this course.");
+    }
+
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            // This should never happen because we are Cloneable
+            throw new RuntimeException(e);
+        }
     }
 }

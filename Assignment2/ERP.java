@@ -57,7 +57,7 @@ public class ERP {
                 System.out.print("Enter Student Password: ");
                 try {
                     if (!student.get_password().equals(main_sc.next())) {
-                        throw new InvalidLogin("Student ("+student.get_name()+" | "student.get_student_roll_number()+") Password");
+                        throw new InvalidLogin("Student ("+student.get_name()+" | "+student.get_student_roll_number()+") Password");
                     }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
