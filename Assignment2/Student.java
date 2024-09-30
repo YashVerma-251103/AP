@@ -591,7 +591,22 @@ public class Student extends CommonUser implements Cloneable { // Left
             this.current_course_feedbacks.remove(course.get_course_id());
         }
     }
-
+    
+    // // check for this function... idk if it is correct
+    // public TAs cloneTA(Integer student_id) { 
+    //     Student student = Student.student_db.get(student_id);
+    //     if (student instanceof TAs) {
+    //         try {
+    //             return (TAs) student.clone();
+    //         } catch (ClassCastException e) {
+    //             System.out.println("Error: The student with ID " + student_id + " is not a TA.");
+    //         }
+    //     } else {
+    //         System.out.println("Error: The student with ID " + student_id + " is not a TA.");
+    //     }
+    //     return null;
+    // }
+    
     public void view_feedback_as_prof(String course_id){
         if (this.completed_course_feedbacks.containsKey(course_id)) {
             System.out.println(this.completed_course_feedbacks.get(course_id));

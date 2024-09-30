@@ -32,34 +32,74 @@ public class TAs extends Student  {
     // }
 
 
+    // public static void ta_maker(Integer student_id, Course TA_course, Professor professor) {
+    //     if (TAs.ta_db.containsKey(student_id)) {
+    //         System.out.println("Student is already a TA.");
+    //         return;
+    //     }
+    //     // make a student a TA
+    //     if (!Student.student_db.containsKey(student_id)) {
+    //         System.out.println("Student does not exist.");
+    //         return;
+    //     }
+    //     // Student student = Student.student_db.get(roll_number);
+    //     // TAs ta = new TAs();
+    //     // ta.set_name(student.get_name());
+    //     // ta.set_email(student.get_email());
+    //     // ta.set_password(student.get_password());
+    //     // ta.set_roll_number(student.get_roll_number());
+    //     // ta.set_teaching_course(TA_course);
+    //     // ta.set_course_professor(professor);
+    //     // TAs.ta_db.put(ta.get_roll_number(), ta);
+    //     // professor.tas.put(ta.get_roll_number(), ta);
+    //     // System.out.println("TA assigned successfully.");
+    //     // Clone the student object to TA object -- if does not work then uncomment the function present in the student class
+    //     TAs ta = new TAs();
+    //     // ta = (TAs) Student.student_db.get(student_id).clone();
+    //     ta.copy_student_to_ta(Student.student_db.get(student_id), ta);
+    //     ta.set_teaching_course(TA_course);
+    //     ta.set_course_professor(professor);
+    // }
+    // public void copy_student_to_ta(Student student, TAs ta){
+    //     ta.set_email(student.get_email());
+    //     ta.set_password(student.get_password());
+    //     ta.set_name(student.get_name());
+    //     ta.set_student_roll_number(student.get_student_roll_number());
+    //     ta.set_credits_registered(student.get_credits_registered());
+    //     TAs.ta_db.put(ta.get_roll_number(), ta);
+    //     professor.tas.put(ta.get_roll_number(), ta);
+    //     System.out.println("TA assigned successfully.");
+    // }
+
+
+    // TA maker method
     public static void ta_maker(Integer student_id, Course TA_course, Professor professor) {
         if (TAs.ta_db.containsKey(student_id)) {
             System.out.println("Student is already a TA.");
             return;
         }
-        // // make a student a TA
-        // if (!Student.student_db.containsKey(student_id)) {
-        //     System.out.println("Student does not exist.");
-        //     return;
-        // }
-        // Student student = Student.student_db.get(roll_number);
-        // TAs ta = new TAs();
-        // ta.set_name(student.get_name());
-        // ta.set_email(student.get_email());
-        // ta.set_password(student.get_password());
-        // ta.set_roll_number(student.get_roll_number());
-        // ta.set_teaching_course(TA_course);
-        // ta.set_course_professor(professor);
-        // TAs.ta_db.put(ta.get_roll_number(), ta);
-        // professor.tas.put(ta.get_roll_number(), ta);
-        // System.out.println("TA assigned successfully.");
-    
-        // Clone the student object to TA object
-        TAs ta = new TAs();
-        ta = (TAs) Student.student_db.get(student_id).clone();
-
+        if (!Student.student_db.containsKey(student_id)) {
+            System.out.println("Student does not exist.");
+            return;
+        }
+        
+        // Create TA by copying the student reference
+        TAs ta = new TAs(Student.student_db.get(student_id));
         ta.set_teaching_course(TA_course);
         ta.set_course_professor(professor);
+        TAs.ta_db.put(ta.get_student_roll_number(), ta);
+        professor.tas.put(ta.get_student_roll_number(), ta);
+        System.out.println("TA assigned successfully.");
+    }
+
+    // Constructor that takes a Student object
+    public TAs(Student student) {
+        this.set_email(student.get_email());
+        this.set_password(student.get_password());
+        this.set_name(student.get_name());
+        this.set_student_roll_number(student.get_student_roll_number());
+        this.set_credits_registered(student.get_credits_registered());
+        // add more fields  
     }
 
 
