@@ -44,10 +44,10 @@ public class TAs extends Student  {
             return;
         }
         // may remove this.
-        if(!(Student.student_db.get(student_id).completed_courses.containsKey(TA_course.get_course_id()))){
-            System.out.println("Student has not completed this course. Hence can not be promoted to TA.");
-            return;
-        }
+        // if(!(Student.student_db.get(student_id).completed_courses.containsKey(TA_course.get_course_id()))){
+        //     System.out.println("Student has not completed this course. Hence can not be promoted to TA.");
+        //     return;
+        // }
 
 
         // Creating TA by copying the student reference
@@ -149,7 +149,77 @@ public class TAs extends Student  {
     }
 
 
+    public static void view_tas(Professor prof){
 
+        if (prof.tas.isEmpty()){
+            System.out.println("No TAs assigned to you.");
+            return;
+        }
+        System.out.println("TAs assigned to you: ");
+        for (Integer ta_id : prof.tas.keySet()){
+            System.out.println("TA ID: " + ta_id + " TA Name: " + prof.tas.get(ta_id).get_name());
+        }
+    }
+    public static void assign_ta(Professor prof){
+        while (true) {
+            System.out.print("Do you want to assign any TA? (Y/N): ");
+            String choice = student_sc.nextLine();
+            if (choice.equals("Y") || choice.equals("y")) {
+                System.out.print("Do you want to make a student a TA? (Y/N): ");
+                String choice2 = student_sc.nextLine();
+                if (choice2.equals("y") || choice2.equals("Y")) {
+                    System.out.print("Enter the student's roll number: ");
+                    Integer roll_number = student_sc.nextInt();
+                    student_sc.nextLine();
+                    if (Student.student_db.containsKey(roll_number)) {
+                        TAs.ta_maker(roll_number, prof.get_assigned_course(), prof);
+                    } else {
+                        System.out.println("Student not found.");
+                    }
+                }
+                else {
+                    System.out.print("Enter the TA ID: ");
+                    Integer ta_id = student_sc.nextInt();
+                    student_sc.nextLine();
+                    if (TAs.ta_db.containsKey(ta_id)) {
+                        if(TAs.ta_db.get(ta_id).get_teaching_course() == null){
+                            TAs ta = TAs.ta_db.get(ta_id);
+                            prof.tas.put(ta_id, ta);
+                            System.out.println("TA assigned successfully.");
+                        } else if(TAs.ta_db.get(ta_id).get_teaching_course().get_course_id().equals(prof.get_assigned_course().get_course_id())){
+                            System.out.println("TA already assigned to this course.");
+                        } else{
+                            System.out.println("TA already assigned to another course.");
+                        }
+                    } else {
+                        System.out.println("TA not found.");
+                    }
+                }
+            } else{
+                return;
+            }
+        }
+    }
+    public static void remove_ta(Professor prof){
+        while (true) {
+            System.out.print("Do you want to remove any TA from course? (Y/N)");
+            String choice = student_sc.next();
+            if (choice.equals("Y") || choice.equals("y")) {
+                System.out.print("Enter the TA ID: ");
+                Integer ta_id = student_sc.nextInt();
+                student_sc.nextLine();
+                if (prof.tas.containsKey(ta_id)) {
+                    prof.tas.remove(ta_id);
+                    TAs.ta_db.remove(ta_id);
+                    System.out.println("TA removed successfully.");
+                } else {
+                    System.out.println("TA not found.");
+                }
+            } else{
+                return;
+            }
+        }
+    }
 
 
 }

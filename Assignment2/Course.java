@@ -1,8 +1,11 @@
 package Assignment2;
 
+import Assignment2.Exceptions.*;
 import java.util.*;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
-import Assignment2.Exceptions.CourseFull;
+
 
 public class Course { // made -- test left
     public static Scanner course_sc = new Scanner(System.in);
@@ -203,15 +206,16 @@ public class Course { // made -- test left
             while (true) {
                 System.out.println("Enter -1 to return to previous menu!\n");
                 System.out.println("What do you want to update?");
-                System.out.println("1. Update Course Name (Press 1)");
-                System.out.println("2. Update Course ID (Press 2)");
-                System.out.println("3. Update Course Description (Press 3)");
-                System.out.println("4. Update Syllabus (Press 4)");
-                System.out.println("5. Update Timings (Press 5)");
-                System.out.println("6. Update Course Credits (Press 6)");
-                System.out.println("7. Update Offered Semester (Press 7)");
-                System.out.println("8. Update Enrollment Limit (Press 8)");
-                System.out.println("9. Update Prerequisites (Press 9)");
+                System.out.println(" 1. Update Course Name (Press 1)");
+                System.out.println(" 2. Update Course ID (Press 2)");
+                System.out.println(" 3. Update Course Description (Press 3)");
+                System.out.println(" 4. Update Syllabus (Press 4)");
+                System.out.println(" 5. Update Timings (Press 5)");
+                System.out.println(" 6. Update Course Credits (Press 6)");
+                System.out.println(" 7. Update Offered Semester (Press 7)");
+                System.out.println(" 8. Update Enrollment Limit (Press 8)");
+                System.out.println(" 9. Update Prerequisites (Press 9)");
+                System.out.println("10. Update Course Drop Deadline (Press 10)");
                 System.out.println("Enter your choice: ");
                 Integer choice = course_sc.nextInt();
                 course_sc.nextLine();
@@ -307,6 +311,14 @@ public class Course { // made -- test left
                             System.out.println("Invalid choice.");
                         }
                     }
+                }else if (choice == 10) {
+                    System.out.println("Enter -1 to return to previous menu!\nEnter new date for dropping the course (Format -- DD/MM/YYYY) :");
+                    String new_date = course_sc.next();
+                    if(new_date.equals("-1")){
+                        continue;
+                    }
+                    course.set_drop_date(new_date);
+                    System.out.println("New Date Set.");
                 } else {
                     System.out.println("Invalid choice.");
                 }
@@ -335,6 +347,8 @@ public class Course { // made -- test left
         System.out.print("Enter enrollment limit: ");
         this.set_enrollment_limit(course_sc.nextInt());
         this.set_current_enrollment(0);
+        System.out.print("Enter last course drop date (Format -- DD/MM/YYYY): ");
+        this.set_drop_date(course_sc.nextLine());
     }
 
     public void enroll_student(Student student) {
@@ -355,17 +369,18 @@ public class Course { // made -- test left
         }
     }
 
-    public void drop_student(Student student) {
-        if (this.enrolled_students.containsKey(student.get_student_roll_number())) {
-            this.enrolled_students.remove(student.get_student_roll_number());
-            this.current_enrollment--;
-            student.current_courses.remove(this.course_id);
-            student.set_credits_registered(student.get_credits_registered() - this.course_credits);
-            System.out.println("Student dropped successfully.");
-        } else {
-            System.out.println("Student not enrolled in this course.");
-        }
-    }
+    // public void drop_student(Student student) {
+    //     if (this.enrolled_students.containsKey(student.get_student_roll_number())) {
+    //         this.enrolled_students.remove(student.get_student_roll_number());
+    //         this.current_enrollment--;
+    //         student.current_courses.remove(this.course_id);
+    //         student.set_credits_registered(student.get_credits_registered() - this.course_credits);
+    //         System.out.println("Student dropped successfully.");
+    //     } else {
+    //         System.out.println("Student not enrolled in this course.");
+    //     }
+    // }
+    
 
     public void add_prerequisite(Course course) {
         this.course_prerequisites.add(course);
@@ -417,6 +432,7 @@ public class Course { // made -- test left
         System.out.println("Offered Semester: " + this.offered_semester);
         System.out.println("Enrollment Limit: " + this.enrollment_limit);
         System.out.println("Current Enrollment: " + this.current_enrollment);
+        System.out.println("Last Drop Date: " + this.drop_date_deadline);
         this.show_enrolled_students();
         this.show_prerequisites();
     }
@@ -440,29 +456,42 @@ public class Course { // made -- test left
     }
 
     // Additions made for assignment 2
-    // protected HashMap<Integer, Feedback<?>> course_feedback = new HashMap<>();
-    // protected HashMap<Integer,Feedback<?>> course_feedback = new
-    // HashMap<Integer,Feedback<?>>();
-    // may not need it here 
+    private static DateTimeFormatter format = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+    private LocalDate drop_date_deadline;
+    
+    public void set_drop_date(String drop_date){
+        this.drop_date_deadline = LocalDate.parse(drop_date, Course.format);
+    }
+    public LocalDate get_drop_date(){
+        return this.drop_date_deadline;
+    }
 
-    // public <T> void add_feeback(Student kid, Feedback<T> feedback) {
-    //     this.course_feedback.put(kid.get_student_roll_number(), feedback);
+    public Boolean drop_date_passed(){
+        return (!(this.drop_date_deadline.isAfter(LocalDate.now())));
+    }
 
-    // }
+    public void drop_student(Student student) {
+        if (this.enrolled_students.containsKey(student.get_student_roll_number())) {
+            try {
+                if (this.drop_date_passed()) {
+                    throw new DropDeadlineExpired(this);
 
-    // public void show_feedbacks() {
-    //     if (!(this.course_feedback.isEmpty())) {
-    //         for (Integer i : this.course_feedback.keySet()) {
-    //             System.out.println("Student : " + (Student.student_db.get(i)) + " | Feedback: "
-    //                     + this.course_feedback.get(i).get_feedback());
-    //             // System.out.println("Student : " + (Student.student_db.get(i)) + " | Feedback:
-    //             // "+course_feedback.get(i));
+                } else if (student.completed_courses.containsKey(this.course_id) && student.current_courses.containsKey(this.course_id)) {
+                    System.out.println("Student has already completed this course.");
 
-    //         }
-    //     } else{
-    //         System.out.println("No Feedback available yet.");
-    //     }
-    // }
+                } else {
+                    this.enrolled_students.remove(student.get_student_roll_number());
+                    this.current_enrollment--;
+                    student.current_courses.remove(this.course_id);
+                    student.set_credits_registered(student.get_credits_registered() - this.course_credits);
+                    System.out.println("Student dropped successfully.");
+                }
+            } catch (DropDeadlineExpired e) {
+                System.out.println(e.getMessage());
+            }
+        } else {
+            System.out.println("Student not enrolled in this course.");
+        }
+    }
 
-    // // add a check to see if all pass student have added the feedback or not.
 }

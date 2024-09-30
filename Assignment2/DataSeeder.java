@@ -47,23 +47,23 @@ public class DataSeeder {
         // Add Course
         Course.sem_course_initializer();
         Course course1 = new Course();
-        make_course(course1,"C101", "Calculus", 1, prof1);
+        make_course(course1,"C101", "Calculus", 1, prof1, "01/10/2024");
         Course.course_db.put(course1.get_course_id(), course1);
         Course.semester_course_db.get(1).add(course1);
         Course course2 = new Course();
-        make_course(course2,"C102", "Linear Algebra", 1, prof3);
+        make_course(course2,"C102", "Linear Algebra", 1, prof3, "01/10/2023");
         Course.course_db.put(course2.get_course_id(), course2);
         Course.semester_course_db.get(1).add(course2);
         Course course3 = new Course();
-        make_course(course3,"C201", "Data Structures", 2, prof2);
+        make_course(course3,"C201", "Data Structures", 2, prof2, "01/10/2024");
         Course.course_db.put(course3.get_course_id(), course3);
         Course.semester_course_db.get(2).add(course3);
         Course course4 = new Course();
-        make_course(course4,"C202", "Operating Systems", 2, prof4);
+        make_course(course4,"C202", "Operating Systems", 2, prof4, "01/10/2024");
         Course.course_db.put(course4.get_course_id(), course4);
         Course.semester_course_db.get(2).add(course4);
         Course course5 = new Course();
-        make_course(course5,"C301", "Artificial Intelligence", 3, prof5);
+        make_course(course5,"C301", "Artificial Intelligence", 3, prof5, "01/10/2024");
         Course.course_db.put(course5.get_course_id(), course5);
         Course.semester_course_db.get(3).add(course5);
         System.out.println("Sample data has been seeded successfully!");
@@ -84,7 +84,7 @@ public class DataSeeder {
         stud.set_name(name);
     }
 
-    static void make_course(Course course, String course_id, String course_name, int semester, Professor prof){
+    static void make_course(Course course, String course_id, String course_name, int semester, Professor prof, String drop_date){
         course.set_course_id(course_id);
         course.set_course_name(course_name);
         course.set_offered_semester(semester);
@@ -93,7 +93,8 @@ public class DataSeeder {
         course.set_course_credits(4);
         course.set_current_enrollment(0);
         course.set_enrollment_limit(69);
-        // course.
+        course.set_drop_date(drop_date);
     }
+
 }
 

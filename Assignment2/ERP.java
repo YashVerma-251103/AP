@@ -176,6 +176,7 @@ public class ERP {
             System.out.println((i++) + ". Submit Complaint");
             System.out.println((i++) + ". View My Complaints");
             System.out.println((i++) + ". View Particular Complaint");
+            System.out.println((i++) + ". Give Feedback for Course");
             System.out.print("Enter your choice: ");
             int choice = main_sc.nextInt();
             if (choice == 1) {
@@ -203,6 +204,8 @@ public class ERP {
                 student.see_complaint();
             } else if (choice == 12) {
                 student.see_status_of_particular_complaint();
+            } else if (choice == 13) {
+                student.add_feeback();
             } else {
                 System.out.println("Invalid choice! Please try again.");
             }
@@ -224,6 +227,7 @@ public class ERP {
             System.out.println((i++) + ". Submit Complaint");
             System.out.println((i++) + ". View My Complaints");
             System.out.println((i++) + ". View Particular Complaint");
+            System.out.println((i++) + ". Give Feedback for Course");
             System.out.println((i++) + ". View Teaching Course Detaits");
             System.out.println((i++) + ". Manage Students in Teaching Course");
             // System.out.println((i++) + ". ");
@@ -255,8 +259,10 @@ public class ERP {
             } else if (choice == 12) {
                 student.see_status_of_particular_complaint();
             } else if (choice == 13) {
-                student.view_course_details();
+                student.add_feeback();
             } else if (choice == 14) {
+                student.view_course_details();
+            } else if (choice == 15) {
                 student.manage_student_grades();
             } else {
                 System.out.println("Invalid choice! Please try again.");
@@ -280,8 +286,10 @@ public class ERP {
             System.out.println((i++) + ". Assign Grade to Student");
             System.out.println((i++) + ". Pass Semester for Assigned Course");
             System.out.println((i++) + ". Update My Details");
+            System.out.println((i++) + ". View Feedbacks for Previously Taught Courses.");
             System.out.print("Enter your choice: ");
             int choice = main_sc.nextInt();
+            main_sc.nextLine();
             if (choice == 1) {
                 System.out.println("Logging out...");
                 break;
@@ -299,7 +307,9 @@ public class ERP {
                 professor.pass_semester();
             } else if (choice == 8) {
                 professor.update_professor();
-            } else {
+            } else if (choice == 9) {
+                professor.see_feedback();
+            }else {
                 System.out.println("Invalid choice! Please try again.");
             }
         }
