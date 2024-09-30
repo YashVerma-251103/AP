@@ -2,6 +2,7 @@ package Assignment2;
 import java.util.HashMap;
 public class TAs extends Student  {
     // ta attributes
+    private Integer ta_id;
     private Course teaching_course;
     private Professor course_professor;
 
@@ -15,6 +16,9 @@ public class TAs extends Student  {
     public void set_course_professor(Professor professor){
         this.course_professor = professor;
     }
+    public void set_ta_id(Integer id){
+        this.ta_id = id;
+    }
 
     // Getter for TA
     public Course get_teaching_course(){
@@ -23,55 +27,12 @@ public class TAs extends Student  {
     public Professor get_course_professor(){
         return this.course_professor;
     }
-
-    // @Override
-    // protected Object clone() throws CloneNotSupportedException {
-    //     TAs cloned = (TAs) super.clone();
-    //     // Deep copy of address
-    //     return cloned;
-    // }
+    public Integer get_ta_id(){
+        return this.ta_id;
+    }
 
 
-    // public static void ta_maker(Integer student_id, Course TA_course, Professor professor) {
-    //     if (TAs.ta_db.containsKey(student_id)) {
-    //         System.out.println("Student is already a TA.");
-    //         return;
-    //     }
-    //     // make a student a TA
-    //     if (!Student.student_db.containsKey(student_id)) {
-    //         System.out.println("Student does not exist.");
-    //         return;
-    //     }
-    //     // Student student = Student.student_db.get(roll_number);
-    //     // TAs ta = new TAs();
-    //     // ta.set_name(student.get_name());
-    //     // ta.set_email(student.get_email());
-    //     // ta.set_password(student.get_password());
-    //     // ta.set_roll_number(student.get_roll_number());
-    //     // ta.set_teaching_course(TA_course);
-    //     // ta.set_course_professor(professor);
-    //     // TAs.ta_db.put(ta.get_roll_number(), ta);
-    //     // professor.tas.put(ta.get_roll_number(), ta);
-    //     // System.out.println("TA assigned successfully.");
-    //     // Clone the student object to TA object -- if does not work then uncomment the function present in the student class
-    //     TAs ta = new TAs();
-    //     // ta = (TAs) Student.student_db.get(student_id).clone();
-    //     ta.copy_student_to_ta(Student.student_db.get(student_id), ta);
-    //     ta.set_teaching_course(TA_course);
-    //     ta.set_course_professor(professor);
-    // }
-    // public void copy_student_to_ta(Student student, TAs ta){
-    //     ta.set_email(student.get_email());
-    //     ta.set_password(student.get_password());
-    //     ta.set_name(student.get_name());
-    //     ta.set_student_roll_number(student.get_student_roll_number());
-    //     ta.set_credits_registered(student.get_credits_registered());
-    //     TAs.ta_db.put(ta.get_roll_number(), ta);
-    //     professor.tas.put(ta.get_roll_number(), ta);
-    //     System.out.println("TA assigned successfully.");
-    // }
-
-
+    // Funcitonalities for smooth implementation.
     // TA maker method
     public static void ta_maker(Integer student_id, Course TA_course, Professor professor) {
         if (TAs.ta_db.containsKey(student_id)) {
@@ -82,24 +43,39 @@ public class TAs extends Student  {
             System.out.println("Student does not exist.");
             return;
         }
-        
-        // Create TA by copying the student reference
+        // may remove this.
+        if(!(Student.student_db.get(student_id).completed_courses.containsKey(TA_course.get_course_id()))){
+            System.out.println("Student has not completed this course. Hence can not be promoted to TA.");
+            return;
+        }
+
+
+        // Creating TA by copying the student reference
         TAs ta = new TAs(Student.student_db.get(student_id));
+        ta.set_ta_id(student_id);
         ta.set_teaching_course(TA_course);
         ta.set_course_professor(professor);
         TAs.ta_db.put(ta.get_student_roll_number(), ta);
         professor.tas.put(ta.get_student_roll_number(), ta);
         System.out.println("TA assigned successfully.");
     }
-
-    // Constructor that takes a Student object
+    // Constructor taking Student object
     public TAs(Student student) {
+        // super();
         this.set_email(student.get_email());
         this.set_password(student.get_password());
         this.set_name(student.get_name());
         this.set_student_roll_number(student.get_student_roll_number());
         this.set_credits_registered(student.get_credits_registered());
-        // add more fields  
+        this.set_current_semester(student.get_current_semester());
+        this.set_cgpa(student.get_cgpa());
+        this.sgpas = student.sgpas;
+        this.current_courses = student.current_courses;
+        this.completed_courses = student.completed_courses;
+        this.dropped_courses = student.dropped_courses;
+        this.current_courses_pass_check = student.current_courses_pass_check;
+        this.completed_course_feedbacks = student.completed_course_feedbacks;
+        this.current_course_feedbacks = student.current_course_feedbacks;
     }
 
 

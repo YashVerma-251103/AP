@@ -47,25 +47,64 @@ public class ERP {
         main_sc.close();
     }
     
+    // public static void studentLogin(Scanner main_sc) {
+    //     System.out.print("Enter Roll Number: ");
+    //     int rollNumber = main_sc.nextInt();
+    //     try {
+    //         Student student = Student.student_db.get(rollNumber);
+    //         if (student != null) {
+    //             System.out.println("Welcome, " + student.get_name() + "!");
+    //             System.out.print("Enter Student Password: ");
+    //             try {
+    //                 if (!student.get_password().equals(main_sc.next())) {
+    //                     throw new InvalidLogin("Student ("+student.get_name()+" | "+student.get_student_roll_number()+") Password");
+    //                 }
+    //             } catch (Exception e) {
+    //                 System.out.println(e.getMessage());
+    //                 return;
+    //             }
+    //             studentInterface(student, main_sc);
+    //         } else {
+    //             throw new InvalidLogin("student");
+    //         }
+    //     } catch (InvalidLogin e) {
+    //         System.out.println(e.getMessage());
+    //     } 
+    // }
     public static void studentLogin(Scanner main_sc) {
         System.out.print("Enter Roll Number: ");
         int rollNumber = main_sc.nextInt();
         try {
-            Student student = Student.student_db.get(rollNumber);
-            if (student != null) {
-                System.out.println("Welcome, " + student.get_name() + "!");
+            TAs ta = TAs.ta_db.get(rollNumber);
+            if (ta!=null) {              
+                System.out.println("Welcome, " + ta.get_name() + "!");
                 System.out.print("Enter Student Password: ");
                 try {
-                    if (!student.get_password().equals(main_sc.next())) {
-                        throw new InvalidLogin("Student ("+student.get_name()+" | "+student.get_student_roll_number()+") Password");
+                    if (!ta.get_password().equals(main_sc.next())) {
+                        throw new InvalidLogin("Student ("+ta.get_name()+" | "+ta.get_student_roll_number()+") Password");
                     }
                 } catch (Exception e) {
                     System.out.println(e.getMessage());
                     return;
                 }
-                studentInterface(student, main_sc);
+                taInterface(ta, main_sc);                
             } else {
-                throw new InvalidLogin("student");
+                Student student = Student.student_db.get(rollNumber);
+                if (student != null) {
+                    System.out.println("Welcome, " + student.get_name() + "!");
+                    System.out.print("Enter Student Password: ");
+                    try {
+                        if (!student.get_password().equals(main_sc.next())) {
+                            throw new InvalidLogin("Student ("+student.get_name()+" | "+student.get_student_roll_number()+") Password");
+                        }
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        return;
+                    }
+                    studentInterface(student, main_sc);
+                } else {
+                    throw new InvalidLogin("student");
+                }
             }
         } catch (InvalidLogin e) {
             System.out.println(e.getMessage());
@@ -169,6 +208,66 @@ public class ERP {
             }
         }
     }
+
+    public static void taInterface(TAs student, Scanner main_sc) {
+        while (true) {
+            int i=1;
+            System.out.println((i++) + ". Logout"); 
+            System.out.println((i++) + ". Show my details");
+            System.out.println((i++) + ". View Schedule");
+            System.out.println((i++) + ". View Courses Offered this Semester");
+            System.out.println((i++) + ". View Completed Courses");
+            System.out.println((i++) + ". View Registered Course");
+            System.out.println((i++) + ". View Dropped Courses");
+            System.out.println((i++) + ". Register for Course");
+            System.out.println((i++) + ". Drop Course");
+            System.out.println((i++) + ". Submit Complaint");
+            System.out.println((i++) + ". View My Complaints");
+            System.out.println((i++) + ". View Particular Complaint");
+            System.out.println((i++) + ". View Teaching Course Detaits");
+            System.out.println((i++) + ". Manage Students in Teaching Course");
+            // System.out.println((i++) + ". ");
+            System.out.print("Enter your choice: ");
+            int choice = main_sc.nextInt();
+            if (choice == 1) {
+                System.out.println("Logging out...");
+                break;
+            } else if (choice == 2) {
+                student.show_details();
+            } else if (choice == 3) {
+                student.view_schedule();
+            } else if (choice == 4) {
+                student.view_available_courses();
+            } else if (choice == 5) {
+                student.show_completed_courses();
+            } else if (choice == 6) {
+                student.view_registered_courses();
+            } else if (choice == 7) {
+                student.view_dropped_courses();
+            } else if (choice == 8) {
+                student.register_course();
+            } else if (choice == 9) {
+                student.drop_course();
+            } else if (choice == 10) {
+                student.submit_complaint();
+            } else if (choice == 11) {
+                student.see_complaint();
+            } else if (choice == 12) {
+                student.see_status_of_particular_complaint();
+            } else if (choice == 13) {
+                student.view_course_details();
+            } else if (choice == 14) {
+                student.manage_student_grades();
+            } else {
+                System.out.println("Invalid choice! Please try again.");
+            }
+        }
+    }
+
+
+
+
+
 
     public static void professorInterface(Professor professor, Scanner main_sc) {
         while (true) {

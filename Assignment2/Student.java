@@ -22,7 +22,7 @@ public class Student extends CommonUser implements Cloneable { // Left
     protected HashMap<String, Course> current_courses = new HashMap<String, Course>();
     protected HashMap<String, Course> dropped_courses = new HashMap<String, Course>();
     protected HashMap<String, Pair<Course, Integer>> completed_courses = new HashMap<String, Pair<Course, Integer>>();
-    private Float sgpas[] = new Float[8];
+    protected Float sgpas[] = new Float[8];
     protected HashMap<String, Pair<Course, Boolean>> current_courses_pass_check = new HashMap<String, Pair<Course, Boolean>>();
 
     // Getters
