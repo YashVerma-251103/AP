@@ -92,7 +92,7 @@ public class DataSeeder {
         course.get_course_professor().set_assigned_course(course);
         course.set_course_credits(4);
         course.set_current_enrollment(0);
-        course.set_enrollment_limit(69);
+        course.set_enrollment_limit(0);
         course.set_drop_date(drop_date);
     }
 
