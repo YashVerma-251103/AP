@@ -25,7 +25,7 @@ public class customer {
     private String customer_name;
     private String customer_address;
 
-    private TreeMap<Integer, order> cart = new TreeMap<Integer, order>();
+    public TreeMap<Integer, order> cart = new TreeMap<Integer, order>();
     private TreeMap<Integer, order> order_history = new TreeMap<Integer, order>();
     private TreeMap<Integer, order> current_orders = new TreeMap<Integer, order>();
 
@@ -476,7 +476,7 @@ public class customer {
         return true;
     }
 
-    private void view_cart() {
+    public void view_cart() {
         if (cart.isEmpty()) {
             System.out.println("Your cart is empty.");
             return;
@@ -780,7 +780,7 @@ public class customer {
         return true;
     }
 
-    private Boolean checkout_order(Integer order_id) {
+    public Boolean checkout_order(Integer order_id) {
         if (cart.containsKey(order_id)) {
             order o = cart.get(order_id);
             if (purchase(o.get_total_price())) {

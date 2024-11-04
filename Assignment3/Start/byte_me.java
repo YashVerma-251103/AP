@@ -1,7 +1,7 @@
 package Start;
 
 import Start.Planning.*;
-import Start.Structures.*;
+// import Start.Structures.*;
 
 import java.util.Scanner;
 
@@ -23,7 +23,10 @@ public class byte_me {
             int choice = sc.nextInt();
             sc.nextLine();
             if (choice == 1) {
-                admin.login();
+                // admin.login();
+                admin a = admin.get_instance();
+                a.admin_interface();
+
             } else if (choice == 2) {
                 customer.customer_login();
             } else if (choice == 3) {

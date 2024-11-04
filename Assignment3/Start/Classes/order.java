@@ -9,7 +9,7 @@ import Start.Structures.Pair;
 public class order {
 
 
-    private static Integer order_id_counter = 0;
+    private static Integer order_id_counter = 1;
     private static TreeMap<Integer, String> Status_map = new TreeMap<>();
 
     // Current order statuses: Pending, Preparing, Out for delivery, Delivered,
@@ -140,6 +140,7 @@ public class order {
         if (ordered_items.containsKey(item)) {
             ordered_items.remove(item);
             System.out.println(item.get_name() + " removed from order");
+            return;
         }
         System.out.println("Item not found in order");
     }
@@ -155,7 +156,7 @@ public class order {
                 System.out.println(item.get_name() + " removed from order");
             }
         }
-        System.out.println("Item not found in order");
+        System.out.println("Item not found in order (remove_item)");
     }
 
     public void update_item_quantity(menu_item item, Integer quantity) {
@@ -163,13 +164,14 @@ public class order {
             Integer new_quantity = quantity;
             ordered_items.get(item).setFirst(new_quantity);
             System.out.println("Quantity of " + item.get_name() + " updated to " + ordered_items.get(item).getFirst());
+            return;
         }
-        System.out.println("Item not found in order");
+        System.out.println("Item not found in order (update_item_quantity)");
     }
 
     public Integer get_item_quantity(menu_item item) {
         if (!(ordered_items.containsKey(item))) {
-            System.out.println("Item not found in order");
+            System.out.println("Item not found in order (get_item_quantity)");
             return -1;
         }
         return ordered_items.get(item).getFirst();

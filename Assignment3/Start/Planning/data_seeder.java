@@ -5,15 +5,17 @@ import Start.Classes.*;
 // import Start.byte_me;
 
 public class data_seeder {
+    static canteen ct = null;
     public static void seed_data(){
         seed_canteen();
-        seed_customers();
         seed_admins();
         seed_items();
+        seed_customers();
+        // seed_orders();
     }
     private static void seed_canteen(){
-        // canteen ct = canteen.get_instance();
-        canteen.get_instance();
+        ct = canteen.get_instance();
+        // canteen.get_instance();
         System.out.println("Canteen seeded !");
     }
     private static void seed_customers(){
@@ -22,6 +24,10 @@ public class data_seeder {
             customer.create_customer(("customer" + i), ("customer" + i + "" + (i+1) + "" + (i+2)), 800.0, ((i%2==0)?true:false));
         }
         System.out.println("Customers seeded !");
+        customer c = customer.customer_db.get(1);
+        order o = dummy_create_order(c);
+        dummy_checkout_order(c,o);
+        
     }
     private static void seed_admins(){
         admin a = admin.get_instance();
@@ -76,5 +82,27 @@ public class data_seeder {
 
 
         System.out.println("Items seeded !");
+    }
+    
+    
+    private static order dummy_create_order(customer c){
+        order o = order.create_order(c);
+        o.add_item(ct.get_menu().get(1),2);
+        o.add_item(ct.get_menu().get(2),1);
+        o.add_item(ct.get_menu().get(3),1);
+        o.add_special_request(ct.get_menu().get(2),"Extra Cheese");
+        c.cart.put(o.get_order_id(), o);
+        c.view_cart();
+        System.out.println("Total  : "+o.get_total_price());
+        return o;
+    }
+    private static void dummy_checkout_order(customer c, order o){
+        Boolean check = c.checkout_order(o.get_order_id());
+        if(check){
+            System.out.println("Order checked out successfully !");
+        }
+        else{
+            System.out.println("Order checkout failed !");
+        }
     }
 }

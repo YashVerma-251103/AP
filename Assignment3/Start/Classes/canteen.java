@@ -393,8 +393,8 @@ public class canteen {
     }
     private void order_finished(order o) {
         // update the earnings
-        update_earnings(o.get_total_price());
         process_refund(o);
+        update_earnings(o.get_total_price());
         // update the order history
         update_order_history(o);
         // remove the order from the queue
@@ -420,15 +420,14 @@ public class canteen {
         // update the order status
         if (o.get_order_status() == 3) {
             order_finished(o);
-            return;
         } else if (o.get_order_status() == 4) {
             order_denied(o);
-            return;
         } else if (o.get_order_status() == 5) {
             order_cancelled(o);
-            return;
+        } else{
+            o.set_order_status(o.get_order_status() + 1);
         }
-        o.set_order_status(o.get_order_status() + 1);
+        System.out.println("Order Status Updated: " + o.get_order_status());
     }
     public void process_order() {
         order o = get_next_order();
@@ -437,18 +436,23 @@ public class canteen {
             System.out.println("No orders to process.");
             return;
         }
+        System.out.println("Processing Order Status: " + o.get_order_status());
+        if (o.get_order_status() == 2 || o.get_order_status() == 1) {
+            update_order_status(o);
+            return;
+        }
 
         if (o.get_order_status() != 4 && o.get_order_status() != 5 && o.get_order_status() != 3) {
             System.out.println("Processing Order: " + o.get_order_id());
             // process the order
             process_order(o);
         }
+        
+        // update the order status
+        update_order_status(o);
         if (o.get_order_status() == 4 || o.get_order_status() == 5 || o.get_order_status() == 3) {
             current_order_being_processed=null;
         }
-
-        // update the order status
-        update_order_status(o);
 
         // next_step_trigger=true;    
     }
@@ -466,7 +470,8 @@ public class canteen {
             Integer new_quantity = item.get_quantity_in_stock() - o.get_ordered_items().get(item).getFirst();
             if (new_quantity < 0) {
                 process_order_item_of_stock(item, o, true);
-                handle_special_request(item, o);
+                item_not_available_special_request_handler(item,o);
+                // handle_special_request(item, o);
                 item.set_available(false);
                 continue;
             }
@@ -474,6 +479,16 @@ public class canteen {
             item.set_quantity(new_quantity);
             handle_special_request(item, o);
         }
+    }
+    private static void item_not_available_special_request_handler(menu_item item, order o) {
+        System.out.println("item_not_available_special_request_handler");
+        String request = o.get_ordered_items().get(item).getSecond();
+        if (request.equals("NULL")) {
+            return;
+        }
+        String canteen_message = "Special Request for " + item.get_name() + " : " + request + " has been DENIED due to insufficient stock.";
+        o.get_canteen_messages().add(canteen_message);
+        return;
     }
     private order get_next_order() {
         order o = null;
@@ -525,7 +540,7 @@ public class canteen {
     }
     private void data_reset() {
         // reset the earnings, current_orders, priority_orders
-        earnings = 0.0;
+        // earnings = 0.0;
         // current_orders.clear();
         // priority_orders.clear();
         order_history.clear();
