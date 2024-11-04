@@ -64,6 +64,9 @@ public class data_seeder {
         menu_item biryani = menu_item.create_item("Biryani", 50.0, "Biryani is a mixed rice dish originating among the Muslims of the Indian subcontinent.", 3);
         biryani.set_quantity(2);
         System.out.println("Seed biryani");
+        biryani = menu_item.create_item("Biryani", 50.0, "Biryani is a mixed rice dish originating among the Muslims of the Indian subcontinent.", 3);
+        biryani.set_quantity(2);
+        System.out.println("Seed biryani");
         menu_item pizza = menu_item.create_item("Pizza", 60.0, "Pizza is a savory dish of Italian origin consisting of a usually round, flattened base of leavened wheat-based dough topped with tomatoes, cheese, and often various other ingredients.", 3);
         pizza.set_quantity(1);
         System.out.println("Seed pizza");

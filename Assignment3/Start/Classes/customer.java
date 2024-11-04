@@ -183,7 +183,7 @@ public class customer {
                 // Become VIP
                 become_vip();
             }
-        } else if (choice == i++) {
+        }  if (choice == i++) {
             // Browse Menu
             browse_menu();
         } else if (choice == i++) {

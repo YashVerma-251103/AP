@@ -438,10 +438,13 @@ public class canteen {
             return;
         }
 
-        if (o.get_order_status() != 4 && o.get_order_status() != 5) {
+        if (o.get_order_status() != 4 && o.get_order_status() != 5 && o.get_order_status() != 3) {
             System.out.println("Processing Order: " + o.get_order_id());
             // process the order
             process_order(o);
+        }
+        if (o.get_order_status() == 4 || o.get_order_status() == 5 || o.get_order_status() == 3) {
+            current_order_being_processed=null;
         }
 
         // update the order status

@@ -7,7 +7,17 @@ import java.util.TreeMap;
 import Start.Structures.Pair;
 
 
-public class menu_item {
+public class menu_item implements Comparable<menu_item> {
+
+    @Override
+    public int compareTo(menu_item other) {
+
+        // Assuming menu_item has a unique identifier or name to compare
+
+        return this.get_id().compareTo(other.get_id());
+
+    }
+
 
     private static canteen ct = canteen.get_instance();
     private static Integer item_id_counter = 1;
