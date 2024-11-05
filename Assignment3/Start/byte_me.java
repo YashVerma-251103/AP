@@ -15,7 +15,7 @@ public class byte_me {
         System.out.println("Data seeded !\n\n\n\n\n");
 
         while (true) {
-            System.out.println("Welcome to Canteen Management System !");
+            System.out.println("Welcome to Byte Me !");
             System.out.println("1. Admin Login");
             System.out.println("2. Customer Login");
             System.out.println("3. Exit");
@@ -23,9 +23,9 @@ public class byte_me {
             int choice = sc.nextInt();
             sc.nextLine();
             if (choice == 1) {
-                // admin.login();
-                admin a = admin.get_instance();
-                a.admin_interface();
+                admin.login();
+                // admin a = admin.get_instance();
+                // a.admin_interface();
 
             } else if (choice == 2) {
                 customer.customer_login();

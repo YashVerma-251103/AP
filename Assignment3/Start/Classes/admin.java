@@ -274,6 +274,7 @@ public class admin {
         System.out.println("4. Update category");
         System.out.println("5. Update availability");
         System.err.println("6. Update quantity in stock");
+        // System.err.println("5. Update quantity in stock");
         System.out.print("Enter your choice: ");
     }
     private Integer get_item_id(String message) {
@@ -308,6 +309,7 @@ public class admin {
                 update_item_availability(item);
                 break;
             case 6:
+            // case 5:
                 update_item_quantity_in_stock(item);
                 break;
             default:

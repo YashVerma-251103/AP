@@ -49,6 +49,9 @@ public class canteen {
     private static void update_refund(Double amount) {
         total_refund += amount;
     }
+    private static void reset_refund(Double amount) {
+        total_refund = amount;
+    }
     private void remove_item_refunds(menu_item item, order o){
         Double refund_amount = (item.get_price()) * (o.get_ordered_items().get(item).getFirst());
         o.get_canteen_messages()
@@ -88,7 +91,7 @@ public class canteen {
         String message = "Refund Amount: Rs. (" + curent_refund + ") has been refunded to your wallet.";
         o.get_canteen_messages().add(message);
         update_transaction_history(o, curent_refund, "Refund");
-        update_refund(0.0);
+        reset_refund(0.0);
     }
     private static void update_transaction_history(order o, Double amount, String message) {
         // update the transaction history
@@ -374,11 +377,17 @@ public class canteen {
                 .add("Item (" + item.get_name() + ") is out of stock.\nTotal quantity of " + item.get_name()
                         + " in your order is now 0.\nRefund Amount: Rs. (" + (refund_amount)
                         + ") will be refunded to your wallet.");
-        o.get_ordered_items().remove(item);
+        // o.get_ordered_items().remove(item);
+        // o.get_item_quantity(item)
+        o.update_item_quantity(item, 0);
         o.update_total_price();
         update_refund(refund_amount);
     }
     private static void process_order_item_of_stock(menu_item item, order o, boolean vip) {
+        if (!(vip)){
+            process_order_item_of_stock(item, o);
+            return;
+        }
         Double refund_amount = (item.get_price())
                 * (o.get_ordered_items().get(item).getFirst() - item.get_quantity_in_stock());
         o.get_canteen_messages().add("Item (" + item.get_name() + ") is only available in limited quantity. (Only "
@@ -391,10 +400,24 @@ public class canteen {
         o.update_total_price();
         update_refund(refund_amount);
     }
+    private void update_menu_item_bought_history(order o) {
+        customer c = o.get_customer();
+        // TreeMap<Integer, Pair<customer, Integer>> bought_customers = null;
+        o.get_ordered_items().keySet().forEach(item -> {
+            TreeMap<Integer, Pair<customer, Integer>> bought_customers = item.get_bought_customers();
+            if (bought_customers.containsKey(c.get_customer_id())) {
+                bought_customers.get(c.get_customer_id()).setSecond((bought_customers.get(c.get_customer_id()).getSecond() + 1));
+            } else {
+                bought_customers.put(c.get_customer_id(), new Pair<>(c, 1));
+            }
+        });
+    }
     private void order_finished(order o) {
         // update the earnings
         process_refund(o);
         update_earnings(o.get_total_price());
+        // update the item bought history
+        update_menu_item_bought_history(o);
         // update the order history
         update_order_history(o);
         // remove the order from the queue
@@ -469,7 +492,7 @@ public class canteen {
             }
             Integer new_quantity = item.get_quantity_in_stock() - o.get_ordered_items().get(item).getFirst();
             if (new_quantity < 0) {
-                process_order_item_of_stock(item, o, true);
+                process_order_item_of_stock(item, o, o.get_customer().is_vip());
                 item_not_available_special_request_handler(item,o);
                 // handle_special_request(item, o);
                 item.set_available(false);

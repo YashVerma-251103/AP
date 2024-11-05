@@ -97,6 +97,9 @@ public class menu_item implements Comparable<menu_item> {
     public static Integer get_category_counter() {
         return category_counter;
     }
+    public TreeMap<Integer, Pair<customer,Integer>> get_bought_customers() {
+        return bought_customers;
+    }
 
     // Setters
     public void set_name(String name) {

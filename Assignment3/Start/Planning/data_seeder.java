@@ -27,7 +27,18 @@ public class data_seeder {
         customer c = customer.customer_db.get(1);
         order o = dummy_create_order(c);
         dummy_checkout_order(c,o);
-        
+        c = customer.customer_db.get(2);
+        o = dummy_create_order(c);
+        dummy_checkout_order(c,o);
+        c = customer.customer_db.get(3);
+        o = dummy_create_order(c);
+        dummy_checkout_order(c,o);
+
+        // uncomment this for testing the unavailability of items handler by the canteen.
+        // ct.process_order();
+        // ct.get_menu().get(1).set_quantity(0);
+        // ct.get_menu().get(2).set_quantity(1);
+        // ct.get_menu().get(3).set_quantity(1);
     }
     private static void seed_admins(){
         admin a = admin.get_instance();
@@ -79,15 +90,13 @@ public class data_seeder {
         menu_item burger = menu_item.create_item("Burger", 70.0, "A hamburger is a sandwich consisting of one or more cooked patties of ground meat, usually beef, placed inside a sliced bread roll or bun.", 3);
         burger.set_quantity(3);
         System.out.println("Seed burger");
-
-
         System.out.println("Items seeded !");
     }
     
     
     private static order dummy_create_order(customer c){
         order o = order.create_order(c);
-        o.add_item(ct.get_menu().get(1),2);
+        o.add_item(ct.get_menu().get(1),3);
         o.add_item(ct.get_menu().get(2),1);
         o.add_item(ct.get_menu().get(3),1);
         o.add_special_request(ct.get_menu().get(2),"Extra Cheese");
