@@ -6,7 +6,59 @@
 ## Author Information
 - **Name**: Yash Verma
 - **Email**: yash23610@iiitd.ac.in
-- **GitHub Repository**: [GitHub Repository Link]()
+- **GitHub Repository**: [GitHub Repository Link](https://github.com/YashVerma-251103/AP/tree/7a4c666d76d7c1c8281267aeee9eb7cc9a59c51f/Assignment3)
+
+
+## Assumptions and Important Points to keep in mind.
+### Assumptions
+1. **Single Canteen Instance**: There is only one canteen instance managing all orders and menu items.
+2. **VIP Customers**: VIP customers get priority in order processing and can become VIP by paying a specified amount.
+3. **Order Statuses**: Orders can have statuses like Pending, Preparing, Out for delivery, Delivered, Denied, and Cancelled.
+4. **Menu Availability**: Menu items have availability status and quantity in stock.
+5. **Refunds**: Refunds are processed immediately after an order is denied or canceled.
+6. **Order Modification**: Customers can modify their orders before checkout.
+7. **Special Requests**: Customers can add special requests to their orders, which are handled by the canteen staff.
+
+### Refund Handling
+Refunds are processed in the following scenarios:
+- **Order Denied**: If an order is denied, the total price of the order is refunded to the customer's wallet.
+- **Order Cancelled**: If a customer cancels an order, the total price of the order is refunded to the customer's wallet.
+- **Item Out of Stock**: If an item in the order is out of stock, the price of the item is refunded to the customer's wallet.
+
+Refunds are added to the customer's wallet, and a message is added to the order's canteen messages indicating the refund amount.
+
+### Order Denial and Missing Items
+Orders are denied in the following scenarios:
+- **Item Removed**: If an item in the order is removed from the menu, the order is denied, and the total price is refunded.
+- **Special Request Not Met**: If a special request cannot be met, the order may be denied, and the total price is refunded.
+
+If items are missing from an order:
+- **Out of Stock**: If an item is out of stock, the quantity is updated, and the price of the missing quantity is refunded.
+- **Limited Stock for VIP**: If a VIP customer orders an item with limited stock, the available quantity is added to the order, and the remaining amount is refunded.
+
+### Corner Cases
+1. **Empty Cart**: Customers cannot checkout if their cart is empty.
+2. **Invalid Order ID**: If a customer tries to cancel or track an order with an invalid order ID, an error message is displayed.
+3. **Insufficient Wallet Balance**: If a customer does not have enough balance in their wallet to place an order, the order is not processed.
+4. **Duplicate Items**: If a customer adds the same item multiple times, the quantities are aggregated.
+
+
+### Canteen Working
+
+The canteen system allows for efficient management of orders and inventory. One of the key functionalities provided to the admin is the ability to process orders through the `process_order()` function.
+
+#### How Admin Can Use `process_order()` Functionality
+
+The `process_order()` function is designed to handle the entire lifecycle of an order, from receiving the order details to updating the inventory and notifying the customer. Here is a step-by-step explanation of how it works:
+
+1. **Receive Order Details**: The function takes in the order details, which include the items ordered, quantities, and customer information.
+2. **Validate Order**: It checks if the ordered items are available in the inventory in the required quantities.
+3. **Update Inventory**: If the items are available, the function updates the inventory by deducting the ordered quantities.
+4. **Generate Invoice**: An invoice is generated for the order, detailing the items, quantities, prices, and total amount.
+5. **Notify Customer**: The customer is notified about the order status, either confirming the order or informing them of any issues (e.g., items out of stock).
+6. **Complete Order**: The order is marked as complete, and the system is updated accordingly.
+
+By using the `process_order()` function, the admin can ensure that orders are handled efficiently and accurately, helping to maintain smooth operations in the canteen.
 
 
 ## Classes and Their Descriptions
@@ -123,5 +175,5 @@
 - **Composition**: Classes like `customer`, `order`, and `canteen` use composition to include other objects like `menu_item`, `review`, and `Pair`.
 - **Singleton**: `admin` and `canteen` classes use the singleton pattern to ensure only one instance exists.
 - **Encapsulation**: Attributes are private, and public getter and setter methods are used to access them.
-- **Polymorphism**: Not explicitly used in the provided code.
+- **Polymorphism**: Implemented using method overloading and method overriding.
 
