@@ -3,6 +3,13 @@
     "configurations": [
         {
             "type": "java",
+            "name": "App",
+            "request": "launch",
+            "mainClass": "com.assignment_4/com.assignment_4.App",
+            "projectName": "byte_me"
+        },
+        {
+            "type": "java",
             "name": "ok",
             "request": "launch",
             "mainClass": "ok",
