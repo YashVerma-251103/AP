@@ -259,4 +259,23 @@ public class order {
         System.out.println("Order denied");
     }
 
+    public StringBuilder order_string() {
+        
+        StringBuilder order_items = new StringBuilder();
+
+        order_items.append("Order ID: " + order_id + " | Customer: " + customer.get_customer_name() + " | Status: "
+                + Status_map.get(order_status) + " | Total price: " + total_price + "\nItems: \n");
+
+        for (menu_item item : ordered_items.keySet()) {
+
+            if (!(ordered_items.get(item).getSecond().equals("NULL"))) {
+                order_items.append(item.get_name() + " | " + ordered_items.get(item).getFirst() + " | Special request: " + ordered_items.get(item).getSecond() + "\n");
+            } else {
+                order_items.append(item.get_name() + " | " + ordered_items.get(item).getFirst() + "\n");
+            }
+        }        
+
+        return order_items;
+    }
+
 }
