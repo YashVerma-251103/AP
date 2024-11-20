@@ -3,6 +3,20 @@
     "configurations": [
         {
             "type": "java",
+            "name": "byte_me",
+            "request": "launch",
+            "mainClass": "com.assignment_4/com.Start.byte_me",
+            "projectName": "byte_me"
+        },
+        {
+            "type": "java",
+            "name": "byte_me",
+            "request": "launch",
+            "mainClass": "Start.byte_me",
+            "projectName": ""
+        },
+        {
+            "type": "java",
             "name": "App",
             "request": "launch",
             "mainClass": "com.assignment_4/com.assignment_4.App",
