@@ -26,11 +26,11 @@ public class MenuScene {
         setupLayout();
         setupViewOrdersButton();
         setupMenuListView();
-        menuScene = new Scene(menuLayout, 640, 480);
+        menuScene = new Scene(menuLayout, App.world_width, App.world_height);
     }
 
     private void setupLayout() {
-        menuLayout = new VBox(10);
+        menuLayout = new VBox(App.v_box_spacing);
         Label menuLabel = new Label("Menu Page");
         menuLayout.getChildren().add(menuLabel);
     }

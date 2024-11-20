@@ -12,11 +12,16 @@ public class App extends Application {
     private static MenuScene menuScene;
     private static OrderScene orderScene;
     private static Stage app_stage;
+    public static final int world_width = 1280, world_height = 720;
+    public static final int v_box_spacing = 15;
+
 
     @Override
     public void start(Stage stage) {
 
         data_seeder.seed_data();
+
+        
 
         // Create the menu page
         menuScene = new MenuScene();

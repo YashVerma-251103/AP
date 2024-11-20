@@ -263,7 +263,7 @@ public class order {
         
         StringBuilder order_items = new StringBuilder();
 
-        order_items.append("Order ID: " + order_id + " | Customer: " + customer.get_customer_name() + " | Status: "
+        order_items.append("Order ID: " + order_id + " | Customer: " + customer.get_customer_name() + ((customer.is_vip()) ? "( VIP )" : "")  + " | Status: "
                 + Status_map.get(order_status) + " | Total price: " + total_price + "\nItems: \n");
 
         for (menu_item item : ordered_items.keySet()) {
