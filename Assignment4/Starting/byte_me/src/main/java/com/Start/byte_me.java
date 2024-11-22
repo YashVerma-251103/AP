@@ -77,7 +77,7 @@ public class byte_me {
         // System.out.println("Menu Items: " + categoryMenu);
 
         // Save menu items
-        String menuItemsFilePath = new File("Starting/byte_me/src/main/java/com/com/Start/save_files/menu_items.json").getAbsolutePath();
+        String menuItemsFilePath = new File("Starting/byte_me/src/main/java/com/Start/save_files/menu_items.json").getAbsolutePath();
         // System.out.println("Saving menu items to: " + menuItemsFilePath);
         json_util.save_to_json(menuItemsFilePath, categoryMenu);
 
@@ -98,7 +98,7 @@ public class byte_me {
         // System.out.println("Reviews: " + reviewDb);
 
         // Save reviews
-        String reviewsFilePath = new File("Starting/byte_me/src/main/java/com/com/Start/save_files/reviews.json").getAbsolutePath();
+        String reviewsFilePath = new File("Starting/byte_me/src/main/java/com/Start/save_files/reviews.json").getAbsolutePath();
         // System.out.println("Saving reviews to: " + reviewsFilePath);
         json_util.save_to_json(reviewsFilePath, reviewDb);
 
