@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import com.assignment_4.Scenes.MenuScene;
 import com.assignment_4.Scenes.OrderScene;
+import com.Start.byte_me;
 import com.Start.Planning.data_seeder;;
 
 public class App extends Application {
@@ -58,6 +59,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        launch();
+        byte_me.main(args);
+        // launch();
     }
 }
