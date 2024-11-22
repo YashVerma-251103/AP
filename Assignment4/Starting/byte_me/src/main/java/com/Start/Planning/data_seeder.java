@@ -2,6 +2,8 @@ package com.Start.Planning;
 
 import com.Start.Structures.*;
 import com.Start.Classes.*;
+
+import java.util.TreeMap;
 // import Start.byte_me;
 
 public class data_seeder {
@@ -11,7 +13,7 @@ public class data_seeder {
         seed_admins();
         seed_items();
         seed_customers();
-        // seed_orders();
+        seed_reviews();
     }
     private static void seed_canteen(){
         ct = canteen.get_instance();
@@ -92,7 +94,14 @@ public class data_seeder {
         System.out.println("Seed burger");
         System.out.println("Items seeded !");
     }
-    
+
+    private static void seed_reviews() {
+        // Example of seeding reviews
+        review_data_base.get_review_db().put(1, new TreeMap<>());
+        review_data_base.get_review_db().get(1).put(1, new review().give_review(5, "Great product!"));
+        review_data_base.get_review_db().get(1).put(2, new review().give_review(4, "Good value for money."));
+        System.out.println("Reviews seeded: " + review_data_base.get_review_db());
+    }
     
     private static order dummy_create_order(customer c){
         order o = order.create_order(c);
