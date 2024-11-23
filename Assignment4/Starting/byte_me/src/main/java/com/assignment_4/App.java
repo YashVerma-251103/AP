@@ -59,7 +59,7 @@ public class App extends Application {
     }
 
     public static void main(String[] args) {
-        byte_me.main(args);
-        // launch();
+//        byte_me.main(args);
+         launch();
     }
 }

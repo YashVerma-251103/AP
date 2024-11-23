@@ -37,6 +37,16 @@ public class admin {
     }
 
 
+//    public static admin make_new_admin(String name, String password){
+//        admin a = new admin();
+//        a.set_password(password);
+//        a.set_name(name);
+//        return a;
+//    }
+
+
+
+
     // login
     public static void login() {
         while (true) {
@@ -53,6 +63,16 @@ public class admin {
             }
         }
     }
+
+    public static boolean test_login(String name, String password) {
+        if (name.equals(admin_instance.get_name()) && password.equals(admin_instance.get_password())){
+            System.out.println("Admin login test passed !");
+            return true;
+        }
+        System.out.println("Admin login test failed !");
+        return false;
+    }
+
     private static void print_login_greetings() {
         System.out.println("Welcome Admin!");
     }

@@ -1,12 +1,25 @@
 package com.Start.Structures;
 
 
+import com.Start.Classes.menu_item;
+
 public class review {
     private Integer rating;
     private String review_s;
-
+    private Integer item_id;
+    private menu_item item;
     
+    public  menu_item get_item() {
+        return item;
+    }
 
+    public void set_item(menu_item item) {
+        this.item = item;
+    }
+
+    public Integer get_item_id() {
+        return item_id;
+    }
 
     public review give_review(String review_s) {
 

@@ -12,6 +12,7 @@ public class order {
     private static Integer order_id_counter = 1;
     private static TreeMap<Integer, String> Status_map = new TreeMap<>();
 
+
     // Current order statuses: Pending, Preparing, Out for delivery, Delivered,
     // Denied
     static {
@@ -25,6 +26,9 @@ public class order {
 
     // Key: menu_item, Value: quantity
     private TreeMap<menu_item, Pair<Integer,String>> ordered_items;
+
+    private TreeMap<Integer, Pair<Integer, String>> ordered_item_ids = new TreeMap<>();
+
     private ArrayList<String> canteen_messages = new ArrayList<String>();
 
     private Integer order_id;
@@ -52,6 +56,10 @@ public class order {
 
     public TreeMap<menu_item, Pair<Integer,String>> get_ordered_items() {
         return ordered_items;
+    }
+
+    public TreeMap<Integer, Pair<Integer, String>> get_ordered_item_ids() {
+        return ordered_item_ids;
     }
 
     public customer get_customer() {
@@ -111,13 +119,16 @@ public class order {
 
     public void add_item(menu_item item, Integer quantity) {
         Integer new_quantity = quantity;
+        Integer item_id = item.get_id();
         if (ordered_items.containsKey(item)) {
             new_quantity += ordered_items.get(item).getFirst();
             ordered_items.get(item).setFirst(new_quantity);
+            ordered_item_ids.get(item_id).setFirst(ordered_item_ids.get(item_id).getFirst() + quantity);
             System.out.println("Quantity of " + item.get_name() + " increased to " + ordered_items.get(item).getFirst());
         } else {
             Pair<Integer,String> p = new Pair<>(new_quantity,"NULL");
-            ordered_items.put(item, p);            
+            ordered_items.put(item, p);
+            ordered_item_ids.put(item_id, new Pair<>(quantity, "NULL"));
             System.out.println(item.get_name() + " with quantity (" + quantity + ") added to order");
         }
     }

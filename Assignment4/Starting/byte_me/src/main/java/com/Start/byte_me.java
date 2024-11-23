@@ -50,9 +50,183 @@ public class byte_me {
     }
 
     private static void save_data() {
+////
+////        // Print the current working directory
+////        // System.out.println("Current working directory: " + new File(".").getAbsolutePath());
+////
+////        // Ensure directories exist
+////        File savedFilesDir = new File("Starting/byte_me/src/main/java/com/Start/save_files/");
+////        File saveFilesDir = new File("Starting/byte_me/src/main/java/com/Start/save_files/");
+////
+////        if (!savedFilesDir.exists()) {
+////            System.out.println("Creating directory: " + savedFilesDir.getAbsolutePath());
+////            savedFilesDir.mkdirs();
+////        } else {
+////            System.out.println("Directory exists: " + savedFilesDir.getAbsolutePath());
+////        }
+////
+////        if (!saveFilesDir.exists()) {
+////            System.out.println("Creating directory: " + saveFilesDir.getAbsolutePath());
+////            saveFilesDir.mkdirs();
+////        } else {
+////            System.out.println("Directory exists: " + saveFilesDir.getAbsolutePath());
+////        }
+////
+////        // Retrieve and print menu items
+////        TreeMap<Integer, TreeMap<Integer, menu_item>> categoryMenu = menu_item.get_category_menu();
+////        // System.out.println("Menu Items: " + categoryMenu);
+////
+////        // Save menu items
+////        String menuItemsFilePath = new File("Starting/byte_me/src/main/java/com/Start/save_files/menu_items.json").getAbsolutePath();
+////        // System.out.println("Saving menu items to: " + menuItemsFilePath);
+////        json_util.save_to_json(menuItemsFilePath, categoryMenu);
+////
+////        // Verify menu items file content
+////        try (FileReader reader = new FileReader(menuItemsFilePath)) {
+////            int ch;
+////            System.out.print("Menu Items File Content: ");
+////            while ((ch = reader.read()) != -1) {
+////                System.out.print((char) ch);
+////            }
+////            System.out.println();
+////        } catch (IOException e) {
+////            e.printStackTrace();
+////        }
+////
+////        // Retrieve and print reviews
+////        TreeMap<Integer, TreeMap<Integer, review>> reviewDb = review_data_base.get_review_db();
+////        // System.out.println("Reviews: " + reviewDb);
+////
+////        // Save reviews
+////        String reviewsFilePath = new File("Starting/byte_me/src/main/java/com/Start/save_files/reviews.json").getAbsolutePath();
+////        // System.out.println("Saving reviews to: " + reviewsFilePath);
+////        json_util.save_to_json(reviewsFilePath, reviewDb);
+////
+////        // Verify reviews file content
+////        try (FileReader reader = new FileReader(reviewsFilePath)) {
+////            int ch;
+////            System.out.print("Reviews File Content: ");
+////            while ((ch = reader.read()) != -1) {
+////                System.out.print((char) ch);
+////            }
+////            System.out.println();
+////        } catch (IOException e) {
+////            e.printStackTrace();
+////        }
+////    }
+//
+//
+//        // Print the current working directory
+//        System.out.println("Current working directory: " + new File(".").getAbsolutePath());
+//
+//        // Ensure directories exist
+//        File savedFilesDir = new File("Starting/byte_me/src/main/java/com/Start/save_files/");
+//        File saveFilesDir = new File("Starting/byte_me/src/main/java/com/Start/save_files/");
+//
+//        if (!savedFilesDir.exists()) {
+//            System.out.println("Creating directory: " + savedFilesDir.getAbsolutePath());
+//            savedFilesDir.mkdirs();
+//        } else {
+//            System.out.println("Directory exists: " + savedFilesDir.getAbsolutePath());
+//        }
+//
+//        if (!saveFilesDir.exists()) {
+//            System.out.println("Creating directory: " + saveFilesDir.getAbsolutePath());
+//            saveFilesDir.mkdirs();
+//        } else {
+//            System.out.println("Directory exists: " + saveFilesDir.getAbsolutePath());
+//        }
+//
+//        // Retrieve and print menu items
+//        TreeMap<Integer, TreeMap<Integer, menu_item>> categoryMenu = menu_item.get_category_menu();
+//        System.out.println("Menu Items: " + categoryMenu);
+//
+//        // Save menu items
+//        String menuItemsFilePath = new File("Starting/byte_me/src/main/java/com/Start/save_files/menu_items.json").getAbsolutePath();
+//        System.out.println("Saving menu items to: " + menuItemsFilePath);
+//        json_util.save_to_json(menuItemsFilePath, categoryMenu);
+//
+//        // Verify menu items file content
+//        try (FileReader reader = new FileReader(menuItemsFilePath)) {
+//            int ch;
+//            System.out.print("Menu Items File Content: ");
+//            while ((ch = reader.read()) != -1) {
+//                System.out.print((char) ch);
+//            }
+//            System.out.println();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        // Retrieve and print reviews
+//        TreeMap<Integer, TreeMap<Integer, review>> reviewDb = review_data_base.get_review_db();
+//        System.out.println("Reviews: " + reviewDb);
+//
+//        // Save reviews
+//        String reviewsFilePath = new File("Starting/byte_me/src/main/java/com/Start/save_files/reviews.json").getAbsolutePath();
+//        System.out.println("Saving reviews to: " + reviewsFilePath);
+//        json_util.save_to_json(reviewsFilePath, reviewDb);
+//
+//        // Verify reviews file content
+//        try (FileReader reader = new FileReader(reviewsFilePath)) {
+//            int ch;
+//            System.out.print("Reviews File Content: ");
+//            while ((ch = reader.read()) != -1) {
+//                System.out.print((char) ch);
+//            }
+//            System.out.println();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+//        // Retrieve and print customers
+////        TreeMap<Integer, customer> customerDb = customer.get_customer_db();
+//        TreeMap<Integer, customer> customerDb = customer.customer_db;
+//        System.out.println("Customers: " + customerDb);
+//
+//        // Save customers
+//        String customersFilePath = new File("Starting/byte_me/src/main/java/com/Start/save_files/customers.json").getAbsolutePath();
+//        System.out.println("Saving customers to: " + customersFilePath);
+//        json_util.save_to_json(customersFilePath, customerDb);
+//
+//        // Verify customers file content
+//        try (FileReader reader = new FileReader(customersFilePath)) {
+//            int ch;
+//            System.out.print("Customers File Content: ");
+//            while ((ch = reader.read()) != -1) {
+//                System.out.print((char) ch);
+//            }
+//            System.out.println();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+//
+////        // Retrieve and print orders
+////        TreeMap<Integer, order> orderDb = order.get_order_db();
+////        System.out.println("Orders: " + orderDb);
+////
+////        // Save orders
+////        String ordersFilePath = new File("Starting/byte_me/src/main/java/com/Start/save_files/orders.json").getAbsolutePath();
+////        System.out.println("Saving orders to: " + ordersFilePath);
+////        json_util.save_to_json(ordersFilePath, orderDb);
+////
+////        // Verify orders file content
+////        try (FileReader reader = new FileReader(ordersFilePath)) {
+////            int ch;
+////            System.out.print("Orders File Content: ");
+////            while ((ch = reader.read()) != -1) {
+////                System.out.print((char) ch);
+////            }
+////            System.out.println();
+////        } catch (IOException e) {
+////            e.printStackTrace();
+////        }
+////    }
+//
+//    }
 
         // Print the current working directory
-        // System.out.println("Current working directory: " + new File(".").getAbsolutePath());
+        System.out.println("Current working directory: " + new File(".").getAbsolutePath());
 
         // Ensure directories exist
         File savedFilesDir = new File("Starting/byte_me/src/main/java/com/Start/save_files/");
@@ -74,11 +248,11 @@ public class byte_me {
 
         // Retrieve and print menu items
         TreeMap<Integer, TreeMap<Integer, menu_item>> categoryMenu = menu_item.get_category_menu();
-        // System.out.println("Menu Items: " + categoryMenu);
+        System.out.println("Menu Items: " + categoryMenu);
 
         // Save menu items
         String menuItemsFilePath = new File("Starting/byte_me/src/main/java/com/Start/save_files/menu_items.json").getAbsolutePath();
-        // System.out.println("Saving menu items to: " + menuItemsFilePath);
+        System.out.println("Saving menu items to: " + menuItemsFilePath);
         json_util.save_to_json(menuItemsFilePath, categoryMenu);
 
         // Verify menu items file content
@@ -95,11 +269,11 @@ public class byte_me {
 
         // Retrieve and print reviews
         TreeMap<Integer, TreeMap<Integer, review>> reviewDb = review_data_base.get_review_db();
-        // System.out.println("Reviews: " + reviewDb);
+        System.out.println("Reviews: " + reviewDb);
 
         // Save reviews
         String reviewsFilePath = new File("Starting/byte_me/src/main/java/com/Start/save_files/reviews.json").getAbsolutePath();
-        // System.out.println("Saving reviews to: " + reviewsFilePath);
+        System.out.println("Saving reviews to: " + reviewsFilePath);
         json_util.save_to_json(reviewsFilePath, reviewDb);
 
         // Verify reviews file content
@@ -113,6 +287,48 @@ public class byte_me {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        // Retrieve and print customers
+        TreeMap<Integer, customer> customerDb = customer.customer_db;
+        System.out.println("Customers: " + customerDb);
+
+        // Save customers
+        String customersFilePath = new File("Starting/byte_me/src/main/java/com/Start/save_files/customer.json").getAbsolutePath();
+        System.out.println("Saving customers to: " + customersFilePath);
+        json_util.save_to_json(customersFilePath, customerDb);
+
+        // Verify customers file content
+        try (FileReader reader = new FileReader(customersFilePath)) {
+            int ch;
+            System.out.print("Customers File Content: ");
+            while ((ch = reader.read()) != -1) {
+                System.out.print((char) ch);
+            }
+            System.out.println();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+//        // Retrieve and print orders
+//        TreeMap<Integer, order> orderDb = order.get_order_db();
+//        System.out.println("Orders: " + orderDb);
+
+//        // Save orders
+//        String ordersFilePath = new File("Starting/byte_me/src/main/java/com/Start/save_files/orders.json").getAbsolutePath();
+//        System.out.println("Saving orders to: " + ordersFilePath);
+//        json_util.save_to_json(ordersFilePath, orderDb);
+//
+//        // Verify orders file content
+//        try (FileReader reader = new FileReader(ordersFilePath)) {
+//            int ch;
+//            System.out.print("Orders File Content: ");
+//            while ((ch = reader.read()) != -1) {
+//                System.out.print((char) ch);
+//            }
+//            System.out.println();
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
     }
 }
 

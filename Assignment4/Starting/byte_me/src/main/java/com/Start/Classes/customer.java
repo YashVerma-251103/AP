@@ -544,6 +544,15 @@ public class customer {
         new_order.add_item(item, quantity);
     }
 
+    public boolean add_item_test(order o, menu_item i, int q){
+        if (i.get_quantity_in_stock() < q) {
+            System.out.println("Item not available. Please try again later!");
+            return false;
+        }
+        System.out.println("Item added to the cart!");
+        return true;
+    }
+
     private Integer get_order_item_id() {
         System.out.println("Enter the item_id of the item you want to add to your cart: ");
         Integer item_id = get_customer_choice();
