@@ -23,8 +23,8 @@ public class OrderScene {
     private canteen canteenInstance;
 
     private ListView<String> pendingOrdersListView;
-    private ListView<String> deliveredOrdersListView;
-    private ListView<String> deniedOrdersListView;
+    // private ListView<String> deliveredOrdersListView;
+    // private ListView<String> deniedOrdersListView;
 
     public OrderScene() {
         canteenInstance = canteen.get_instance();
@@ -43,15 +43,15 @@ public class OrderScene {
     private void setupOrdersListView() {
 
         pendingOrdersListView = new ListView<>();
-        deliveredOrdersListView = new ListView<>();
-        deniedOrdersListView = new ListView<>();
+        // deliveredOrdersListView = new ListView<>();
+        // deniedOrdersListView = new ListView<>();
 
         Label pendingLabel = new Label("Pending Orders");
-        Label deliveredLabel = new Label("Delivered Orders");
-        Label deniedLabel = new Label("Denied Orders");
+        // Label deliveredLabel = new Label("Delivered Orders");
+        // Label deniedLabel = new Label("Denied Orders");
 
-        ordersLayout.getChildren().addAll(pendingLabel, pendingOrdersListView, deliveredLabel, deliveredOrdersListView,
-                deniedLabel, deniedOrdersListView);
+        // ordersLayout.getChildren().addAll(pendingLabel, pendingOrdersListView, deliveredLabel, deliveredOrdersListView,
+        ordersLayout.getChildren().addAll(pendingLabel, pendingOrdersListView);
         fetchAndDisplayOrders();
 
     }
@@ -80,24 +80,24 @@ public class OrderScene {
                 .map(StringBuilder::toString)
                 .collect(Collectors.toList());
 
-        List<String> deliveredOrders = orders.stream()
-                .filter(order -> order.get_order_status_string().equals("Delivered"))
-                .map(order::order_string)
-                .map(StringBuilder::toString)
-                .collect(Collectors.toList());
+        // List<String> deliveredOrders = orders.stream()
+        //         .filter(order -> order.get_order_status_string().equals("Delivered"))
+        //         .map(order::order_string)
+        //         .map(StringBuilder::toString)
+        //         .collect(Collectors.toList());
                 
 
 
-        List<String> deniedOrders = orders.stream()
-                .filter(order -> order.get_order_status_string().equals("Denied"))
-                .map(order::order_string)
-                .map(StringBuilder::toString)
-                .collect(Collectors.toList());
+        // List<String> deniedOrders = orders.stream()
+        //         .filter(order -> order.get_order_status_string().equals("Denied"))
+        //         .map(order::order_string)
+        //         .map(StringBuilder::toString)
+        //         .collect(Collectors.toList());
 
         pendingOrdersListView.getItems().addAll(vipPendingOrders);
         pendingOrdersListView.getItems().addAll(pendingOrders);
-        deliveredOrdersListView.getItems().addAll(deliveredOrders);
-        deniedOrdersListView.getItems().addAll(deniedOrders);
+        // deliveredOrdersListView.getItems().addAll(deliveredOrders);
+        // deniedOrdersListView.getItems().addAll(deniedOrders);
     }
 
     public Scene getScene() {

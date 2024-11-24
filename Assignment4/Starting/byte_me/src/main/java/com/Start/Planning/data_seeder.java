@@ -12,8 +12,8 @@ public class data_seeder {
         seed_canteen();
         seed_admins();
         seed_items();
-        see_test_customers();
         seed_customers();
+        see_test_customers();
         seed_reviews();
     }
     private static void seed_canteen(){
@@ -46,7 +46,7 @@ public class data_seeder {
         // ct.get_menu().get(3).set_quantity(1);
     }
 
-    private static void see_test_customers() {
+    public static void see_test_customers() {
         customer.create_customer("test_customer", "test_customer_password", 800.0, true);
         customer.create_customer("test_customer2", "test_customer_password2", 800.0, false);
         // System.out.println("Test Customers seeded !");

@@ -2,7 +2,7 @@ module com.assignment_4 {
     requires javafx.controls;
     requires transitive javafx.graphics;
     requires com.google.gson;
-    requires org.junit.jupiter.api;
+//    requires org.junit.jupiter.api;
 
 
     opens com.Start.Classes to com.google.gson;

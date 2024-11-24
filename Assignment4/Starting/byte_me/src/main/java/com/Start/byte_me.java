@@ -288,26 +288,26 @@ public class byte_me {
             e.printStackTrace();
         }
 
-        // Retrieve and print customers
-        TreeMap<Integer, customer> customerDb = customer.customer_db;
-        System.out.println("Customers: " + customerDb);
+        // // Retrieve and print customers
+        // TreeMap<Integer, customer> customerDb = customer.customer_db;
+        // System.out.println("Customers: " + customerDb);
 
-        // Save customers
-        String customersFilePath = new File("Starting/byte_me/src/main/java/com/Start/save_files/customer.json").getAbsolutePath();
-        System.out.println("Saving customers to: " + customersFilePath);
-        json_util.save_to_json(customersFilePath, customerDb);
+        // // Save customers
+        // String customersFilePath = new File("Starting/byte_me/src/main/java/com/Start/save_files/customer.json").getAbsolutePath();
+        // System.out.println("Saving customers to: " + customersFilePath);
+        // json_util.save_to_json(customersFilePath, customerDb);
 
-        // Verify customers file content
-        try (FileReader reader = new FileReader(customersFilePath)) {
-            int ch;
-            System.out.print("Customers File Content: ");
-            while ((ch = reader.read()) != -1) {
-                System.out.print((char) ch);
-            }
-            System.out.println();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        // // Verify customers file content
+        // try (FileReader reader = new FileReader(customersFilePath)) {
+        //     int ch;
+        //     System.out.print("Customers File Content: ");
+        //     while ((ch = reader.read()) != -1) {
+        //         System.out.print((char) ch);
+        //     }
+        //     System.out.println();
+        // } catch (IOException e) {
+        //     e.printStackTrace();
+        // }
 
 //        // Retrieve and print orders
 //        TreeMap<Integer, order> orderDb = order.get_order_db();

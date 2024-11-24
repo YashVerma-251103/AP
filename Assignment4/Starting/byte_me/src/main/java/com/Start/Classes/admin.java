@@ -18,6 +18,8 @@ public class admin {
     public static admin get_instance() {
         if (admin_instance == null) {
             admin_instance = new admin();
+            admin_instance.set_name("admin");
+            admin_instance.set_password("a123");
         }
         return admin_instance;
     }
@@ -62,14 +64,16 @@ public class admin {
                 System.out.println("Invalid credentials. Please try again.");
             }
         }
+
     }
 
-    public static boolean test_login(String name, String password) {
+
+    public boolean test_login(String name, String password) {
         if (name.equals(admin_instance.get_name()) && password.equals(admin_instance.get_password())){
-            System.out.println("Admin login test passed !");
+//            System.out.println("Admin login test passed !");
             return true;
         }
-        System.out.println("Admin login test failed !");
+//        System.out.println("Admin login test failed !");
         return false;
     }
 
