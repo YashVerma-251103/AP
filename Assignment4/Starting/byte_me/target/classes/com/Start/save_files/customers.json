@@ -1,0 +1,58 @@
+{
+  "1" : {
+    "cart" : { },
+    "_wallet" : 765.0,
+    "_customer_name" : "customer1",
+    "_customer_address" : null,
+    "_vip" : false,
+    "_customer_id" : 1
+  },
+  "2" : {
+    "cart" : { },
+    "_wallet" : 735.0,
+    "_customer_name" : "customer2",
+    "_customer_address" : null,
+    "_vip" : true,
+    "_customer_id" : 2
+  },
+  "3" : {
+    "cart" : { },
+    "_wallet" : 765.0,
+    "_customer_name" : "customer3",
+    "_customer_address" : null,
+    "_vip" : false,
+    "_customer_id" : 3
+  },
+  "4" : {
+    "cart" : { },
+    "_wallet" : 800.0,
+    "_customer_name" : "customer4",
+    "_customer_address" : null,
+    "_vip" : true,
+    "_customer_id" : 4
+  },
+  "5" : {
+    "cart" : { },
+    "_wallet" : 800.0,
+    "_customer_name" : "customer5",
+    "_customer_address" : null,
+    "_vip" : false,
+    "_customer_id" : 5
+  },
+  "6" : {
+    "cart" : { },
+    "_wallet" : 800.0,
+    "_customer_name" : "test_customer",
+    "_customer_address" : null,
+    "_vip" : true,
+    "_customer_id" : 6
+  },
+  "7" : {
+    "cart" : { },
+    "_wallet" : 800.0,
+    "_customer_name" : "test_customer2",
+    "_customer_address" : null,
+    "_vip" : false,
+    "_customer_id" : 7
+  }
+}

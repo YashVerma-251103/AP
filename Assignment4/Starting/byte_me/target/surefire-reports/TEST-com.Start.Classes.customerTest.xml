@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.Start.Classes.adminTest" time="0.05" tests="2" errors="0" skipped="0" failures="0">
+<testsuite xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="https://maven.apache.org/surefire/maven-surefire-plugin/xsd/surefire-test-report-3.0.xsd" version="3.0" name="com.Start.Classes.customerTest" time="0.027" tests="2" errors="0" skipped="0" failures="0">
   <properties>
     <property name="java.specification.version" value="22"/>
     <property name="sun.cpu.isalist" value="amd64"/>
@@ -59,6 +59,90 @@
     <property name="sun.io.unicode.encoding" value="UnicodeLittle"/>
     <property name="java.class.version" value="66.0"/>
   </properties>
-  <testcase name="failed_login" classname="com.Start.Classes.adminTest" time="0.022"/>
-  <testcase name="success_login" classname="com.Start.Classes.adminTest" time="0.001"/>
+  <testcase name="item_in_stock_test" classname="com.Start.Classes.customerTest" time="0.022">
+    <system-out><![CDATA[Samosa with quantity (3) added to order
+Sandwich with quantity (1) added to order
+Pepsi with quantity (1) added to order
+Special request added to Sandwich
+Item not found in order
+Order ID: 1
+Customer: customer1
+Status: Pending
+Items:
+Item name | Quantity | Special request (if any)
+Samosa | 3
+Sandwich | 1 | Special request: Extra Cheese
+Pepsi | 1
+Samosa with quantity (3) added to order
+Sandwich with quantity (1) added to order
+Pepsi with quantity (1) added to order
+Special request added to Sandwich
+Item not found in order
+Order ID: 2
+Customer: customer2
+Status: Pending
+Items:
+Item name | Quantity | Special request (if any)
+Samosa | 3
+Sandwich | 1 | Special request: Extra Cheese
+Pepsi | 1
+Samosa with quantity (3) added to order
+Sandwich with quantity (1) added to order
+Pepsi with quantity (1) added to order
+Special request added to Sandwich
+Item not found in order
+Order ID: 3
+Customer: customer3
+Status: Pending
+Items:
+Item name | Quantity | Special request (if any)
+Samosa | 3
+Sandwich | 1 | Special request: Extra Cheese
+Pepsi | 1
+Item added to the cart!
+]]></system-out>
+  </testcase>
+  <testcase name="item_out_of_stock_test" classname="com.Start.Classes.customerTest" time="0.004">
+    <system-out><![CDATA[Samosa with quantity (3) added to order
+Sandwich with quantity (1) added to order
+Pepsi with quantity (1) added to order
+Special request added to Sandwich
+Item not found in order
+Order ID: 5
+Customer: customer1
+Status: Pending
+Items:
+Item name | Quantity | Special request (if any)
+Samosa | 3
+Sandwich | 1 | Special request: Extra Cheese
+Pepsi | 1
+Samosa with quantity (3) added to order
+Sandwich with quantity (1) added to order
+Pepsi with quantity (1) added to order
+Special request added to Sandwich
+Item not found in order
+Order ID: 6
+Customer: customer2
+Status: Pending
+Items:
+Item name | Quantity | Special request (if any)
+Samosa | 3
+Sandwich | 1 | Special request: Extra Cheese
+Pepsi | 1
+Samosa with quantity (3) added to order
+Sandwich with quantity (1) added to order
+Pepsi with quantity (1) added to order
+Special request added to Sandwich
+Item not found in order
+Order ID: 7
+Customer: customer3
+Status: Pending
+Items:
+Item name | Quantity | Special request (if any)
+Samosa | 3
+Sandwich | 1 | Special request: Extra Cheese
+Pepsi | 1
+Item not available. Please try again later!
+]]></system-out>
+  </testcase>
 </testsuite>

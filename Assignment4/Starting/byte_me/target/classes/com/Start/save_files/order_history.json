@@ -1,0 +1,131 @@
+{
+  "1" : {
+    "_customer" : {
+      "cart" : { },
+      "_wallet" : 765.0,
+      "_customer_name" : "customer1",
+      "_customer_address" : null,
+      "_vip" : false,
+      "_customer_id" : 1
+    },
+    "_order_status_string" : "Delivered",
+    "_ordered_item_ids" : {
+      "1" : {
+        "first" : 3,
+        "second" : "NULL"
+      },
+      "2" : {
+        "first" : 1,
+        "second" : "NULL"
+      },
+      "3" : {
+        "first" : 1,
+        "second" : "NULL"
+      }
+    },
+    "_order_status" : 3,
+    "_canteen_messages" : [ "Item (Samosa) is out of stock.\nTotal quantity of Samosa in your order is now 0.\nRefund Amount: Rs. (30.0) will be refunded to your wallet.", "Special Request for Sandwich : Extra Cheese has been added.", "Refund Amount: Rs. (30.0) has been refunded to your wallet." ],
+    "_order_id" : 1,
+    "_ordered_items" : {
+      "Name: Samosa\nPrice: 10.0\nDescription: A samosa is a fried or baked pastry with a savoury filling, such as spiced potatoes, onions, peas, cheese, beef and other meats, or lentils.\nCategory: 0\nID: 1" : {
+        "first" : 0,
+        "second" : "NULL"
+      },
+      "Name: Sandwich\nPrice: 15.0\nDescription: A sandwich is a food typically consisting of vegetables, sliced cheese or meat, placed on or between slices of bread, or more generally any dish wherein bread serves as a container or wrapper for another food type.\nCategory: 0\nID: 2" : {
+        "first" : 1,
+        "second" : "Extra Cheese"
+      },
+      "Name: Pepsi\nPrice: 20.0\nDescription: Pepsi is a carbonated soft drink manufactured by PepsiCo.\nCategory: 1\nID: 3" : {
+        "first" : 1,
+        "second" : "NULL"
+      }
+    },
+    "_total_price" : 35.0
+  },
+  "2" : {
+    "_customer" : {
+      "cart" : { },
+      "_wallet" : 735.0,
+      "_customer_name" : "customer2",
+      "_customer_address" : null,
+      "_vip" : true,
+      "_customer_id" : 2
+    },
+    "_order_status_string" : "Delivered",
+    "_ordered_item_ids" : {
+      "1" : {
+        "first" : 3,
+        "second" : "NULL"
+      },
+      "2" : {
+        "first" : 1,
+        "second" : "NULL"
+      },
+      "3" : {
+        "first" : 1,
+        "second" : "NULL"
+      }
+    },
+    "_order_status" : 3,
+    "_canteen_messages" : [ "Special Request for Sandwich : Extra Cheese has been DENIED." ],
+    "_order_id" : 2,
+    "_ordered_items" : {
+      "Name: Samosa\nPrice: 10.0\nDescription: A samosa is a fried or baked pastry with a savoury filling, such as spiced potatoes, onions, peas, cheese, beef and other meats, or lentils.\nCategory: 0\nID: 1" : {
+        "first" : 3,
+        "second" : "NULL"
+      },
+      "Name: Sandwich\nPrice: 15.0\nDescription: A sandwich is a food typically consisting of vegetables, sliced cheese or meat, placed on or between slices of bread, or more generally any dish wherein bread serves as a container or wrapper for another food type.\nCategory: 0\nID: 2" : {
+        "first" : 1,
+        "second" : "Extra Cheese"
+      },
+      "Name: Pepsi\nPrice: 20.0\nDescription: Pepsi is a carbonated soft drink manufactured by PepsiCo.\nCategory: 1\nID: 3" : {
+        "first" : 1,
+        "second" : "NULL"
+      }
+    },
+    "_total_price" : 65.0
+  },
+  "3" : {
+    "_customer" : {
+      "cart" : { },
+      "_wallet" : 765.0,
+      "_customer_name" : "customer3",
+      "_customer_address" : null,
+      "_vip" : false,
+      "_customer_id" : 3
+    },
+    "_order_status_string" : "Delivered",
+    "_ordered_item_ids" : {
+      "1" : {
+        "first" : 3,
+        "second" : "NULL"
+      },
+      "2" : {
+        "first" : 1,
+        "second" : "NULL"
+      },
+      "3" : {
+        "first" : 1,
+        "second" : "NULL"
+      }
+    },
+    "_order_status" : 3,
+    "_canteen_messages" : [ "Item (Samosa) is out of stock.\nTotal quantity of Samosa in your order is now 0.\nRefund Amount: Rs. (30.0) will be refunded to your wallet.", "Special Request for Sandwich : Extra Cheese has been added.", "Refund Amount: Rs. (30.0) has been refunded to your wallet." ],
+    "_order_id" : 3,
+    "_ordered_items" : {
+      "Name: Samosa\nPrice: 10.0\nDescription: A samosa is a fried or baked pastry with a savoury filling, such as spiced potatoes, onions, peas, cheese, beef and other meats, or lentils.\nCategory: 0\nID: 1" : {
+        "first" : 0,
+        "second" : "NULL"
+      },
+      "Name: Sandwich\nPrice: 15.0\nDescription: A sandwich is a food typically consisting of vegetables, sliced cheese or meat, placed on or between slices of bread, or more generally any dish wherein bread serves as a container or wrapper for another food type.\nCategory: 0\nID: 2" : {
+        "first" : 1,
+        "second" : "Extra Cheese"
+      },
+      "Name: Pepsi\nPrice: 20.0\nDescription: Pepsi is a carbonated soft drink manufactured by PepsiCo.\nCategory: 1\nID: 3" : {
+        "first" : 1,
+        "second" : "NULL"
+      }
+    },
+    "_total_price" : 35.0
+  }
+}

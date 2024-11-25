@@ -22,6 +22,7 @@ public class App extends Application {
 
         data_seeder.seed_data();
 
+        // byte_me.load_data();
         
 
         // Create the menu page
