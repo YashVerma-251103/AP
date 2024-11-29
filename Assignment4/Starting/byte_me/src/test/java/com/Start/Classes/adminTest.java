@@ -29,7 +29,4 @@ class adminTest {
         assertFalse(test, "Admin login test failed !");
     }
 
-//    @Test
-//    void test_login() {
-//    }
 }
